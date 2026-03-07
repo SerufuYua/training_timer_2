@@ -1,0 +1,31 @@
+{
+  "$$ClassName" : "TCastleComponent",
+  "Name" : "Sounds",
+  "$NonVisualComponents" : [
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "Start",
+      "Url" : "castle-data:/sound/start.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "Ending",
+      "Url" : "castle-data:/sound/end.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "Final",
+      "Url" : "castle-data:/sound/fin.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "Warn",
+      "Url" : "castle-data:/sound/warn.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "Init",
+      "Url" : "castle-data:/sound/init.wav"
+    }
+  ]
+}
