@@ -4,7 +4,7 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleColors, SeqExhibiter, GameSound;
+  CastleColors, SeqExhibiter, SeqTunnelEffect, GameSound;
 
 type
   TTimePeriod = record
@@ -49,6 +49,7 @@ type
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
     ImageTimer, ImageActions: TCastleImageControl;
     ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
+    TunnelBG: TSeqTunnelEffect;
     LabelFps, LabelSequenceName, LabelPeriodName,
       LabelMin, LabelSec, LabelSecPart: TCastleLabel;
   public
@@ -285,13 +286,8 @@ begin
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColor);
-var
-  des: TCastleDesign;
-  fog: TCastleFog;
 begin
-  des:= self.DesignedComponent('DesignBG') as TCastleDesign;
-  fog:= des.DesignedComponent('FogColor') as TCastleFog;
-  fog.Color:= AValue.RGB;
+  TunnelBG.Color:= AValue;
 end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);

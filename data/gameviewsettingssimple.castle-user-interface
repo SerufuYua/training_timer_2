@@ -12,15 +12,18 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleRectangleControl",
+      "$$ClassName" : "TSeqTunnelEffect",
       "ColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000,
         "Blue" : 9.8039217293262482E-002,
         "Green" : 9.8039217293262482E-002,
         "Red" : 9.8039217293262482E-002
       },
       "FullSize" : true,
-      "Name" : "RectangleBG",
+      "Name" : "TunnelBG",
+      "Speed" : 9.9999997764825821E-003,
+      "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
         {
           "$$ClassName" : "TCastleImageControl",

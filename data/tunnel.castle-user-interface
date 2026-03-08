@@ -54,15 +54,16 @@
             "$$ClassName" : "TCastleBox",
             "ColorPersistent" : {
               "$$ClassName" : "TCastleColorPersistent",
-              "Blue" : 0.0000000000000000E+000,
-              "Green" : 0.0000000000000000E+000,
-              "Red" : 0.0000000000000000E+000
+              "Blue" : 3.2156863808631897E-001,
+              "Green" : 1.5294118225574493E-001,
+              "Red" : 7.4509806931018829E-002
             },
             "DoubleSided" : true,
             "Name" : "BoxBG",
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions",
               "Blending" : false,
+              "Lighting" : false,
               "ReceiveGlobalLights" : false,
               "ReceiveSceneLights" : false
             },
@@ -79,7 +80,6 @@
           },
           {
             "$$ClassName" : "TCastleScene",
-            "AutoAnimation" : "MOVE",
             "ExposeTransforms" : [
             ],
             "Name" : "Tunnel",
@@ -90,7 +90,6 @@
               "ReceiveGlobalLights" : false,
               "ReceiveSceneLights" : false
             },
-            "TimePlayingSpeed" : 5.0000000000000000E-001,
             "Url" : "castle-data:/tunnel/tunnel.gltf"
           }
         ]
@@ -120,9 +119,9 @@
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -3.2615399360656738E-001,
-          "Y" : 3.8303345441818237E-001,
-          "Z" : -3.7785089015960693E+000
+          "X" : -3.0050873756408691E-003,
+          "Y" : 1.1152063310146332E-001,
+          "Z" : -5.3952169418334961E+000
         }
       },
       "InternalDesignNavigations[dnFly]" : {

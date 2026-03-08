@@ -24,9 +24,21 @@
   ],
   "$Children" : [
     {
-      "$$ClassName" : "TCastleDesign",
+      "$$ClassName" : "TSeqTunnelEffect",
+      "ColorBGPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000
+      },
+      "ColorPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000,
+        "Blue" : 9.8039217293262482E-002,
+        "Green" : 9.8039217293262482E-002,
+        "Red" : 9.8039217293262482E-002
+      },
       "FullSize" : true,
-      "Name" : "DesignBG",
+      "Name" : "TunnelBG",
+      "Speed" : 1.0000000149011612E-001,
       "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
         {

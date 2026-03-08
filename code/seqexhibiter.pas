@@ -305,7 +305,7 @@ end;
 {$endif}
 
 initialization
-  RegisterSerializableComponent(TSeqExhibiter, ['Kit', 'UI Exhibiter']);
+  RegisterSerializableComponent(TSeqExhibiter, ['Seq', 'UI Exhibiter']);
 
   {$ifdef CASTLE_DESIGN_MODE}
   RegisterPropertyEditor(TypeInfo(AnsiString), TSeqExhibiter, 'Direction',
