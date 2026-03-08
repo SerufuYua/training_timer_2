@@ -47,7 +47,7 @@ type
     procedure ButtonActionClick(Sender: TObject);
   published
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
-    RectangleColor, ImageTimer, ImageActions: TCastleImageControl;
+    ImageTimer, ImageActions: TCastleImageControl;
     ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
     LabelFps, LabelSequenceName, LabelPeriodName,
       LabelMin, LabelSec, LabelSecPart: TCastleLabel;
@@ -83,7 +83,7 @@ var
 implementation
 
 uses
-  SysUtils, MyTimes;
+  SysUtils, MyTimes, CastleScene;
 
 constructor TViewSequenceTimer.Create(AOwner: TComponent);
 begin
@@ -285,8 +285,13 @@ begin
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColor);
+var
+  des: TCastleDesign;
+  fog: TCastleFog;
 begin
-  RectangleColor.Color:= AValue;
+  des:= self.DesignedComponent('DesignBG') as TCastleDesign;
+  fog:= des.DesignedComponent('FogColor') as TCastleFog;
+  fog.Color:= AValue.RGB;
 end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);
