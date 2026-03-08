@@ -7,12 +7,12 @@
       "$$ClassName" : "TCastleFog",
       "ColorPersistent" : {
         "$$ClassName" : "TCastleColorRGBPersistent",
-        "Blue" : 0.0000000000000000E+000,
-        "Green" : 1.9607843831181526E-002,
-        "Red" : 1.0000000000000000E+000
+        "Blue" : 9.8039217293262482E-002,
+        "Green" : 9.8039217293262482E-002,
+        "Red" : 9.8039217293262482E-002
       },
       "Name" : "FogColor",
-      "VisibilityRange" : 8.0000000000000000E+000
+      "VisibilityRange" : 4.0000000000000000E+000
     }
   ],
   "$Children" : [
@@ -79,7 +79,7 @@
           },
           {
             "$$ClassName" : "TCastleScene",
-            "AutoAnimation" : "Tunel.GridAction",
+            "AutoAnimation" : "MOVE",
             "ExposeTransforms" : [
             ],
             "Name" : "Tunnel",
@@ -90,6 +90,7 @@
               "ReceiveGlobalLights" : false,
               "ReceiveSceneLights" : false
             },
+            "TimePlayingSpeed" : 5.0000000000000000E-001,
             "Url" : "castle-data:/tunnel/tunnel.gltf"
           }
         ]
