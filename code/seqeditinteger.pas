@@ -13,8 +13,10 @@ type
     type
       TSeqEditIntegerDialog = class(TCastleUserInterface)
       private
+        FTitle: String;
         FNumber, FMin, FMax: Integer;
         FOnReturnInteger: TReturnInteger;
+        LabelTitle: TCastleLabel;
         ExhibiterList: TSeqExhibiter;
         EditNumber: TCastleEdit;
         ButtonIncrease, ButtonDecrease: TCastleButton;
@@ -24,19 +26,22 @@ type
         procedure ShowClose;
         procedure DoClose(Sender: TObject);
         procedure SetNumber(AValue: Integer);
+        procedure SetTitle(AValue: String);
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
         procedure Start;
 
         property Number: Integer read FNumber write SetNumber;
+        property Title: String read FTitle write SetTitle;
       end;
     var
+      FTitle: String;
       FNumber, FMin, FMax: Integer;
       FOnReturnInteger: TReturnInteger;
       FDialog: TSeqEditIntegerDialog;
   public
-    constructor CreateUntilStopped(AValue, AMin, AMax: Integer; AOnReturnInteger: TReturnInteger);
+    constructor CreateUntilStopped(AValue, AMin, AMax: Integer; ATitle: String; AOnReturnInteger: TReturnInteger);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
@@ -69,6 +74,7 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
+  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
   EditNumber:= UiOwner.FindRequiredComponent('EditNumber') as TCastleEdit;
   ButtonIncrease:= UiOwner.FindRequiredComponent('ButtonIncrease') as TCastleButton;
   ButtonDecrease:= UiOwner.FindRequiredComponent('ButtonDecrease') as TCastleButton;
@@ -124,6 +130,14 @@ begin
   end;
 end;
 
+procedure TSeqEditInteger.TSeqEditIntegerDialog.SetTitle(AValue: String);
+begin
+  if (FTitle = AValue) then Exit;
+
+  FTitle:= AValue;
+  LabelTitle.Caption:= FTitle;
+end;
+
 procedure TSeqEditInteger.TSeqEditIntegerDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
@@ -153,9 +167,10 @@ end;
 { TSeqEditInteger ------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditInteger.CreateUntilStopped(AValue, AMin, AMax: Integer; AOnReturnInteger: TReturnInteger);
+constructor TSeqEditInteger.CreateUntilStopped(AValue, AMin, AMax: Integer; ATitle: String; AOnReturnInteger: TReturnInteger);
 begin
   inherited CreateUntilStopped;
+  FTitle:= ATitle;
   FMin:= AMin;
   FMax:= AMax;
   FNumber:= AValue;
@@ -171,6 +186,7 @@ begin
   FDialog:= TSeqEditIntegerDialog.Create(FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
+  FDialog.Title:= FTitle;
   FDialog.FullSize:= True;
   FDialog.FMin:= FMin;
   FDialog.FMax:= FMax;

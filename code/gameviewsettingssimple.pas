@@ -342,8 +342,8 @@ begin
     begin
       if NOT (Container.FrontView is TSeqEditInteger) then
         Container.PushView(TSeqEditInteger.CreateUntilStopped(
-          FSettingsSimpleList[IndexSeq].Rounds,
-          1, 1000, {$ifdef FPC}@{$endif}DoEditRound));
+          FSettingsSimpleList[IndexSeq].Rounds, 1, 1000,
+          'Rounds', {$ifdef FPC}@{$endif}DoEditRound));
     end;
     'ButtonRoundTime':
     begin
