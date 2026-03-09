@@ -13,27 +13,33 @@ type
     type
       TSeqListBoxDialog = class(TCastleUserInterface)
       private
+        FTitle: String;
         FList: TStringArray;
         FOnReturnIndex: TReturnIndex;
-        GroupList: TCastleVerticalGroup;
+        LabelTitle: TCastleLabel;
         ExhibiterList: TSeqExhibiter;
+        GroupList: TCastleVerticalGroup;
         ButtonClose: TCastleButton;
         procedure PrepareList;
         procedure ClickSequence(Sender: TObject);
         procedure ClickClose(Sender: TObject);
         procedure ShowClose;
         procedure DoClose(Sender: TObject);
+        procedure SetTitle(AValue: String);
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
         procedure Start;
+
+        property Title: String read FTitle write SetTitle;
       end;
     var
+      FTitle: String;
       FList: TStringArray;
       FOnReturnIndex: TReturnIndex;
       FDialog: TSeqListBoxDialog;
   public
-    constructor CreateUntilStopped(AList: TStringArray; AOnReturnIndex: TReturnIndex);
+    constructor CreateUntilStopped(AList: TStringArray; ATitle: String; AOnReturnIndex: TReturnIndex);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
@@ -63,6 +69,7 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
+  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
   GroupList:= UiOwner.FindRequiredComponent('GroupList') as TCastleVerticalGroup;
   ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
   ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
@@ -132,6 +139,14 @@ begin
   ShowClose;
 end;
 
+procedure TSeqListBox.TSeqListBoxDialog.SetTitle(AValue: String);
+begin
+  if (FTitle = AValue) then Exit;
+
+  FTitle:= AValue;
+  LabelTitle.Caption:= FTitle;
+end;
+
 procedure TSeqListBox.TSeqListBoxDialog.ClickClose(Sender: TObject);
 begin
   ShowClose;
@@ -153,9 +168,10 @@ end;
 { TSeqListBox ---------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqListBox.CreateUntilStopped(AList: TStringArray; AOnReturnIndex: TReturnIndex);
+constructor TSeqListBox.CreateUntilStopped(AList: TStringArray; ATitle: String; AOnReturnIndex: TReturnIndex);
 begin
   inherited CreateUntilStopped;
+  FTitle:= ATitle;
   FList:= AList;
   FOnReturnIndex:= AOnReturnIndex;
   DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
@@ -170,6 +186,7 @@ begin
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
+  FDialog.Title:= FTitle;
   FDialog.FList:= FList;
   FDialog.FOnReturnIndex:= FOnReturnIndex;
   InsertFront(FDialog);

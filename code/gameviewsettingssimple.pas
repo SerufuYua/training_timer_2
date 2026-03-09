@@ -286,7 +286,8 @@ begin
         list[i]:= FSettingsSimpleList[i].Name;
 
       if NOT (Container.FrontView is TSeqListBox) then
-        Container.PushView(TSeqListBox.CreateUntilStopped(list, {$ifdef FPC}@{$endif}DoSelectSeq));
+        Container.PushView(TSeqListBox.CreateUntilStopped(list,
+          'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
     end;
     'ButtonAddSeq':
     begin
