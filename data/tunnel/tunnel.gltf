@@ -18,33 +18,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Tunel.2.Grid",
-			"translation":[
-				0,
-				0,
-				-5
-			]
-		}
-	],
-	"animations":[
-		{
-			"channels":[
-				{
-					"sampler":0,
-					"target":{
-						"node":0,
-						"path":"translation"
-					}
-				}
-			],
-			"name":"MOVE",
-			"samplers":[
-				{
-					"input":2,
-					"interpolation":"LINEAR",
-					"output":3
-				}
-			]
+			"name":"Tunel.Grid"
 		}
 	],
 	"materials":[
@@ -73,7 +47,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube.004",
+			"name":"Cube.005",
 			"primitives":[
 				{
 					"attributes":{
@@ -90,71 +64,43 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":360,
+			"count":264,
 			"max":[
 				0.5,
 				0.5,
-				5
+				0
 			],
 			"min":[
 				-0.5,
 				-0.5,
-				-35
+				-32
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5123,
-			"count":1424,
+			"count":1040,
 			"type":"SCALAR"
-		},
-		{
-			"bufferView":2,
-			"componentType":5126,
-			"count":31,
-			"max":[
-				1.2916666666666667
-			],
-			"min":[
-				0.041666666666666664
-			],
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":3,
-			"componentType":5126,
-			"count":31,
-			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":4320,
+			"byteLength":3168,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2848,
-			"byteOffset":4320,
+			"byteLength":2080,
+			"byteOffset":3168,
 			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":124,
-			"byteOffset":7168
-		},
-		{
-			"buffer":0,
-			"byteLength":372,
-			"byteOffset":7292
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":7664,
+			"byteLength":5248,
 			"uri":"tunnel.bin"
 		}
 	]

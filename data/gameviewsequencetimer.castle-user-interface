@@ -29,6 +29,13 @@
         "$$ClassName" : "TCastleColorPersistent",
         "Alpha" : 1.0000000000000000E+000
       },
+      "ColorMeshPersistent" : {
+        "$$ClassName" : "TCastleColorPersistent",
+        "Alpha" : 1.0000000000000000E+000,
+        "Blue" : 1.0000000000000000E+000,
+        "Green" : 1.0000000000000000E+000,
+        "Red" : 1.0000000000000000E+000
+      },
       "ColorPersistent" : {
         "$$ClassName" : "TCastleColorPersistent",
         "Alpha" : 1.0000000000000000E+000,
@@ -38,7 +45,7 @@
       },
       "FullSize" : true,
       "Name" : "TunnelBG",
-      "Speed" : 1.0000000149011612E-001,
+      "Speed" : 2.0000000298023224E-001,
       "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
         {
