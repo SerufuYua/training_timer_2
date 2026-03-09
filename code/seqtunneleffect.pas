@@ -100,20 +100,17 @@ end;
 
 procedure TSeqTunnelEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
 var
-  pos: Single;
+  pos: TVector3;
 begin
   inherited;
 
   { animate tunnel }
   if Assigned(FTunnel) then
   begin
-    pos:= FTunnel.Translation.Z;
-    pos:= pos + SecondsPassed * FSpeed;
-
-    if (pos > 1.0) then
-      pos:= 0.0;
-
-    FTunnel.Translation:= Vector3(0.0, 0.0, pos);
+    pos:= FTunnel.Translation;
+    pos.Z:= pos.Z + SecondsPassed * FSpeed;
+    if (pos.Z > 1.0) then pos.Z:= 0.0;
+    FTunnel.Translation:= pos;
   end;
 end;
 
