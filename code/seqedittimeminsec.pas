@@ -13,8 +13,10 @@ type
     type
       TSeqEditTimeMinSecDialog = class(TCastleUserInterface)
       private
+        FTitle: String;
         FSec, Fmin: Integer;
         FOnReturnSeconds: TReturnSeconds;
+        LabelTitle: TCastleLabel;
         ExhibiterList: TSeqExhibiter;
         EditMinNumber, EditSecNumber: TCastleEdit;
         ButtonMinIncrease, ButtonMinDecrease: TCastleButton;
@@ -26,19 +28,22 @@ type
         procedure DoClose(Sender: TObject);
         procedure SetSeconds(AValue: Integer);
         function GetSeconds: Integer;
+        procedure SetTitle(AValue: String);
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
         procedure Start;
 
         property Seconds: Integer read GetSeconds write SetSeconds;
+        property Title: String read FTitle write SetTitle;
       end;
     var
+      FTitle: String;
       FSeconds: Integer;
       FOnReturnSeconds: TReturnSeconds;
       FDialog: TSeqEditTimeMinSecDialog;
   public
-    constructor CreateUntilStopped(AValue: Integer; AOnReturnSeconds: TReturnSeconds);
+    constructor CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
@@ -70,6 +75,7 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
+  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
   EditMinNumber:= UiOwner.FindRequiredComponent('EditMinNumber') as TCastleEdit;
   EditSecNumber:= UiOwner.FindRequiredComponent('EditSecNumber') as TCastleEdit;
   ButtonMinIncrease:= UiOwner.FindRequiredComponent('ButtonMinIncrease') as TCastleButton;
@@ -140,6 +146,14 @@ begin
   Result:= MinSecToSeconds(FMin, FSec);
 end;
 
+procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.SetTitle(AValue: String);
+begin
+  if (FTitle = AValue) then Exit;
+
+  FTitle:= AValue;
+  LabelTitle.Caption:= FTitle;
+end;
+
 procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
@@ -169,9 +183,10 @@ end;
 { TSeqEditTimeMinSec ------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditTimeMinSec.CreateUntilStopped(AValue: Integer; AOnReturnSeconds: TReturnSeconds);
+constructor TSeqEditTimeMinSec.CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
 begin
   inherited CreateUntilStopped;
+  FTitle:= ATitle;
   FSeconds:= AValue;
   FOnReturnSeconds:= AOnReturnSeconds;
   DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
@@ -186,6 +201,7 @@ begin
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
+  FDialog.Title:= FTitle;
   FDialog.Seconds:= FSeconds;
   FDialog.FOnReturnSeconds:= FOnReturnSeconds;
   InsertFront(FDialog);

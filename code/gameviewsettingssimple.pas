@@ -350,28 +350,28 @@ begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RoundSeconds,
-          {$ifdef FPC}@{$endif}DoEditRoundTime));
+          'Round Time', {$ifdef FPC}@{$endif}DoEditRoundTime));
     end;
     'ButtonRestTime':
     begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RestSeconds,
-          {$ifdef FPC}@{$endif}DoEditRestTime));
+          'Rest Time', {$ifdef FPC}@{$endif}DoEditRestTime));
     end;
     'ButtonPrepareTime':
     begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].PrepareSeconds,
-          {$ifdef FPC}@{$endif}DoEditPrepareTime));
+          'Prepare Time', {$ifdef FPC}@{$endif}DoEditPrepareTime));
     end;
     'ButtonWarningTime':
     begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].WarningSeconds,
-          {$ifdef FPC}@{$endif}DoEditWarningTime));
+          'Warning Time', {$ifdef FPC}@{$endif}DoEditWarningTime));
     end;
   end;
 end;
