@@ -3,8 +3,8 @@ unit GameViewSequenceTimer;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleColors, SeqExhibiter, SeqTunnelEffect, GameSound;
+  CastleVectors, CastleUIControls, CastleControls, CastleFlashEffect,
+  CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, GameSound;
 
 type
   TTimePeriod = record
@@ -46,9 +46,10 @@ type
     procedure ShowFullTime(ASeconds: Single);
     procedure ButtonActionClick(Sender: TObject);
   published
+    FlashEffect: TCastleFlashEffect;
+    ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
     ImageTimer, ImageActions: TCastleImageControl;
-    ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
     TunnelBG: TSeqTunnelEffect;
     LabelFps, LabelSequenceName, LabelPeriodName,
       LabelMin, LabelSec, LabelSecPart: TCastleLabel;
@@ -309,6 +310,9 @@ end;
 
 procedure TViewSequenceTimer.DoAferLoad(Sender: TObject);
 begin
+  { appearing background }
+  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 1.0), True);
+  { appearing menus }
   ExhibiterInfo.ExecuteOnce:= True;
 end;
 

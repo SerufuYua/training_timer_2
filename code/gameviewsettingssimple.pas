@@ -8,7 +8,7 @@ unit GameViewSettingsSimple;
 interface
 
 uses Classes,
-  CastleVectors, CastleComponentSerialize,
+  CastleVectors, CastleComponentSerialize, CastleFlashEffect,
   CastleUIControls, CastleControls, CastleKeysMouse, SeqExhibiter,
   GameViewSequenceTimer;
 
@@ -46,13 +46,14 @@ type
     procedure ButtonSeqEditClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
   published
+    FlashEffect: TCastleFlashEffect;
+    ExhibiterControl: TSeqExhibiter;
     ButtonSelectSeq, ButtonAddSeq, ButtonRemoveSeq, ButtonCopySeq: TCastleButton;
     ButtonName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
       ButtonPrepareTime, ButtonWarningTime: TCastleButton;
     ButtonStart: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
-    ExhibiterControl: TSeqExhibiter;
     ImageSettings, ImageActions: TCastleImageControl;
     LabelFps: TCastleLabel;
   public
@@ -466,6 +467,9 @@ end;
 
 procedure TViewSettingsSimple.DoAferLoad(Sender: TObject);
 begin
+  { appearing background }
+  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 1.0), True);
+  { appearing menus }
   ExhibiterControl.ExecuteOnce:= True;
 end;
 

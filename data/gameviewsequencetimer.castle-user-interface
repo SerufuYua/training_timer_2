@@ -49,6 +49,13 @@
       "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
         {
+          "$$ClassName" : "TCastleFlashEffect",
+          "Image" : {
+            "$$ClassName" : "TCastleImagePersistent"
+          },
+          "Name" : "FlashEffect"
+        },
+        {
           "$$ClassName" : "TCastleImageControl",
           "AutoSizeToChildren" : true,
           "ClipChildren" : true,
