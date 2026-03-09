@@ -125,6 +125,9 @@ begin
   if Assigned(FColorBGPersistent) then
     FreeAndNil(FColorBGPersistent);
 
+  if Assigned(FColorMeshPersistent) then
+    FreeAndNil(FColorMeshPersistent);
+
   inherited;
 end;
 
