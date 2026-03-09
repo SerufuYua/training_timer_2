@@ -116,6 +116,7 @@ begin
   ButtonRestTime.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPrepareTime.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonWarningTime.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  CheckWarning.OnChange:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
@@ -327,6 +328,7 @@ end;
 procedure TViewSettingsSimple.ButtonSeqEditClick(Sender: TObject);
 var
   component: TComponent;
+  check: TCastleCheckBox;
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
@@ -373,6 +375,11 @@ begin
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].WarningSeconds,
           'Warning Time', {$ifdef FPC}@{$endif}DoEditWarningTime));
+    end;
+    'CheckWarning':
+    begin
+      check:= component as TCastleCheckBox;
+      FSettingsSimpleList[IndexSeq].Warning:= check.Checked;
     end;
   end;
 end;
