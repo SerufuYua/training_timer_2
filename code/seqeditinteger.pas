@@ -186,8 +186,8 @@ begin
   FDialog:= TSeqEditIntegerDialog.Create(FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
-  FDialog.Title:= FTitle;
   FDialog.FullSize:= True;
+  FDialog.Title:= FTitle;
   FDialog.FMin:= FMin;
   FDialog.FMax:= FMax;
   FDialog.Number:= FNumber;

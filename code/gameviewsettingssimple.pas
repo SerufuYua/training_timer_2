@@ -336,7 +336,7 @@ begin
       if NOT (Container.FrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].Name,
-          {$ifdef FPC}@{$endif}DoEditName));
+          'Sequence Name', {$ifdef FPC}@{$endif}DoEditName));
     end;
     'ButtonRounds':
     begin

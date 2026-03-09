@@ -13,8 +13,10 @@ type
     type
       TSeqEditStringDialog = class(TCastleUserInterface)
       private
+        FTitle: String;
         FOnReturnString: TReturnString;
         GroupList: TCastleVerticalGroup;
+        LabelTitle: TCastleLabel;
         ExhibiterList: TSeqExhibiter;
         EditString: TCastleEdit;
         ButtonClose, ButtonSet: TCastleButton;
@@ -22,19 +24,22 @@ type
         procedure ShowClose;
         procedure DoClose(Sender: TObject);
         procedure SetString(AValue: String);
+        procedure SetTitle(AValue: String);
       public
         Closed: Boolean;
         constructor Create(AOwner: TComponent); override;
         procedure Start;
 
         property StringForEdit: String write SetString;
+        property Title: String read FTitle write SetTitle;
       end;
     var
+      FTitle: String;
       FString: String;
       FOnReturnString: TReturnString;
       FDialog: TSeqEditStringDialog;
   public
-    constructor CreateUntilStopped(AValue: String; AOnReturnString: TReturnString);
+    constructor CreateUntilStopped(AValue, ATitle: String; AOnReturnString: TReturnString);
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
   end;
@@ -64,6 +69,7 @@ begin
   InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
+  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
   EditString:= UiOwner.FindRequiredComponent('EditString') as TCastleEdit;
   ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
   ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
@@ -96,6 +102,15 @@ begin
   EditString.Text:= AValue;
 end;
 
+procedure TSeqEditString.TSeqEditStringDialog.SetTitle(AValue: String);
+begin
+  if (FTitle = AValue) then Exit;
+
+  FTitle:= AValue;
+  LabelTitle.Caption:= FTitle;
+end;
+
+
 procedure TSeqEditString.TSeqEditStringDialog.ShowClose;
 begin
   ExhibiterList.ShowType:= Disappear;
@@ -112,9 +127,10 @@ end;
 { TSeqEditString ------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditString.CreateUntilStopped(AValue: String; AOnReturnString: TReturnString);
+constructor TSeqEditString.CreateUntilStopped(AValue, ATitle: String; AOnReturnString: TReturnString);
 begin
   inherited CreateUntilStopped;
+  FTitle:= ATitle;
   FString:= AValue;
   FOnReturnString:= AOnReturnString;
   DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
@@ -129,6 +145,7 @@ begin
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
+  FDialog.Title:= FTitle;
   FDialog.StringForEdit:= FString;
   FDialog.FOnReturnString:= FOnReturnString;
   InsertFront(FDialog);
