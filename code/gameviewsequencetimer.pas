@@ -29,7 +29,7 @@ type
   protected
     FReturnTo: TCastleView;
     FEnabled: Boolean;
-    FSpeedBuff: Single;
+    FSpeedBuff, FSpeedCount: Single;
     FPeriods: TPeriodsList;
     FSequenceName: String;
     FPeriod: Integer;
@@ -103,6 +103,8 @@ var
 begin
   inherited;
 
+  FEnabled:= False;
+  FSpeedCount:= 0.0;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
 
@@ -141,7 +143,7 @@ begin
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
   if NOT FEnabled then Exit;
-  FElapsedSeconds:= FElapsedSeconds + SecondsPassed;
+  FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FSpeedCount;
   RemainingSeconds:= FPeriodSeconds - FElapsedSeconds;
 
   { play warning and initial signals }
@@ -320,7 +322,7 @@ end;
 procedure TViewSequenceTimer.Pause;
 begin
   inherited;
-  FEnabled:= False;
+  FSpeedCount:= 0.0;
   FSpeedBuff:= TunnelBG.Speed;
   TunnelBG.Speed:= 0.0;
 end;
@@ -329,7 +331,7 @@ procedure TViewSequenceTimer.Resume;
 begin
   inherited;
   TunnelBG.Speed:= FSpeedBuff;
-  FEnabled:= True;
+  FSpeedCount:= 1.0;
 end;
 
 end.
