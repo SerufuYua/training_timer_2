@@ -315,7 +315,7 @@ var
   min, sec, part: Integer;
 begin
   SecondsToMinSec(Round(ASeconds), min, sec);
-  part:= Trunc((ASeconds - Single(Trunc(ASeconds))) * 10.0);
+  part:= Trunc(Frac(ASeconds) * 10.0);
 
   LabelMin.Caption:= Format('%.2d', [min]);
   LabelSec.Caption:= Format('%.2d', [sec]);
