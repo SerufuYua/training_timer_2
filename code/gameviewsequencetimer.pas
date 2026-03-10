@@ -106,6 +106,7 @@ begin
 
   FEnabled:= False;
   FSpeedCount:= 0.0;
+  FSpeedBuff:= TunnelBG.Speed;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
 
