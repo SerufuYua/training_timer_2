@@ -164,6 +164,21 @@
           "Width" : 6.5000000000000000E+002,
           "$Children" : [
             {
+              "$$ClassName" : "TCastleLabel",
+              "CustomFont" : "FontF0F",
+              "Name" : "LabelFullTime",
+              "Text" : [
+                "00:00"
+              ],
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : 2.5000000000000000E+001,
+                "Y" : -2.5000000000000000E+001
+              },
+              "VerticalAnchorParent" : "vpTop",
+              "VerticalAnchorSelf" : "vpTop"
+            },
+            {
               "$$ClassName" : "TCastleVerticalGroup",
               "Alignment" : "hpMiddle",
               "HorizontalAnchorParent" : "hpMiddle",
@@ -182,17 +197,11 @@
                   },
                   "BorderColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
-                    "Alpha" : 1.0000000000000000E+000,
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
+                    "Alpha" : 1.0000000000000000E+000
                   },
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
-                    "Alpha" : 1.0000000000000000E+000,
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
+                    "Alpha" : 1.0000000000000000E+000
                   },
                   "Cycle" : 6.0000002384185791E-001,
                   "Height" : 1.4000000000000000E+002,
@@ -201,7 +210,7 @@
                   "Name" : "LoadingBars",
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
-                  "Width" : 5.0000000000000000E+002
+                  "Width" : 5.6000000000000000E+002
                 },
                 {
                   "$$ClassName" : "TCastleUserInterface",

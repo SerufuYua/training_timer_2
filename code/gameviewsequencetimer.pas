@@ -55,7 +55,7 @@ type
     TunnelBG: TSeqTunnelEffect;
     LoadingBars: TSeqLoadingBar;
     LabelFps, LabelSequenceName, LabelPeriodName,
-      LabelMin, LabelSec, LabelSecPart: TCastleLabel;
+      LabelMin, LabelSec, LabelSecPart, LabelFullTime: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -324,7 +324,7 @@ end;
 
 procedure TViewSequenceTimer.ShowFullTime(ASeconds: Single);
 begin
-
+  LabelFullTime.Caption:= TimeToShortStr(Round(ASeconds));
 end;
 
 procedure TViewSequenceTimer.DoAferLoad(Sender: TObject);
