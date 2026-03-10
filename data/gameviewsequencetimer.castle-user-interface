@@ -25,20 +25,14 @@
   "$Children" : [
     {
       "$$ClassName" : "TSeqTunnelEffect",
-      "ColorBGPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000
-      },
       "ColorMeshPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000,
+        "$$ClassName" : "TCastleColorRGBPersistent",
         "Blue" : 1.0000000000000000E+000,
         "Green" : 1.0000000000000000E+000,
         "Red" : 1.0000000000000000E+000
       },
       "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000,
+        "$$ClassName" : "TCastleColorRGBPersistent",
         "Blue" : 9.8039217293262482E-002,
         "Green" : 9.8039217293262482E-002,
         "Red" : 9.8039217293262482E-002
@@ -170,95 +164,141 @@
           "Width" : 6.5000000000000000E+002,
           "$Children" : [
             {
-              "$$ClassName" : "TCastleUserInterface",
-              "AutoSizeToChildren" : true,
+              "$$ClassName" : "TCastleVerticalGroup",
+              "Alignment" : "hpMiddle",
               "HorizontalAnchorParent" : "hpMiddle",
               "HorizontalAnchorSelf" : "hpMiddle",
-              "Name" : "GroupTimer",
+              "Name" : "GroupProgress",
+              "Spacing" : 4.0000000000000000E+001,
               "VerticalAnchorParent" : "vpMiddle",
               "VerticalAnchorSelf" : "vpMiddle",
               "$Children" : [
                 {
-                  "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0Fhuge",
+                  "$$ClassName" : "TSeqLoadingBar",
+                  "Bars" : 16,
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Bottom" : 4.0000000000000000E+000
+                  },
+                  "BorderColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "Cycle" : 6.0000002384185791E-001,
+                  "Height" : 1.4000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelMin",
-                  "Text" : [
-                    "00"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : -1.6000000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
+                  "Name" : "LoadingBars",
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Width" : 5.0000000000000000E+002
                 },
                 {
-                  "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0Fhuge",
+                  "$$ClassName" : "TCastleUserInterface",
+                  "AutoSizeToChildren" : true,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelDelim1",
-                  "Text" : [
-                    ":"
-                  ],
+                  "Name" : "GroupTimer",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : -3.5000000000000000E+001
+                    "Y" : -1.8000000000000000E+002
                   },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0Fhuge",
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelSec",
-                  "Text" : [
-                    "00"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 9.0000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0Fbig",
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelDelim2",
-                  "Text" : [
-                    "."
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.1000000000000000E+002,
-                    "Y" : -3.0000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0Fbig",
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelSecPart",
-                  "Text" : [
-                    "0"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.4500000000000000E+002,
-                    "Y" : -3.0000000000000000E+001
-                  },
-                  "VerticalAnchorParent" : "vpMiddle",
-                  "VerticalAnchorSelf" : "vpMiddle"
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "$Children" : [
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "CustomFont" : "FontF0Fhuge",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelMin",
+                      "Text" : [
+                        "00"
+                      ],
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : -1.6000000000000000E+002
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    },
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "CustomFont" : "FontF0Fhuge",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelDelim1",
+                      "Text" : [
+                        ":"
+                      ],
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : -3.5000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    },
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "CustomFont" : "FontF0Fhuge",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelSec",
+                      "Text" : [
+                        "00"
+                      ],
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 9.0000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    },
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "CustomFont" : "FontF0Fbig",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelDelim2",
+                      "Text" : [
+                        "."
+                      ],
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 2.1000000000000000E+002,
+                        "Y" : -3.0000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    },
+                    {
+                      "$$ClassName" : "TCastleLabel",
+                      "CustomFont" : "FontF0Fbig",
+                      "HorizontalAnchorParent" : "hpMiddle",
+                      "HorizontalAnchorSelf" : "hpMiddle",
+                      "Name" : "LabelSecPart",
+                      "Text" : [
+                        "0"
+                      ],
+                      "TranslationPersistent" : {
+                        "$$ClassName" : "TCastleVector2Persistent",
+                        "X" : 2.4500000000000000E+002,
+                        "Y" : -3.0000000000000000E+001
+                      },
+                      "VerticalAnchorParent" : "vpMiddle",
+                      "VerticalAnchorSelf" : "vpMiddle"
+                    }
+                  ]
                 }
               ]
             },

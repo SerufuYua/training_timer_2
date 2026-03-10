@@ -11,7 +11,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   qualified_name="com.mycompany.TrainingTimer2"
   caption="Training Timer 2"
   editor_units="SeqExhibiter,
-                SeqTunnelEffect"
+                SeqTunnelEffect,
+                SeqLoadingBar"
 >
   <compiler_options>
     <search_paths>

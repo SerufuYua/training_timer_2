@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleFlashEffect,
   CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, SeqPause,
-  GameSound;
+  SeqLoadingBar, GameSound;
 
 type
   TTimePeriod = record
