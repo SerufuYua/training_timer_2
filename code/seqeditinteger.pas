@@ -2,7 +2,7 @@ unit SeqEditInteger;
 
 interface
 
-uses Classes,
+uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, SeqExhibiter;
 
 type
@@ -11,29 +11,20 @@ type
   TSeqEditInteger = class(TCastleView)
   strict private
     type
-      TSeqEditIntegerDialog = class(TCastleUserInterface)
-      private
-        FTitle: String;
+      TSeqEditIntegerDialog = class(TSeqBaseDialog)
+      protected
         FNumber, FMin, FMax: Integer;
         FOnReturnInteger: TReturnInteger;
-        LabelTitle: TCastleLabel;
-        ExhibiterList: TSeqExhibiter;
         EditNumber: TCastleEdit;
         ButtonIncrease, ButtonDecrease: TCastleButton;
-        ButtonClose, ButtonSet: TCastleButton;
+        ButtonSet: TCastleButton;
         procedure ChangeNumber(Sender: TObject);
         procedure ClickControl(Sender: TObject);
-        procedure ShowClose;
-        procedure DoClose(Sender: TObject);
         procedure SetNumber(AValue: Integer);
-        procedure SetTitle(AValue: String);
       public
-        Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
-        procedure Start;
+        constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
 
         property Number: Integer read FNumber write SetNumber;
-        property Title: String read FTitle write SetTitle;
       end;
     var
       FTitle: String;
@@ -55,43 +46,22 @@ uses
 { TSeqListBoxDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditInteger.TSeqEditIntegerDialog.Create(AOwner: TComponent);
-var
-  UiOwner: TComponent;
-  Ui: TCastleUserInterface;
+constructor TSeqEditInteger.TSeqEditIntegerDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 begin
   inherited;
-  Closed:= False;
   FNumber:= 0;
   Fmin:= 0;
   FMax:= 10000;
 
-  // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
-
-  { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/editinteger.castle-user-interface', UiOwner);
-  InsertFront(Ui);
-
   { Find components, by name, that we need to access from code }
-  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
-  EditNumber:= UiOwner.FindRequiredComponent('EditNumber') as TCastleEdit;
-  ButtonIncrease:= UiOwner.FindRequiredComponent('ButtonIncrease') as TCastleButton;
-  ButtonDecrease:= UiOwner.FindRequiredComponent('ButtonDecrease') as TCastleButton;
-  ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
-  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
-  ButtonSet:= UiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
+  EditNumber:= FUiOwner.FindRequiredComponent('EditNumber') as TCastleEdit;
+  ButtonIncrease:= FUiOwner.FindRequiredComponent('ButtonIncrease') as TCastleButton;
+  ButtonDecrease:= FUiOwner.FindRequiredComponent('ButtonDecrease') as TCastleButton;
+  ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
   EditNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
-  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-end;
-
-procedure TSeqEditInteger.TSeqEditIntegerDialog.Start;
-begin
-  ExhibiterList.ShowType:= Appear;
-  ExhibiterList.ExecuteOnce:= True;
 end;
 
 procedure TSeqEditInteger.TSeqEditIntegerDialog.ChangeNumber(Sender: TObject);
@@ -130,14 +100,6 @@ begin
   end;
 end;
 
-procedure TSeqEditInteger.TSeqEditIntegerDialog.SetTitle(AValue: String);
-begin
-  if (FTitle = AValue) then Exit;
-
-  FTitle:= AValue;
-  LabelTitle.Caption:= FTitle;
-end;
-
 procedure TSeqEditInteger.TSeqEditIntegerDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
@@ -149,18 +111,6 @@ begin
     FOnReturnInteger(Number);
 
   ShowClose;
-end;
-
-procedure TSeqEditInteger.TSeqEditIntegerDialog.ShowClose;
-begin
-  ExhibiterList.ShowType:= Disappear;
-  ExhibiterList.OnFinish:= {$ifdef FPC}@{$endif}DoClose;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
-procedure TSeqEditInteger.TSeqEditIntegerDialog.DoClose(Sender: TObject);
-begin
-  Closed:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -183,7 +133,7 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqEditIntegerDialog.Create(FreeAtStop);
+  FDialog:= TSeqEditIntegerDialog.CreateNew('castle-data:/editinteger.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
