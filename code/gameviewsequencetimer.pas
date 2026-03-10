@@ -4,7 +4,8 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleFlashEffect,
-  CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, GameSound;
+  CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, SeqPause,
+  GameSound;
 
 type
   TTimePeriod = record
@@ -266,18 +267,8 @@ begin
     end;
     'ButtonRestart': ResetTimer;
     'ButtonPause':
-    begin
-      if FEnabled then
-      begin
-        FEnabled:= False;
-        button.Caption:= 'Continue...';
-      end
-      else
-      begin
-        FEnabled:= True;
-        button.Caption:= 'Pause';
-      end;
-    end;
+      if NOT (Container.FrontView is TSeqPause) then
+        Container.PushView(TSeqPause.CreateUntilStopped);
   end;
 end;
 

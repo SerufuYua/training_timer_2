@@ -66,7 +66,7 @@
         <PackageName Value="castle_engine_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="TrainingTimer2_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -130,6 +130,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SeqTunnelEffect"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="code/seqpause.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqPause"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
