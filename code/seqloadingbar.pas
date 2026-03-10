@@ -63,12 +63,12 @@ begin
   SetLength(FRectangles, DefaultBars);
 
   { Persistent for ColorBGLow }
+  FColor:= DefaultColor;
   FColorPersistent:= TCastleColorPersistent.Create(nil);
   FColorPersistent.SetSubComponent(true);
   FColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorForPersistent;
   FColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorForPersistent;
   FColorPersistent.InternalDefaultValue:= Color;
-  Color:= DefaultColor;
 end;
 
 destructor TSeqLoadingBar.Destroy;

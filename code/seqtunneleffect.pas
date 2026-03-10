@@ -79,28 +79,28 @@ begin
   FColorTransit:= DefaultColorTransition;
 
   { Persistent for Color }
+  FColor:= DefaultColor;
   FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorPersistent.SetSubComponent(true);
   FColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorForPersistent;
   FColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorForPersistent;
   FColorPersistent.InternalDefaultValue:= Color;
-  Color:= DefaultColor;
 
   { Persistent for ColorBG }
+  FColorBG:= DefaultColorBG;
   FColorBGPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorBGPersistent.SetSubComponent(true);
   FColorBGPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorBGForPersistent;
   FColorBGPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorBGForPersistent;
   FColorBGPersistent.InternalDefaultValue:= ColorBG;
-  ColorBG:= DefaultColorBG;
 
   { Persistent for ColorBG }
+  FColorMesh:= DefaultColorMesh;
   FColorMeshPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorMeshPersistent.SetSubComponent(true);
   FColorMeshPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorMeshForPersistent;
   FColorMeshPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorMeshForPersistent;
   FColorMeshPersistent.InternalDefaultValue:= ColorMesh;
-  ColorMesh:= DefaultColorMesh;
 end;
 
 procedure TSeqTunnelEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
