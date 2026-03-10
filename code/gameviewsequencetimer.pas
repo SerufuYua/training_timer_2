@@ -311,7 +311,8 @@ end;
 procedure TViewSequenceTimer.DoAferLoad(Sender: TObject);
 begin
   { appearing background }
-  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 1.0), True);
+  FlashEffect.Duration:= 0.4;
+  FlashEffect.Flash(Black, True);
   { appearing menus }
   ExhibiterInfo.ExecuteOnce:= True;
 end;

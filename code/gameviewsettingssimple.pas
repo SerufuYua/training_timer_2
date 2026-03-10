@@ -71,7 +71,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleConfig, MyTimes,
+  SysUtils, CastleConfig, MyTimes, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, GameSound;
 
 const
@@ -468,7 +468,8 @@ end;
 procedure TViewSettingsSimple.DoAferLoad(Sender: TObject);
 begin
   { appearing background }
-  FlashEffect.Flash(Vector4(0.0, 0.0, 0.0, 1.0), True);
+  FlashEffect.Duration:= 0.75;
+  FlashEffect.Flash(Black, True);
   { appearing menus }
   ExhibiterControl.ExecuteOnce:= True;
 end;
