@@ -59,6 +59,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
+    function Press(const Event: TInputPressRelease): Boolean; override;
     procedure SetupPeriod(AIndex: Integer);
     procedure NextPeriod;
     procedure Pause; override;
@@ -193,6 +194,23 @@ begin
 
   { remember Time Remaining }
   FLastRemainingSeconds:= RemainingSeconds;
+end;
+
+function TViewSequenceTimer.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result:= inherited;
+  if Result then Exit; // allow the ancestor to handle keys
+
+  { return pause }
+  if (Event.IsKey(TKey.keyEscape) OR
+      Event.IsKey(TKey.keySpace) OR
+      Event.IsKey(TKey.keyPause) OR
+      Event.IsKey(TKey.keyEnter)) then
+  begin
+    if NOT (Container.FrontView is TSeqPause) then
+      Container.PushView(TSeqPause.CreateUntilStopped);
+    Exit(True);
+  end;
 end;
 
 procedure TViewSequenceTimer.SetPeriods(AValue: TPeriodsSettings);

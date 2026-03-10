@@ -79,7 +79,7 @@ begin
       Event.IsKey(TKey.keyEnter)) then
   begin
     ShowClose;
-    Result:= true;
+    Exit(True);
   end;
 end;
 
