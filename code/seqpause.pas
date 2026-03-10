@@ -2,7 +2,7 @@ unit SeqPause;
 
 interface
 
-uses Classes,
+uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
   SeqExhibiter;
 
@@ -10,18 +10,9 @@ type
   TSeqPause = class(TCastleView)
   strict private
     type
-      TSeqPauseDialog = class(TCastleUserInterface)
-      private
-        ExhibiterList: TSeqExhibiter;
-        ButtonClose: TCastleButton;
-        procedure ClickControl(Sender: TObject);
-        procedure ShowClose;
-        procedure DoClose(Sender: TObject);
+      TSeqPauseDialog = class(TSeqBaseDialog)
       public
-        Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
         function Press(const Event: TInputPressRelease): Boolean; override;
-        procedure Start;
       end;
     var
       FDialog: TSeqPauseDialog;
@@ -40,33 +31,6 @@ uses
 { TSeqListBoxDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqPause.TSeqPauseDialog.Create(AOwner: TComponent);
-var
-  UiOwner: TComponent;
-  Ui: TCastleUserInterface;
-begin
-  inherited;
-  Closed:= False;
-
-  // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
-
-  { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/pause.castle-user-interface', UiOwner);
-  InsertFront(Ui);
-
-  { Find components, by name, that we need to access from code }
-  ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
-  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
-  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-end;
-
-procedure TSeqPause.TSeqPauseDialog.Start;
-begin
-  ExhibiterList.ShowType:= Appear;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
 function TSeqPause.TSeqPauseDialog.Press(const Event: TInputPressRelease): Boolean;
 begin
   Result:= inherited;
@@ -81,23 +45,6 @@ begin
     ShowClose;
     Exit(True);
   end;
-end;
-
-procedure TSeqPause.TSeqPauseDialog.ClickControl(Sender: TObject);
-begin
-  ShowClose;
-end;
-
-procedure TSeqPause.TSeqPauseDialog.ShowClose;
-begin
-  ExhibiterList.ShowType:= Disappear;
-  ExhibiterList.OnFinish:= {$ifdef FPC}@{$endif}DoClose;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
-procedure TSeqPause.TSeqPauseDialog.DoClose(Sender: TObject);
-begin
-  Closed:= True;
 end;
 
 { ========= ------------------------------------------------------------------ }
@@ -115,10 +62,11 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqPauseDialog.Create(FreeAtStop);
+  FDialog:= TSeqPauseDialog.CreateNew('castle-data:/pause.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
+  FDialog.Title:= 'Timer Paused';
   InsertFront(FDialog);
   FDialog.Start;
 end;
