@@ -2,7 +2,7 @@ unit SeqEditString;
 
 interface
 
-uses Classes,
+uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, SeqExhibiter;
 
 type
@@ -11,27 +11,18 @@ type
   TSeqEditString = class(TCastleView)
   strict private
     type
-      TSeqEditStringDialog = class(TCastleUserInterface)
-      private
-        FTitle: String;
+      TSeqEditStringDialog = class(TSeqBaseDialog)
+      protected
         FOnReturnString: TReturnString;
         GroupList: TCastleVerticalGroup;
-        LabelTitle: TCastleLabel;
-        ExhibiterList: TSeqExhibiter;
         EditString: TCastleEdit;
-        ButtonClose, ButtonSet: TCastleButton;
+        ButtonSet: TCastleButton;
         procedure ClickControl(Sender: TObject);
-        procedure ShowClose;
-        procedure DoClose(Sender: TObject);
         procedure SetString(AValue: String);
-        procedure SetTitle(AValue: String);
       public
-        Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
-        procedure Start;
+        constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
 
         property StringForEdit: String write SetString;
-        property Title: String read FTitle write SetTitle;
       end;
     var
       FTitle: String;
@@ -53,35 +44,14 @@ uses
 { TSeqListBoxDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditString.TSeqEditStringDialog.Create(AOwner: TComponent);
-var
-  UiOwner: TComponent;
-  Ui: TCastleUserInterface;
+constructor TSeqEditString.TSeqEditStringDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 begin
   inherited;
-  Closed:= False;
-
-  // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
-
-  { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/editstring.castle-user-interface', UiOwner);
-  InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
-  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
-  EditString:= UiOwner.FindRequiredComponent('EditString') as TCastleEdit;
-  ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
-  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
-  ButtonSet:= UiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
-  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  EditString:= FUiOwner.FindRequiredComponent('EditString') as TCastleEdit;
+  ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-end;
-
-procedure TSeqEditString.TSeqEditStringDialog.Start;
-begin
-  ExhibiterList.ShowType:= Appear;
-  ExhibiterList.ExecuteOnce:= True;
 end;
 
 procedure TSeqEditString.TSeqEditStringDialog.ClickControl(Sender: TObject);
@@ -102,27 +72,6 @@ begin
   EditString.Text:= AValue;
 end;
 
-procedure TSeqEditString.TSeqEditStringDialog.SetTitle(AValue: String);
-begin
-  if (FTitle = AValue) then Exit;
-
-  FTitle:= AValue;
-  LabelTitle.Caption:= FTitle;
-end;
-
-
-procedure TSeqEditString.TSeqEditStringDialog.ShowClose;
-begin
-  ExhibiterList.ShowType:= Disappear;
-  ExhibiterList.OnFinish:= {$ifdef FPC}@{$endif}DoClose;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
-procedure TSeqEditString.TSeqEditStringDialog.DoClose(Sender: TObject);
-begin
-  Closed:= True;
-end;
-
 { ========= ------------------------------------------------------------------ }
 { TSeqEditString ------------------------------------------------------------ }
 { ========= ------------------------------------------------------------------ }
@@ -141,7 +90,7 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqEditStringDialog.Create(FreeAtStop);
+  FDialog:= TSeqEditStringDialog.CreateNew('castle-data:/editstring.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;

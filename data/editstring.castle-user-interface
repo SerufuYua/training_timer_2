@@ -270,7 +270,7 @@
               "$$ClassName" : "TSeqExhibiter",
               "ExhibitTime" : 1.5000000596046448E-001,
               "MoveType" : "Cubic",
-              "Name" : "ExhibiterList"
+              "Name" : "Exhibiter"
             }
           ]
         }
