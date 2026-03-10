@@ -29,6 +29,7 @@ type
   protected
     FReturnTo: TCastleView;
     FEnabled: Boolean;
+    FSpeedBuff: Single;
     FPeriods: TPeriodsList;
     FSequenceName: String;
     FPeriod: Integer;
@@ -60,6 +61,8 @@ type
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     procedure SetupPeriod(AIndex: Integer);
     procedure NextPeriod;
+    procedure Pause; override;
+    procedure Resume; override;
 
     property Periods: TPeriodsSettings write SetPeriods;
     property ReturnTo: TCastleView write FReturnTo;
@@ -86,7 +89,7 @@ var
 implementation
 
 uses
-  SysUtils, MyTimes, CastleScene;
+  SysUtils, MyTimes, CastleScene, CastleViewport;
 
 constructor TViewSequenceTimer.Create(AOwner: TComponent);
 begin
@@ -312,6 +315,21 @@ end;
 procedure TViewSequenceTimer.DoAferAnimation(Sender: TObject);
 begin
   ResetTimer;
+end;
+
+procedure TViewSequenceTimer.Pause;
+begin
+  inherited;
+  FEnabled:= False;
+  FSpeedBuff:= TunnelBG.Speed;
+  TunnelBG.Speed:= 0.0;
+end;
+
+procedure TViewSequenceTimer.Resume;
+begin
+  inherited;
+  TunnelBG.Speed:= FSpeedBuff;
+  FEnabled:= True;
 end;
 
 end.
