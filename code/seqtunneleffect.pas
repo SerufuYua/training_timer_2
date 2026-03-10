@@ -16,8 +16,8 @@ type
     FBoxBG: TCastleBox;
     FTunnel: TCastleScene;
     FFog: TCastleFog;
-    FSpeed: Single;
-    FColorBuff, FColor, FColorBG, FColorMesh: TCastleColorRGB;
+    FSpeed, FColorTransit, FColorTime: Single;
+    FColor, FColorBuff, FColorBG, FColorMesh: TCastleColorRGB;
     FColorPersistent, FColorBGPersistent, FColorMeshPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
     procedure SetSpeed(AValue: Single);
@@ -37,6 +37,7 @@ type
   public
     const
       DefaultSpeed = 1.0;
+      DefaultColorTransition = 0.5;
       DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
       DefaultColorBG: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
       DefaultColorMesh: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
@@ -52,6 +53,8 @@ type
     property Url: String read FUrl write SetUrl;
     property Speed: Single read FSpeed write SetSpeed
              {$ifdef FPC}default DefaultSpeed{$endif};
+    property ColorTransition: Single read FColorTransit write FColorTransit
+             {$ifdef FPC}default DefaultColorTransition{$endif};
     property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
     property ColorBGPersistent: TCastleColorRGBPersistent read FColorBGPersistent;
     property ColorMeshPersistent: TCastleColorRGBPersistent read FColorMeshPersistent;
@@ -71,7 +74,9 @@ begin
 
   FDesign:= nil;
   FUrl:= '';
+  FColorTime:= 0.0;
   FSpeed:= DefaultSpeed;
+  FColorTransit:= DefaultColorTransition;
 
   { Persistent for Color }
   FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
@@ -101,6 +106,7 @@ end;
 procedure TSeqTunnelEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
 var
   pos: TVector3;
+  factor: Single;
 begin
   inherited;
 
@@ -111,6 +117,17 @@ begin
     pos.Z:= pos.Z + SecondsPassed * FSpeed;
     if (pos.Z > 1.0) then pos.Z:= 0.0;
     FTunnel.Translation:= pos;
+  end;
+
+  { transit color }
+  if Assigned(FFog) then
+  begin
+    if (FColorTime > 0.0) then
+    begin
+      FColorTime:= FColorTime - SecondsPassed;
+      factor:= 1.0 - FColorTime / FColorTransit;
+      FFog.Color:= Lerp(factor, FColorBuff, FColor);
+    end;
   end;
 end;
 
@@ -182,7 +199,10 @@ end;
 procedure TSeqTunnelEffect.ApplyColor;
 begin
   if Assigned(FFog) then
-    FFog.Color:= FColor;
+  begin
+    FColorTime:= FColorTransit;
+    FColorBuff:= FFog.Color;
+  end;
 end;
 
 procedure TSeqTunnelEffect.ApplyColorBG;
@@ -246,8 +266,8 @@ end;
 function TSeqTunnelEffect.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Url', 'Speed', 'ColorPersistent', 'ColorBGPersistent',
-       'ColorMeshPersistent'
+       'Url', 'Speed', 'ColorTransition',
+       'ColorPersistent', 'ColorBGPersistent', 'ColorMeshPersistent'
      ]) then
     Result:= [psBasic]
   else

@@ -40,7 +40,7 @@ type
     procedure DoAferAnimation(Sender: TObject);
     procedure SetPeriods(AValue: TPeriodsSettings);
     procedure ResetTimer;
-    procedure ShowColor(AValue: TCastleColorRGB);
+    procedure ShowColor(AValue: TCastleColorRGB; ATransition: Single);
     procedure ShowProgress(AValue: Single);
     procedure ShowTime(ASeconds: Single);
     procedure ShowFullTime(ASeconds: Single);
@@ -153,22 +153,22 @@ begin
   if (IsTime(initTime * 1.0) OR
       IsTime(initTime * 2.0) OR
       IsTime(initTime * 3.0)) then
-    ShowColor(BlackRGB)
+    ShowColor(BlackRGB, 0.05)
   else
-  if (IsTime(initTime * 1.0 - (initTime / 2.0)) OR
-      IsTime(initTime * 2.0 - (initTime / 2.0)) OR
-      IsTime(initTime * 3.0 - (initTime / 2.0))) then
-    ShowColor(FSignalColor);
+  if (IsTime(initTime * 1.0 - (initTime / 4.0)) OR
+      IsTime(initTime * 2.0 - (initTime / 4.0)) OR
+      IsTime(initTime * 3.0 - (initTime / 4.0))) then
+    ShowColor(FSignalColor, 0.4);
 
   { color blink warning signal }
   if FWarning then
   begin
     if IsTime(FWarningSeconds) then
-      ShowColor(GrayRGB)
+      ShowColor(GrayRGB, 0.05)
     else
     if ((FWarningSeconds > initTime) AND
         (IsTime(FWarningSeconds - (initTime / 2.0)))) then
-      ShowColor(FSignalColor);
+      ShowColor(FSignalColor, 0.5);
   end;
 
   { count time and change period }
@@ -212,7 +212,7 @@ begin
   ShowTime(FPeriods[FPeriod].Seconds);
   LabelPeriodName.Caption:= FPeriods[FPeriod].Name;
   FSignalColor:= FPeriods[FPeriod].Color;
-  ShowColor(FSignalColor);
+  ShowColor(FSignalColor, 0.2);
   FWarningSeconds:= FPeriods[FPeriod].WarningSeconds;
   FWarning:= FPeriods[FPeriod].Warning;
   FPeriodSeconds:= FPeriodSeconds + FPeriods[FPeriod].Seconds;
@@ -247,7 +247,7 @@ begin
   begin
     { got Last Period - stop counter }
     FEnabled:= False;
-    ShowColor(BlackRGB);
+    ShowColor(BlackRGB, 0.2);
   end;
 end;
 
@@ -286,8 +286,9 @@ begin
 
 end;
 
-procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB);
+procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
 begin
+  TunnelBG.ColorTransition:= ATransition;
   TunnelBG.Color:= AValue;
 end;
 
