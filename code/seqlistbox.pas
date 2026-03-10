@@ -2,7 +2,7 @@ unit SeqListBox;
 
 interface
 
-uses Classes, sysutils,
+uses Classes, sysutils, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, SeqExhibiter;
 
 type
@@ -11,27 +11,16 @@ type
   TSeqListBox = class(TCastleView)
   strict private
     type
-      TSeqListBoxDialog = class(TCastleUserInterface)
-      private
-        FTitle: String;
+      TSeqListBoxDialog = class(TSeqBaseDialog)
+      protected
         FList: TStringArray;
         FOnReturnIndex: TReturnIndex;
-        LabelTitle: TCastleLabel;
-        ExhibiterList: TSeqExhibiter;
         GroupList: TCastleVerticalGroup;
-        ButtonClose: TCastleButton;
         procedure PrepareList;
         procedure ClickSequence(Sender: TObject);
-        procedure ClickClose(Sender: TObject);
-        procedure ShowClose;
-        procedure DoClose(Sender: TObject);
-        procedure SetTitle(AValue: String);
       public
-        Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
-        procedure Start;
-
-        property Title: String read FTitle write SetTitle;
+        constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
+        procedure Start; override;
       end;
     var
       FTitle: String;
@@ -50,37 +39,21 @@ uses
   CastleComponentSerialize, CastleFonts;
 
 { ========= ------------------------------------------------------------------ }
-{ TSeqListBoxDialog ---------------------------------------------------------- }
+{ TSeqBaseDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqListBox.TSeqListBoxDialog.Create(AOwner: TComponent);
-var
-  UiOwner: TComponent;
-  Ui: TCastleUserInterface;
+constructor TSeqListBox.TSeqListBoxDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 begin
   inherited;
-  Closed:= False;
-
-  // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
-
-  { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/listbox.castle-user-interface', UiOwner);
-  InsertFront(Ui);
 
   { Find components, by name, that we need to access from code }
-  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
-  GroupList:= UiOwner.FindRequiredComponent('GroupList') as TCastleVerticalGroup;
-  ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
-  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
-  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
+  GroupList:= FUiOwner.FindRequiredComponent('GroupList') as TCastleVerticalGroup;
 end;
 
 procedure TSeqListBox.TSeqListBoxDialog.Start;
 begin
   PrepareList;
-  ExhibiterList.ShowType:= Appear;
-  ExhibiterList.ExecuteOnce:= True;
+  inherited;
 end;
 
 procedure TSeqListBox.TSeqListBoxDialog.PrepareList;
@@ -139,31 +112,6 @@ begin
   ShowClose;
 end;
 
-procedure TSeqListBox.TSeqListBoxDialog.SetTitle(AValue: String);
-begin
-  if (FTitle = AValue) then Exit;
-
-  FTitle:= AValue;
-  LabelTitle.Caption:= FTitle;
-end;
-
-procedure TSeqListBox.TSeqListBoxDialog.ClickClose(Sender: TObject);
-begin
-  ShowClose;
-end;
-
-procedure TSeqListBox.TSeqListBoxDialog.ShowClose;
-begin
-  ExhibiterList.ShowType:= Disappear;
-  ExhibiterList.OnFinish:= {$ifdef FPC}@{$endif}DoClose;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
-procedure TSeqListBox.TSeqListBoxDialog.DoClose(Sender: TObject);
-begin
-  Closed:= True;
-end;
-
 { ========= ------------------------------------------------------------------ }
 { TSeqListBox ---------------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
@@ -182,7 +130,7 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqListBoxDialog.Create(FreeAtStop);
+  FDialog:= TSeqListBoxDialog.CreateNew('castle-data:/listbox.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
