@@ -33,8 +33,8 @@ type
     FPeriods: TPeriodsList;
     FSequenceName: String;
     FPeriod: Integer;
-    FElapsedSeconds, FStartPauseSeconds, FLastRemainingSeconds, FPeriodSeconds,
-      FWarningSeconds, FFullSeconds: Single;
+    FElapsedSeconds, FStartPauseSeconds, FLastRemainingSeconds, FTargetSeconds,
+      FPeriodSeconds, FWarningSeconds, FFullSeconds: Single;
     FWarning: Boolean;
     FFinalSound: TSoundType;
     FSignalColor: TCastleColorRGB;
@@ -53,6 +53,7 @@ type
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
     ImageTimer, ImageActions: TCastleImageControl;
     TunnelBG: TSeqTunnelEffect;
+    LoadingBars: TSeqLoadingBar;
     LabelFps, LabelSequenceName, LabelPeriodName,
       LabelMin, LabelSec, LabelSecPart: TCastleLabel;
   public
@@ -146,7 +147,7 @@ begin
 
   if NOT FEnabled then Exit;
   FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FSpeedCount;
-  RemainingSeconds:= FPeriodSeconds - FElapsedSeconds;
+  RemainingSeconds:= FTargetSeconds - FElapsedSeconds;
 
   { play warning and initial signals }
   if (FWarning AND IsTime(FWarningSeconds)) then
@@ -185,6 +186,7 @@ begin
     ShowTime(RemainingSeconds);
     ShowFullTime(FFullSeconds - FElapsedSeconds);
     ShowProgress(RemainingSeconds);
+    LoadingBars.Value:= 1.0 - RemainingSeconds / FPeriodSeconds;
   end
   else
   begin
@@ -222,7 +224,7 @@ end;
 
 procedure TViewSequenceTimer.ResetTimer;
 begin
-  FPeriodSeconds:= 0;
+  FTargetSeconds:= 0;
   FElapsedSeconds:= 0;
   SetupPeriod(0);
   ButtonPause.Enabled:= True;
@@ -240,7 +242,8 @@ begin
   ShowColor(FSignalColor, 0.2);
   FWarningSeconds:= FPeriods[FPeriod].WarningSeconds;
   FWarning:= FPeriods[FPeriod].Warning;
-  FPeriodSeconds:= FPeriodSeconds + FPeriods[FPeriod].Seconds;
+  FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].Seconds;
+  FPeriodSeconds:= FPeriods[FPeriod].Seconds;
   FFinalSound:= FPeriods[FPeriod].FinalSound;
 end;
 
