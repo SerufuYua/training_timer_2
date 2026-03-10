@@ -17,44 +17,44 @@ type
     FTunnel: TCastleScene;
     FFog: TCastleFog;
     FSpeed: Single;
-    FColor, FColorBG, FColorMesh: TCastleColor;
-    FColorPersistent, FColorBGPersistent, FColorMeshPersistent: TCastleColorPersistent;
+    FColorBuff, FColor, FColorBG, FColorMesh: TCastleColorRGB;
+    FColorPersistent, FColorBGPersistent, FColorMeshPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
     procedure SetSpeed(AValue: Single);
-    procedure SetColor(const AValue: TCastleColor);
-    procedure SetColorBG(const AValue: TCastleColor);
-    procedure SetColorMesh(const AValue: TCastleColor);
+    procedure SetColor(const AValue: TCastleColorRGB);
+    procedure SetColorBG(const AValue: TCastleColorRGB);
+    procedure SetColorMesh(const AValue: TCastleColorRGB);
     procedure ApplyColor;
     procedure ApplyColorBG;
     procedure ApplyColorMesh;
-    function GetColorForPersistent: TCastleColor;
-    procedure SetColorForPersistent(const AValue: TCastleColor);
-    function GetColorBGForPersistent: TCastleColor;
-    procedure SetColorBGForPersistent(const AValue: TCastleColor);
-    function GetColorMeshForPersistent: TCastleColor;
-    procedure SetColorMeshForPersistent(const AValue: TCastleColor);
+    function GetColorForPersistent: TCastleColorRGB;
+    procedure SetColorForPersistent(const AValue: TCastleColorRGB);
+    function GetColorBGForPersistent: TCastleColorRGB;
+    procedure SetColorBGForPersistent(const AValue: TCastleColorRGB);
+    function GetColorMeshForPersistent: TCastleColorRGB;
+    procedure SetColorMeshForPersistent(const AValue: TCastleColorRGB);
     procedure HandleNodeColorMesh(ANode: TX3DNode);
   public
     const
       DefaultSpeed = 1.0;
-      DefaultColor: TCastleColor = (X: 0.6; Y: 0.0; Z: 0.5; W: 1.0);
-      DefaultColorBG: TCastleColor = (X: 0.0; Y: 0.0; Z: 0.0; W: 1.0);
-      DefaultColorMesh: TCastleColor = (X: 1.0; Y: 1.0; Z: 1.0; W: 1.0);
+      DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+      DefaultColorBG: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
+      DefaultColorMesh: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 1.0);
 
       constructor Create(AOwner: TComponent); override;
       destructor Destroy; override;
       procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
       function PropertySections(const PropertyName: String): TPropertySections; override;
-      property Color: TCastleColor read FColor write SetColor;
-      property ColorBG: TCastleColor read FColorBG write SetColorBG;
-      property ColorMesh: TCastleColor read FColorMesh write SetColorMesh;
+      property Color: TCastleColorRGB read FColor write SetColor;
+      property ColorBG: TCastleColorRGB read FColorBG write SetColorBG;
+      property ColorMesh: TCastleColorRGB read FColorMesh write SetColorMesh;
   published
     property Url: String read FUrl write SetUrl;
     property Speed: Single read FSpeed write SetSpeed
              {$ifdef FPC}default DefaultSpeed{$endif};
-    property ColorPersistent: TCastleColorPersistent read FColorPersistent;
-    property ColorBGPersistent: TCastleColorPersistent read FColorBGPersistent;
-    property ColorMeshPersistent: TCastleColorPersistent read FColorMeshPersistent;
+    property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
+    property ColorBGPersistent: TCastleColorRGBPersistent read FColorBGPersistent;
+    property ColorMeshPersistent: TCastleColorRGBPersistent read FColorMeshPersistent;
 end;
 
 implementation
@@ -74,7 +74,7 @@ begin
   FSpeed:= DefaultSpeed;
 
   { Persistent for Color }
-  FColorPersistent:= TCastleColorPersistent.Create(nil);
+  FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorPersistent.SetSubComponent(true);
   FColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorForPersistent;
   FColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorForPersistent;
@@ -82,7 +82,7 @@ begin
   Color:= DefaultColor;
 
   { Persistent for ColorBG }
-  FColorBGPersistent:= TCastleColorPersistent.Create(nil);
+  FColorBGPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorBGPersistent.SetSubComponent(true);
   FColorBGPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorBGForPersistent;
   FColorBGPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorBGForPersistent;
@@ -90,7 +90,7 @@ begin
   ColorBG:= DefaultColorBG;
 
   { Persistent for ColorBG }
-  FColorMeshPersistent:= TCastleColorPersistent.Create(nil);
+  FColorMeshPersistent:= TCastleColorRGBPersistent.Create(nil);
   FColorMeshPersistent.SetSubComponent(true);
   FColorMeshPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorMeshForPersistent;
   FColorMeshPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorMeshForPersistent;
@@ -161,19 +161,19 @@ begin
   FSpeed:= AValue;
 end;
 
-procedure TSeqTunnelEffect.SetColor(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColor(const AValue: TCastleColorRGB);
 begin
   FColor:= AValue;
   ApplyColor;
 end;
 
-procedure TSeqTunnelEffect.SetColorBG(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColorBG(const AValue: TCastleColorRGB);
 begin
   FColorBG:= AValue;
   ApplyColorBG;
 end;
 
-procedure TSeqTunnelEffect.SetColorMesh(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColorMesh(const AValue: TCastleColorRGB);
 begin
   FColorMesh:= AValue;
   ApplyColorMesh;
@@ -182,13 +182,13 @@ end;
 procedure TSeqTunnelEffect.ApplyColor;
 begin
   if Assigned(FFog) then
-    FFog.Color:= FColor.RGB;
+    FFog.Color:= FColor;
 end;
 
 procedure TSeqTunnelEffect.ApplyColorBG;
 begin
   if Assigned(FBoxBG) then
-    FBoxBG.Color:= FColorBG;
+    FBoxBG.Color:= Vector4(FColorBG, 1.0);
 end;
 
 procedure TSeqTunnelEffect.ApplyColorMesh;
@@ -204,32 +204,32 @@ begin
     {$ifdef FPC}@{$endif}HandleNodeColorMesh, false);
 end;
 
-function TSeqTunnelEffect.GetColorForPersistent: TCastleColor;
+function TSeqTunnelEffect.GetColorForPersistent: TCastleColorRGB;
 begin
   Result:= Color;
 end;
 
-procedure TSeqTunnelEffect.SetColorForPersistent(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColorForPersistent(const AValue: TCastleColorRGB);
 begin
   Color:= AValue;
 end;
 
-function TSeqTunnelEffect.GetColorBGForPersistent: TCastleColor;
+function TSeqTunnelEffect.GetColorBGForPersistent: TCastleColorRGB;
 begin
   Result:= ColorBG;
 end;
 
-procedure TSeqTunnelEffect.SetColorBGForPersistent(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColorBGForPersistent(const AValue: TCastleColorRGB);
 begin
   ColorBG:= AValue;
 end;
 
-function TSeqTunnelEffect.GetColorMeshForPersistent: TCastleColor;
+function TSeqTunnelEffect.GetColorMeshForPersistent: TCastleColorRGB;
 begin
   Result:= ColorMesh;
 end;
 
-procedure TSeqTunnelEffect.SetColorMeshForPersistent(const AValue: TCastleColor);
+procedure TSeqTunnelEffect.SetColorMeshForPersistent(const AValue: TCastleColorRGB);
 begin
   ColorMesh:= AValue;
 end;
@@ -239,8 +239,8 @@ var
   Material: TPhysicalMaterialNode;
 begin
   Material:= ANode as TPhysicalMaterialNode;
-  Material.BaseColor:= FColorMesh.RGB;
-  Material.EmissiveColor:= FColorMesh.RGB;
+  Material.BaseColor:= FColorMesh;
+  Material.EmissiveColor:= FColorMesh;
 end;
 
 function TSeqTunnelEffect.PropertySections(const PropertyName: String): TPropertySections;

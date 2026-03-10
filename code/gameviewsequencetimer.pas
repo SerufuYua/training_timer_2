@@ -12,7 +12,7 @@ type
     FinalSound: TSoundType;
     Seconds, WarningSeconds: Integer;
     Warning, Enable: Boolean;
-    Color: TCastleColor;
+    Color: TCastleColorRGB;
   end;
 
   TPeriodsList = Array of TTimePeriod;
@@ -35,12 +35,12 @@ type
       FWarningSeconds, FFullSeconds: Single;
     FWarning: Boolean;
     FFinalSound: TSoundType;
-    FSignalColor: TCastleColor;
+    FSignalColor: TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
     procedure DoAferAnimation(Sender: TObject);
     procedure SetPeriods(AValue: TPeriodsSettings);
     procedure ResetTimer;
-    procedure ShowColor(AValue: TCastleColor);
+    procedure ShowColor(AValue: TCastleColorRGB);
     procedure ShowProgress(AValue: Single);
     procedure ShowTime(ASeconds: Single);
     procedure ShowFullTime(ASeconds: Single);
@@ -75,9 +75,9 @@ const
   DefaultWarning = True;
   DefaultEnable = True;
   DefaultFinalSound = TSoundType.Start;
-  DefaultColorPrepare: TCastleColor = (X: 0.0; Y: 1.0; Z: 0.0; W: 1.0); { Lime }
-  DefaultColorRest: TCastleColor = (X: 1.0; Y: 1.0; Z: 0.0; W: 1.0); { Yellow }
-  DefaultColorRound: TCastleColor = (X: 1.0; Y: 0.0; Z: 0.0; W: 1.0); { Red }
+  DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 1.0; Z: 0.0); { Lime }
+  DefaultColorRest: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 0.0); { Yellow }
+  DefaultColorRound: TCastleColorRGB = (X: 1.0; Y: 0.0; Z: 0.0); { Red }
 
 var
   ViewSequenceTimer: TViewSequenceTimer;
@@ -153,7 +153,7 @@ begin
   if (IsTime(initTime * 1.0) OR
       IsTime(initTime * 2.0) OR
       IsTime(initTime * 3.0)) then
-    ShowColor(Black)
+    ShowColor(BlackRGB)
   else
   if (IsTime(initTime * 1.0 - (initTime / 2.0)) OR
       IsTime(initTime * 2.0 - (initTime / 2.0)) OR
@@ -164,7 +164,7 @@ begin
   if FWarning then
   begin
     if IsTime(FWarningSeconds) then
-      ShowColor(Gray)
+      ShowColor(GrayRGB)
     else
     if ((FWarningSeconds > initTime) AND
         (IsTime(FWarningSeconds - (initTime / 2.0)))) then
@@ -247,7 +247,7 @@ begin
   begin
     { got Last Period - stop counter }
     FEnabled:= False;
-    ShowColor(Black);
+    ShowColor(BlackRGB);
   end;
 end;
 
@@ -286,7 +286,7 @@ begin
 
 end;
 
-procedure TViewSequenceTimer.ShowColor(AValue: TCastleColor);
+procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB);
 begin
   TunnelBG.Color:= AValue;
 end;
