@@ -2,7 +2,7 @@ unit SeqEditTimeMinSec;
 
 interface
 
-uses Classes,
+uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, SeqExhibiter;
 
 type
@@ -11,31 +11,22 @@ type
   TSeqEditTimeMinSec = class(TCastleView)
   strict private
     type
-      TSeqEditTimeMinSecDialog = class(TCastleUserInterface)
-      private
-        FTitle: String;
+      TSeqEditTimeMinSecDialog = class(TSeqBaseDialog)
+      protected
         FSec, Fmin: Integer;
         FOnReturnSeconds: TReturnSeconds;
-        LabelTitle: TCastleLabel;
-        ExhibiterList: TSeqExhibiter;
         EditMinNumber, EditSecNumber: TCastleEdit;
         ButtonMinIncrease, ButtonMinDecrease: TCastleButton;
         ButtonSecIncrease, ButtonSecDecrease: TCastleButton;
-        ButtonClose, ButtonSet: TCastleButton;
+        ButtonSet: TCastleButton;
         procedure ChangeNumber(Sender: TObject);
         procedure ClickControl(Sender: TObject);
-        procedure ShowClose;
-        procedure DoClose(Sender: TObject);
         procedure SetSeconds(AValue: Integer);
         function GetSeconds: Integer;
-        procedure SetTitle(AValue: String);
       public
-        Closed: Boolean;
-        constructor Create(AOwner: TComponent); override;
-        procedure Start;
+        constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
 
         property Seconds: Integer read GetSeconds write SetSeconds;
-        property Title: String read FTitle write SetTitle;
       end;
     var
       FTitle: String;
@@ -57,48 +48,27 @@ uses
 { TSeqListBoxDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.Create(AOwner: TComponent);
-var
-  UiOwner: TComponent;
-  Ui: TCastleUserInterface;
+constructor TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 begin
   inherited;
-  Closed:= False;
   FSec:= 0;
   Fmin:= 0;
 
-  // UiOwner is useful to keep reference to all components loaded from the design
-  UiOwner := TComponent.Create(Self);
-
-  { Load designed user interface }
-  Ui := UserInterfaceLoad('castle-data:/edittime_min_sec.castle-user-interface', UiOwner);
-  InsertFront(Ui);
-
   { Find components, by name, that we need to access from code }
-  LabelTitle:= UiOwner.FindRequiredComponent('LabelTitle') as TCastleLabel;
-  EditMinNumber:= UiOwner.FindRequiredComponent('EditMinNumber') as TCastleEdit;
-  EditSecNumber:= UiOwner.FindRequiredComponent('EditSecNumber') as TCastleEdit;
-  ButtonMinIncrease:= UiOwner.FindRequiredComponent('ButtonMinIncrease') as TCastleButton;
-  ButtonMinDecrease:= UiOwner.FindRequiredComponent('ButtonMinDecrease') as TCastleButton;
-  ButtonSecIncrease:= UiOwner.FindRequiredComponent('ButtonSecIncrease') as TCastleButton;
-  ButtonSecDecrease:= UiOwner.FindRequiredComponent('ButtonSecDecrease') as TCastleButton;
-  ExhibiterList:= UiOwner.FindRequiredComponent('ExhibiterList') as TSeqExhibiter;
-  ButtonClose:= UiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
-  ButtonSet:= UiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
+  EditMinNumber:= FUiOwner.FindRequiredComponent('EditMinNumber') as TCastleEdit;
+  EditSecNumber:= FUiOwner.FindRequiredComponent('EditSecNumber') as TCastleEdit;
+  ButtonMinIncrease:= FUiOwner.FindRequiredComponent('ButtonMinIncrease') as TCastleButton;
+  ButtonMinDecrease:= FUiOwner.FindRequiredComponent('ButtonMinDecrease') as TCastleButton;
+  ButtonSecIncrease:= FUiOwner.FindRequiredComponent('ButtonSecIncrease') as TCastleButton;
+  ButtonSecDecrease:= FUiOwner.FindRequiredComponent('ButtonSecDecrease') as TCastleButton;
+  ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
   EditMinNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
   EditSecNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSecIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSecDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
-  ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
-end;
-
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.Start;
-begin
-  ExhibiterList.ShowType:= Appear;
-  ExhibiterList.ExecuteOnce:= True;
 end;
 
 procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ChangeNumber(Sender: TObject);
@@ -146,14 +116,6 @@ begin
   Result:= MinSecToSeconds(FMin, FSec);
 end;
 
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.SetTitle(AValue: String);
-begin
-  if (FTitle = AValue) then Exit;
-
-  FTitle:= AValue;
-  LabelTitle.Caption:= FTitle;
-end;
-
 procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
@@ -167,20 +129,8 @@ begin
   ShowClose;
 end;
 
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ShowClose;
-begin
-  ExhibiterList.ShowType:= Disappear;
-  ExhibiterList.OnFinish:= {$ifdef FPC}@{$endif}DoClose;
-  ExhibiterList.ExecuteOnce:= True;
-end;
-
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.DoClose(Sender: TObject);
-begin
-  Closed:= True;
-end;
-
 { ========= ------------------------------------------------------------------ }
-{ TSeqEditTimeMinSec ------------------------------------------------------------ }
+{ TSeqEditTimeMinSec --------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
 constructor TSeqEditTimeMinSec.CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
@@ -197,7 +147,7 @@ begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqEditTimeMinSecDialog.Create(FreeAtStop);
+  FDialog:= TSeqEditTimeMinSecDialog.CreateNew('castle-data:/edittime_min_sec.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
