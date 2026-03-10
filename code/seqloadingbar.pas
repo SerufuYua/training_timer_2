@@ -88,20 +88,30 @@ end;
 
 procedure TSeqLoadingBar.CalcRectangles;
 var
-  i: Integer;
-  BarStep, BarWidth, Shift, HeightStep: Single;
+  i, HighBars: Integer;
+  BarStep, BarWidth, Shift, HeightStep, HeightBorder, BarsValue: Single;
 begin
   HeightStep:= RenderRect.Height / Bars;
   BarStep:= RenderRect.Width / Bars;
   BarWidth:= BarStep * FCycle;
   Shift:= (BarStep - BarWidth) / 2.0;
 
+  BarsValue:= Bars * FValue;
+  HighBars:= Trunc(BarsValue);
+  HeightBorder:= BarsValue - HighBars;
+
   for i:= 0 to High(FRectangles) do
   begin
     FRectangles[i].Left:=  RenderRect.Left + BarStep * i + Shift;
     FRectangles[i].Width:= BarWidth;
     FRectangles[i].Bottom:= RenderRect.Bottom;
-    FRectangles[i].Height:= HeightStep * (i + 1);
+
+    if (i <= (HighBars - 1)) then
+      FRectangles[i].Height:= HeightStep * (i + 1)
+    else if (i = HighBars) then
+      FRectangles[i].Height:= HeightBorder* HeightStep * (i + 1)
+    else
+      FRectangles[i].Height:= 0;
   end;
 end;
 
