@@ -53,9 +53,10 @@ type
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
     ImageTimer, ImageActions: TCastleImageControl;
     TunnelBG: TSeqTunnelEffect;
-    LoadingBars: TSeqLoadingBar;
+    LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
     LabelFps, LabelSequenceName, LabelPeriodName,
-      LabelMin, LabelSec, LabelSecPart, LabelFullTime: TCastleLabel;
+      LabelMin, LabelMinShadow, LabelSec, LabelSecShadow, LabelSecPart,
+      LabelSecPartShadow, LabelFullTime, LabelFullTimeShadow: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -302,6 +303,7 @@ end;
 procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
+  LoadingBarsShadow.Value:= AValue;
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
@@ -313,18 +315,31 @@ end;
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);
 var
   min, sec, part: Integer;
+  s: String;
 begin
   SecondsToMinSec(Round(ASeconds), min, sec);
   part:= Trunc(Frac(ASeconds) * 10.0);
 
-  LabelMin.Caption:= Format('%.2d', [min]);
-  LabelSec.Caption:= Format('%.2d', [sec]);
-  LabelSecPart.Caption:= Format('%.1d', [part]);
+  s:= Format('%.2d', [min]);
+  LabelMin.Caption:= s;
+  LabelMinShadow.Caption:= s;
+
+  s:= Format('%.2d', [sec]);
+  LabelSec.Caption:= s;
+  LabelSecShadow.Caption:= s;
+
+  s:= Format('%.1d', [part]);
+  LabelSecPart.Caption:= s;
+  LabelSecPartShadow.Caption:= s;
 end;
 
 procedure TViewSequenceTimer.ShowFullTime(ASeconds: Single);
+var
+  s: String;
 begin
-  LabelFullTime.Caption:= TimeToShortStr(Round(ASeconds));
+  s:= TimeToShortStr(Round(ASeconds));;
+  LabelFullTime.Caption:= s;
+  LabelFullTimeShadow.Caption:= s;
 end;
 
 procedure TViewSequenceTimer.DoAferLoad(Sender: TObject);
