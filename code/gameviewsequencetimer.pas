@@ -29,7 +29,7 @@ type
   protected
     FReturnTo: TCastleView;
     FEnabled: Boolean;
-    FSpeedBuff, FSpeedCount: Single;
+    FCountFactor: Single;
     FPeriods: TPeriodsList;
     FSequenceName: String;
     FPeriod: Integer;
@@ -107,8 +107,7 @@ begin
   inherited;
 
   FEnabled:= False;
-  FSpeedCount:= 0.0;
-  FSpeedBuff:= TunnelBG.Speed;
+  FCountFactor:= 0.0;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
 
@@ -147,7 +146,7 @@ begin
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
   if NOT FEnabled then Exit;
-  FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FSpeedCount;
+  FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FCountFactor;
   RemainingSeconds:= FTargetSeconds - FElapsedSeconds;
 
   { play warning and initial signals }
@@ -304,7 +303,7 @@ procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
   LoadingBarsShadow.Value:= AValue;
-  TunnelBG.Speed:= 0.2 + 2.0 * AValue;
+  TunnelBG.Speed:= (0.2 + 2.0 * AValue) * FCountFactor;
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
@@ -360,16 +359,13 @@ end;
 procedure TViewSequenceTimer.Pause;
 begin
   inherited;
-  FSpeedCount:= 0.0;
-  FSpeedBuff:= TunnelBG.Speed;
-  TunnelBG.Speed:= 0.0;
+  FCountFactor:= 0.0;
 end;
 
 procedure TViewSequenceTimer.Resume;
 begin
   inherited;
-  TunnelBG.Speed:= FSpeedBuff;
-  FSpeedCount:= 1.0;
+  FCountFactor:= 1.0;
 end;
 
 end.
