@@ -186,7 +186,7 @@ begin
     ShowTime(RemainingSeconds);
     ShowFullTime(FFullSeconds - FElapsedSeconds);
     ShowProgress(RemainingSeconds);
-    LoadingBars.Value:= 1.0 - RemainingSeconds / FPeriodSeconds;
+    ShowProgress(1.0 - RemainingSeconds / FPeriodSeconds);
   end
   else
   begin
@@ -301,7 +301,7 @@ end;
 
 procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
-
+  LoadingBars.Value:= AValue;
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
