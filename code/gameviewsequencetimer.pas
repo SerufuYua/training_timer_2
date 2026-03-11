@@ -304,6 +304,7 @@ procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
   LoadingBarsShadow.Value:= AValue;
+  TunnelBG.Speed:= 0.2 + 2.0 * AValue;
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
