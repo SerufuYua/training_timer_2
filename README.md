@@ -1,6 +1,6 @@
 ![banner](./data/tunnel/tunnel_banner_hr.png)
 
-# Training Timer 2
+# Training Timer 2: Zero Time
 
 This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
 
