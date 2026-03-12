@@ -1,4 +1,12 @@
+![banner](./data/tunnel/tunnel_banner_hr.png)
+
 # Training Timer 2
+
+This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
+
+Professional mode allows you to set any custom time periods with any sounds and signal colors. You can create your own chains of periods: progressive, regressive, with an extended rest period in the middle, and much more.
+
+The application is completely free and open source.
 
 Using [Castle Game Engine](https://castle-engine.io/).
 
