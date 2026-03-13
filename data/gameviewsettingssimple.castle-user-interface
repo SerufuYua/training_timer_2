@@ -13,20 +13,8 @@
   "$Children" : [
     {
       "$$ClassName" : "TSeqTunnelEffect",
-      "ColorBGPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000
-      },
-      "ColorMeshPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000,
-        "Blue" : 2.3529412224888802E-002,
-        "Green" : 5.0980392843484879E-002,
-        "Red" : 5.0980392843484879E-002
-      },
       "ColorPersistent" : {
-        "$$ClassName" : "TCastleColorPersistent",
-        "Alpha" : 1.0000000000000000E+000,
+        "$$ClassName" : "TCastleColorRGBPersistent",
         "Blue" : 9.8039217293262482E-002,
         "Green" : 9.8039217293262482E-002,
         "Red" : 9.8039217293262482E-002
@@ -36,6 +24,18 @@
       "Speed" : 2.5000000372529030E-002,
       "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
+        {
+          "$$ClassName" : "TCastleRectangleControl",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Alpha" : 6.0000002384185791E-001,
+            "Blue" : 9.8039217293262482E-002,
+            "Green" : 9.8039217293262482E-002,
+            "Red" : 9.8039217293262482E-002
+          },
+          "FullSize" : true,
+          "Name" : "RectangleShade"
+        },
         {
           "$$ClassName" : "TCastleFlashEffect",
           "Image" : {
@@ -177,7 +177,7 @@
                   "Name" : "ButtonAddSeq",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 4.5300000000000000E+002
+                    "X" : 4.5299996948242188E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
