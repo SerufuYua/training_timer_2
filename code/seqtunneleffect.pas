@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, CastleUIControls, CastleControls, CastleClassUtils,
-  CastleScene, CastleColors, X3DNodes;
+  CastleScene, CastleColors, X3DNodes, SeqFlyingObjects;
 
 type
   TSeqTunnelEffect = class(TCastleUserInterface)
@@ -16,6 +16,7 @@ type
     FBoxBG: TCastleBox;
     FTunnel: TCastleScene;
     FFog: TCastleFog;
+    FFlyingObjects: TSeqFlyingObjects;
     FSpeed, FColorTransit, FColorTime: Single;
     FColor, FColorBuff, FColorBG, FColorMesh: TCastleColorRGB;
     FColorPersistent, FColorBGPersistent, FColorMeshPersistent: TCastleColorRGBPersistent;
@@ -24,6 +25,7 @@ type
     procedure SetColor(const AValue: TCastleColorRGB);
     procedure SetColorBG(const AValue: TCastleColorRGB);
     procedure SetColorMesh(const AValue: TCastleColorRGB);
+    procedure ApplySpeed;
     procedure ApplyColor;
     procedure ApplyColorBG;
     procedure ApplyColorMesh;
@@ -166,7 +168,9 @@ begin
   FBoxBG:= FDesign.DesignedComponent('BoxBG', False) as TCastleBox;
   FTunnel:= FDesign.DesignedComponent('Tunnel', False) as TCastleScene;
   FFog:= FDesign.DesignedComponent('FogColor', False) as TCastleFog;
+  FFlyingObjects:= FDesign.DesignedComponent('FlyingObjects', False) as TSeqFlyingObjects;
 
+  ApplySpeed;
   ApplyColor;
   ApplyColorBG;
   ApplyColorMesh;
@@ -176,6 +180,7 @@ procedure TSeqTunnelEffect.SetSpeed(AValue: Single);
 begin
   if (FSpeed = AValue) then Exit;
   FSpeed:= AValue;
+  ApplySpeed;
 end;
 
 procedure TSeqTunnelEffect.SetColor(const AValue: TCastleColorRGB);
@@ -194,6 +199,15 @@ procedure TSeqTunnelEffect.SetColorMesh(const AValue: TCastleColorRGB);
 begin
   FColorMesh:= AValue;
   ApplyColorMesh;
+end;
+
+procedure TSeqTunnelEffect.ApplySpeed;
+begin
+  if Assigned(FFlyingObjects) then
+  begin
+    FFlyingObjects.Speed:= FSpeed;
+    FFlyingObjects.SpeedRandom:= FSpeed * 0.2;
+  end;
 end;
 
 procedure TSeqTunnelEffect.ApplyColor;

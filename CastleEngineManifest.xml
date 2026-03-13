@@ -12,7 +12,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   caption="Training Timer 2"
   editor_units="SeqExhibiter,
                 SeqTunnelEffect,
-                SeqLoadingBar"
+                SeqLoadingBar,
+                SeqFlyingObjects"
 >
   <compiler_options>
     <search_paths>
