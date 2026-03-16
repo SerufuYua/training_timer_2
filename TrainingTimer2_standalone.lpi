@@ -66,7 +66,7 @@
         <PackageName Value="castle_engine_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="17">
+    <Units Count="18">
       <Unit0>
         <Filename Value="TrainingTimer2_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -150,6 +150,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SeqFlyingObjects"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="code/gameviewbanner.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewBanner"/>
+      </Unit17>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

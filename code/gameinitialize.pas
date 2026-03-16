@@ -17,6 +17,7 @@ uses SysUtils,
   // The content here may be automatically updated by CGE editor.
   , GameViewSettingsSimple
   , GameViewSequenceTimer
+  , GameViewBanner
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -41,9 +42,13 @@ begin
   // The content here may be automatically updated by CGE editor.
   ViewSettingsSimple := TViewSettingsSimple.Create(Application);
   ViewSequenceTimer := TViewSequenceTimer.Create(Application);
+  ViewBanner := TViewBanner.Create(Application);
   {$endregion 'Castle View Creation'}
 
-  Window.Container.View := ViewSettingsSimple;
+  if Application.hasOption('B', 'Banner') then
+    Window.Container.View:= ViewBanner
+  else
+    Window.Container.View:= ViewSettingsSimple;
 end;
 
 initialization
