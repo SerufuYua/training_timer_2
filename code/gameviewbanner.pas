@@ -67,9 +67,10 @@ begin
 
   if TVector3.Equals(TunnelBG.Color, FColorChain[FColorIdx], 0.01) then
   begin
-    FColorIdx:= FColorIdx + 1;
-    if (FColorIdx > High(FColorChain)) then
-      FColorIdx:= 0;
+    if (FColorIdx >= High(FColorChain)) then
+      FColorIdx:= 0
+    else
+      FColorIdx:= FColorIdx + 1;
   end
   else
     TunnelBG.Color:= Lerp(SecondsPassed * 2.0, TunnelBG.Color, FColorChain[FColorIdx]);
