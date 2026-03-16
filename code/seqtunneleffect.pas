@@ -106,7 +106,7 @@ begin
   end;
 
   { transit color }
-  if Assigned(FFog) then
+  if (Assigned(FFog) AND (FColorTransit > 0.0)) then
   begin
     if (FColorTime > 0.0) then
     begin
@@ -188,8 +188,17 @@ procedure TSeqTunnelEffect.ApplyColor;
 begin
   if Assigned(FFog) then
   begin
-    FColorTime:= FColorTransit;
-    FColorBuff:= FFog.Color;
+    if (FColorTransit > 0.0) then
+    begin
+      FColorTime:= FColorTransit;
+      FColorBuff:= FFog.Color;
+    end
+    else
+    begin
+      FColorTime:= 0.0;
+      FColorBuff:= FColor;
+      FFog.Color:= FColor;
+    end;
   end;
 end;
 
