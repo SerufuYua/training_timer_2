@@ -21,7 +21,7 @@
       },
       "FullSize" : true,
       "Name" : "TunnelBG",
-      "Speed" : 2.0000000298023224E-001,
+      "Speed" : 6.0000002384185791E-001,
       "Url" : "castle-data:/tunnel.castle-user-interface",
       "$Children" : [
         {

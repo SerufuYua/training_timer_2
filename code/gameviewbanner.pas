@@ -3,14 +3,17 @@ unit GameViewBanner;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse;
+  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
+  CastleFlashEffect, SeqTunnelEffect;
 
 type
   TViewBanner = class(TCastleView)
+  protected
+    procedure DoAferLoad(Sender: TObject);
   published
-    { Components designed using CGE editor.
-      These fields will be automatically initialized at Start. }
-    // ButtonXxx: TCastleButton;
+    FlashEffect: TCastleFlashEffect;
+    TunnelBG: TSeqTunnelEffect;
+    LabelFps: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -22,6 +25,9 @@ var
 
 implementation
 
+uses
+  CastleColors;
+
 constructor TViewBanner.Create(AOwner: TComponent);
 begin
   inherited;
@@ -31,13 +37,23 @@ end;
 procedure TViewBanner.Start;
 begin
   inherited;
-  { Executed once when view starts. }
+
+  { Show start animation }
+  WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 end;
 
 procedure TViewBanner.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
-  { Executed every frame. }
+  Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
+  LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
+end;
+
+procedure TViewBanner.DoAferLoad(Sender: TObject);
+begin
+  { appearing background }
+  FlashEffect.Duration:= 0.4;
+  FlashEffect.Flash(Black, True);
 end;
 
 end.
