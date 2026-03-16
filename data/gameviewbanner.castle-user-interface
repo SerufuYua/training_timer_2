@@ -314,6 +314,30 @@
           ]
         },
         {
+          "$$ClassName" : "TCastleLabel",
+          "Alignment" : "hpMiddle",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Blue" : 1.0000000000000000E+000,
+            "Green" : 1.0000000000000000E+000,
+            "Red" : 1.0000000000000000E+000
+          },
+          "CustomFont" : "FontF0F",
+          "FontScale" : 5.0000000000000000E-001,
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
+          "Name" : "LabelStart",
+          "Text" : [
+            "Touch to start..."
+          ],
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "Y" : -4.0000000000000000E+002
+          },
+          "VerticalAnchorParent" : "vpMiddle",
+          "VerticalAnchorSelf" : "vpMiddle"
+        },
+        {
           "$$ClassName" : "TCastleFlashEffect",
           "EditorSelectOnHover" : false,
           "Image" : {

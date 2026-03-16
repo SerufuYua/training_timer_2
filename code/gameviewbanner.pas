@@ -9,17 +9,19 @@ uses Classes,
 type
   TViewBanner = class(TCastleView)
   protected
+    FTxtTrans: Single;
     FColorIdx: Integer;
     FColorChain: Array[0..7] of TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
   published
     FlashEffect: TCastleFlashEffect;
     TunnelBG: TSeqTunnelEffect;
-    LabelFps: TCastleLabel;
+    LabelFps, LabelStart: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
+    function Press(const Event: TInputPressRelease): Boolean; override;
   end;
 
 var
@@ -28,7 +30,7 @@ var
 implementation
 
 uses
-  CastleVectors;
+  CastleVectors, GameViewSettingsSimple, Math, CastleUtils;
 
 constructor TViewBanner.Create(AOwner: TComponent);
 begin
@@ -52,6 +54,7 @@ begin
   FColorChain[7]:= GrayRGB;
 
   FColorIdx:= 0;
+  FTxtTrans:= 0.0;
 
   { Show start animation }
   FlashEffect.Duration:= 4.0;
@@ -60,12 +63,17 @@ begin
 end;
 
 procedure TViewBanner.Update(const SecondsPassed: Single; var HandleInput: boolean);
+var
+  TxtColor: TCastleColor;
+const
+  Epsilon = 0.01;
 begin
   inherited;
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
-  if TVector3.Equals(TunnelBG.Color, FColorChain[FColorIdx], 0.01) then
+  { switch colors }
+  if TVector3.Equals(TunnelBG.Color, FColorChain[FColorIdx], Epsilon) then
   begin
     if (FColorIdx >= High(FColorChain)) then
       FColorIdx:= 0
@@ -73,7 +81,30 @@ begin
       FColorIdx:= FColorIdx + 1;
   end
   else
-    TunnelBG.Color:= Lerp(SecondsPassed * 2.0, TunnelBG.Color, FColorChain[FColorIdx]);
+    TunnelBG.Color:= Lerp(SecondsPassed * 1.5, TunnelBG.Color, FColorChain[FColorIdx]);
+
+  { bilnk label }
+  TxtColor:= LabelStart.Color;
+  TxtColor.W:= Lerp(SecondsPassed * 6.0, TxtColor.W, FTxtTrans);
+  LabelStart.Color:= TxtColor;
+
+  if (System.Abs(TxtColor.W - FTxtTrans) <= Epsilon) then
+   if (FTxtTrans = 1.0) then
+     FTxtTrans:= 0.0
+   else
+     FTxtTrans:= 1.0;
+end;
+
+function TViewBanner.Press(const Event: TInputPressRelease): Boolean;
+begin
+  Result:= inherited;
+  if Result then Exit; // allow the ancestor to handle keys
+
+  if ((Event.MouseButton = buttonLeft) OR
+      (Event.MouseButton = buttonRight) OR
+      (Event.MouseButton = buttonMiddle) OR
+      Event.IsKey(TKey.keyNone)) then
+    Container.View:= ViewSettingsSimple;
 end;
 
 procedure TViewBanner.DoAferLoad(Sender: TObject);
