@@ -39,6 +39,8 @@ begin
   inherited;
 
   { Show start animation }
+  FlashEffect.Duration:= 4.0;
+  FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 end;
 
@@ -47,6 +49,8 @@ begin
   inherited;
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
+
+  TunnelBG.Color:= Lerp(SecondsPassed * 0.5, TunnelBG.Color, GreenRGB);
 end;
 
 procedure TViewBanner.DoAferLoad(Sender: TObject);
