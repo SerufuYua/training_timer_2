@@ -3,12 +3,14 @@ unit GameViewBanner;
 interface
 
 uses Classes,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleFlashEffect, SeqTunnelEffect;
+  CastleUIControls, CastleControls, CastleKeysMouse,
+  CastleFlashEffect, SeqTunnelEffect, CastleColors;
 
 type
   TViewBanner = class(TCastleView)
   protected
+    FColorIdx: Integer;
+    FColorChain: Array[0..7] of TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
   published
     FlashEffect: TCastleFlashEffect;
@@ -26,7 +28,7 @@ var
 implementation
 
 uses
-  CastleColors;
+  CastleVectors;
 
 constructor TViewBanner.Create(AOwner: TComponent);
 begin
@@ -37,6 +39,19 @@ end;
 procedure TViewBanner.Start;
 begin
   inherited;
+
+  TunnelBG.ColorTransition:= 0.0;
+
+  FColorChain[0]:= GreenRGB;
+  FColorChain[1]:= GrayRGB;
+  FColorChain[2]:= RedRGB;
+  FColorChain[3]:= GrayRGB;
+  FColorChain[4]:= YellowRGB;
+  FColorChain[5]:= GrayRGB;
+  FColorChain[6]:= BlueRGB;
+  FColorChain[7]:= GrayRGB;
+
+  FColorIdx:= 0;
 
   { Show start animation }
   FlashEffect.Duration:= 4.0;
@@ -50,7 +65,14 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
-  TunnelBG.Color:= Lerp(SecondsPassed * 0.5, TunnelBG.Color, GreenRGB);
+  if TVector3.Equals(TunnelBG.Color, FColorChain[FColorIdx], 0.01) then
+  begin
+    FColorIdx:= FColorIdx + 1;
+    if (FColorIdx > High(FColorChain)) then
+      FColorIdx:= 0;
+  end
+  else
+    TunnelBG.Color:= Lerp(SecondsPassed * 2.0, TunnelBG.Color, FColorChain[FColorIdx]);
 end;
 
 procedure TViewBanner.DoAferLoad(Sender: TObject);

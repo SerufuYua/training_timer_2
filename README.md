@@ -1,4 +1,4 @@
-![banner](./data/tunnel/tunnel_banner_hr.png)
+![banner](./data/banner/banner_blue.png)
 
 # Training Timer 2: Zero Time
 
