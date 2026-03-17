@@ -9,12 +9,23 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   standalone_source="TrainingTimer2_standalone.dpr"
   game_units="GameInitialize"
   qualified_name="com.mycompany.TrainingTimer2"
-  caption="Training Timer 2"
+  caption="Training Timer 2: Zero Time"
+  author="Serufu Yua"
+  screen_orientation="portrait"
   editor_units="SeqExhibiter,
                 SeqTunnelEffect,
                 SeqLoadingBar,
                 SeqFlyingObjects"
 >
+  <icons>
+    <icon path="icon/icon_024.png " />
+    <icon path="icon/icon_032.png " />
+    <icon path="icon/icon_048.png " />
+    <icon path="icon/icon_064.png " />
+    <icon path="icon/icon_128.png " />
+    <icon path="icon/icon_256.png " />
+  </icons>
+  <version value="1.0" code="14" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
