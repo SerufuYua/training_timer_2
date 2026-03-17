@@ -2,14 +2,6 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "RootGroup",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0F",
-      "OptimalSize" : 48,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleImageControl",
@@ -75,7 +67,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 4.8000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelTitle",
@@ -155,7 +147,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -163,6 +154,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -213,7 +205,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -221,6 +212,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -271,7 +263,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -279,6 +270,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -329,7 +321,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -337,6 +328,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -387,7 +379,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -395,6 +386,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -445,7 +437,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -453,6 +444,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -503,7 +495,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -511,6 +502,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -561,7 +553,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -569,6 +560,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -619,7 +611,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -627,6 +618,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -677,7 +669,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -685,6 +676,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -735,7 +727,6 @@
                               },
                               "Url" : "castle-data:/ui/button_list_pressed.png"
                             },
-                            "CustomFont" : "FontF0F",
                             "CustomTextColorPersistent" : {
                               "$$ClassName" : "TCastleColorPersistent",
                               "Blue" : 1.0000000000000000E+000,
@@ -743,6 +734,7 @@
                               "Red" : 1.0000000000000000E+000
                             },
                             "CustomTextColorUse" : true,
+                            "FontSize" : 4.8000000000000000E+001,
                             "Height" : 6.5000000000000000E+001,
                             "Image" : {
                               "$$ClassName" : "TCastleImagePersistent"
@@ -782,7 +774,7 @@
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.2700000000000000E+002
+                    "Y" : -1.2710000610351562E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -820,7 +812,6 @@
                     },
                     "Url" : "castle-data:/ui/button_pressed.png"
                   },
-                  "CustomFont" : "FontF0F",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -828,6 +819,7 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
@@ -839,7 +831,7 @@
                   "Tag" : 5,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -9.5900000000000000E+002
+                    "Y" : -9.5909997558593750E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",

@@ -2,14 +2,6 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "RootGroup",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0F",
-      "OptimalSize" : 160,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TSeqTunnelEffect",
@@ -51,7 +43,7 @@
                 {
                   "$$ClassName" : "TCastleLabel",
                   "Alignment" : "hpRight",
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 1.6000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelMineWideShadow",
@@ -67,8 +59,8 @@
                 },
                 {
                   "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0F",
                   "FontScale" : 8.0000001192092896E-001,
+                  "FontSize" : 1.4000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelSubWideShadow",
@@ -103,7 +95,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 1.6000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelMineWide",
@@ -125,8 +117,8 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
                   "FontScale" : 8.0000001192092896E-001,
+                  "FontSize" : 1.4000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelSubWide",
@@ -171,7 +163,7 @@
                 {
                   "$$ClassName" : "TCastleLabel",
                   "Alignment" : "hpRight",
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 1.6000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "LineSpacing" : 5.0000000000000000E+001,
@@ -190,8 +182,7 @@
                 },
                 {
                   "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0F",
-                  "FontScale" : 2.0000000000000000E+000,
+                  "FontSize" : 3.2000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "LineSpacing" : 5.0000000000000000E+001,
@@ -209,8 +200,7 @@
                 },
                 {
                   "$$ClassName" : "TCastleLabel",
-                  "CustomFont" : "FontF0F",
-                  "FontScale" : 6.0000002384185791E-001,
+                  "FontSize" : 9.0000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelSubTallShadow",
@@ -245,7 +235,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 1.6000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "LineSpacing" : 5.0000000000000000E+001,
@@ -270,8 +260,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
-                  "FontScale" : 2.0000000000000000E+000,
+                  "FontSize" : 3.2000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "LineSpacing" : 5.0000000000000000E+001,
@@ -295,8 +284,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
-                  "FontScale" : 6.0000002384185791E-001,
+                  "FontSize" : 9.0000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelSubTall",
@@ -324,8 +312,7 @@
             "Green" : 1.0000000000000000E+000,
             "Red" : 1.0000000000000000E+000
           },
-          "CustomFont" : "FontF0F",
-          "FontScale" : 5.0000000000000000E-001,
+          "FontSize" : 8.0000000000000000E+001,
           "HorizontalAnchorParent" : "hpMiddle",
           "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "LabelStart",
@@ -354,8 +341,7 @@
             "Blue" : 6.6666670143604279E-002,
             "Green" : 9.8823529481887817E-001
           },
-          "Exists" : false,
-          "FontSize" : 2.0000000000000000E+001,
+          "FontSize" : 3.2000000000000000E+001,
           "HorizontalAnchorParent" : "hpRight",
           "HorizontalAnchorSelf" : "hpRight",
           "Name" : "LabelFps",

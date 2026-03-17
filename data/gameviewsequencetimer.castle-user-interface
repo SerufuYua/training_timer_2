@@ -2,26 +2,6 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "RootGroup",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0F",
-      "OptimalSize" : 48,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    },
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0Fbig",
-      "OptimalSize" : 96,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    },
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0Fhuge",
-      "OptimalSize" : 192,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TSeqTunnelEffect",
@@ -87,7 +67,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 4.8000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelSequenceName",
@@ -109,7 +89,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 4.8000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelPeriodName",
@@ -118,7 +98,7 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.0900000000000000E+002
+                    "Y" : -1.0909999084472656E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -159,7 +139,7 @@
           "$Children" : [
             {
               "$$ClassName" : "TCastleLabel",
-              "CustomFont" : "FontF0F",
+              "FontSize" : 4.8000000000000000E+001,
               "Name" : "LabelFullTimeShadow",
               "Text" : [
                 "00:00"
@@ -180,7 +160,7 @@
                 "Green" : 1.0000000000000000E+000,
                 "Red" : 1.0000000000000000E+000
               },
-              "CustomFont" : "FontF0F",
+              "FontSize" : 4.8000000000000000E+001,
               "Name" : "LabelFullTime",
               "Text" : [
                 "00:00"
@@ -250,7 +230,7 @@
                   "$Children" : [
                     {
                       "$$ClassName" : "TCastleLabel",
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelMinShadow",
@@ -266,7 +246,7 @@
                     },
                     {
                       "$$ClassName" : "TCastleLabel",
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelDelim1Shadow",
@@ -282,7 +262,7 @@
                     },
                     {
                       "$$ClassName" : "TCastleLabel",
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelSecShadow",
@@ -298,7 +278,7 @@
                     },
                     {
                       "$$ClassName" : "TCastleLabel",
-                      "CustomFont" : "FontF0Fbig",
+                      "FontSize" : 9.6000000000000000E+001,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelDelim2Shadow",
@@ -315,7 +295,7 @@
                     },
                     {
                       "$$ClassName" : "TCastleLabel",
-                      "CustomFont" : "FontF0Fbig",
+                      "FontSize" : 9.6000000000000000E+001,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelSecPartShadow",
@@ -389,7 +369,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelMin",
@@ -411,7 +391,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelDelim1",
@@ -433,7 +413,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
-                      "CustomFont" : "FontF0Fhuge",
+                      "FontSize" : 1.9200000000000000E+002,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelSec",
@@ -455,7 +435,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
-                      "CustomFont" : "FontF0Fbig",
+                      "FontSize" : 9.6000000000000000E+001,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelDelim2",
@@ -478,7 +458,7 @@
                         "Green" : 1.0000000000000000E+000,
                         "Red" : 1.0000000000000000E+000
                       },
-                      "CustomFont" : "FontF0Fbig",
+                      "FontSize" : 9.6000000000000000E+001,
                       "HorizontalAnchorParent" : "hpMiddle",
                       "HorizontalAnchorSelf" : "hpMiddle",
                       "Name" : "LabelSecPart",
@@ -570,7 +550,6 @@
                     },
                     "Url" : "castle-data:/ui/button_pressed.png"
                   },
-                  "CustomFont" : "FontF0F",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -578,6 +557,7 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -623,7 +603,6 @@
                     },
                     "Url" : "castle-data:/ui/button_pressed.png"
                   },
-                  "CustomFont" : "FontF0F",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -631,6 +610,7 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -639,7 +619,7 @@
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.1600000000000000E+002
+                    "X" : 2.1530000305175781E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -676,7 +656,6 @@
                     },
                     "Url" : "castle-data:/ui/button_pressed.png"
                   },
-                  "CustomFont" : "FontF0F",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -684,6 +663,7 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -692,7 +672,7 @@
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 4.6400000000000000E+002
+                    "X" : 4.6179998779296875E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
@@ -746,7 +726,7 @@
             "Blue" : 6.6666670143604279E-002,
             "Green" : 9.8823529481887817E-001
           },
-          "FontSize" : 2.0000000000000000E+001,
+          "FontSize" : 3.2000000000000000E+001,
           "HorizontalAnchorParent" : "hpRight",
           "HorizontalAnchorSelf" : "hpRight",
           "Name" : "LabelFps",

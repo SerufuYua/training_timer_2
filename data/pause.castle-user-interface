@@ -2,14 +2,6 @@
   "$$ClassName" : "TCastleUserInterface",
   "FullSize" : true,
   "Name" : "RootGroup",
-  "$NonVisualComponents" : [
-    {
-      "$$ClassName" : "TCastleFont",
-      "Name" : "FontF0F",
-      "OptimalSize" : 48,
-      "Url" : "castle-data:/font/future_n0t_found_regular.ttf"
-    }
-  ],
   "$Children" : [
     {
       "$$ClassName" : "TCastleImageControl",
@@ -75,7 +67,7 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "CustomFont" : "FontF0F",
+                  "FontSize" : 4.8000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelTitle",
@@ -119,7 +111,6 @@
                     },
                     "Url" : "castle-data:/ui/button_pressed.png"
                   },
-                  "CustomFont" : "FontF0F",
                   "CustomTextColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -127,6 +118,7 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",

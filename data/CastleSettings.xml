@@ -11,4 +11,12 @@ See https://castle-engine.io/manual_castle_settings.php for documentation of thi
     reference_width="800"
     reference_height="1600"
   />
+<default_font>
+    <regular
+      url="font/future_n0t_found_regular.ttf"
+      size="160"
+      anti_aliased="true"
+      sample_text="ЙЦУКЕЁНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮйцукеёнгшщзхъфывапролджэячсмитьбю№"
+    />
+</default_font>
 </castle_settings>
