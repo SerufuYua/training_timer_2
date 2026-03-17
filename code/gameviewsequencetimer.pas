@@ -47,6 +47,8 @@ type
     procedure ShowTime(ASeconds: Single);
     procedure ShowFullTime(ASeconds: Single);
     procedure ButtonActionClick(Sender: TObject);
+    procedure OnTouchTimer(const Sender: TCastleUserInterface;
+      const Event: TInputPressRelease; var Handled: Boolean);
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
@@ -301,6 +303,13 @@ begin
   end;
 end;
 
+procedure TViewSequenceTimer.OnTouchTimer(const Sender: TCastleUserInterface;
+  const Event: TInputPressRelease; var Handled: Boolean);
+begin
+  if NOT (Container.FrontView is TSeqPause) then
+    Container.PushView(TSeqPause.CreateUntilStopped);
+end;
+
 procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
@@ -355,6 +364,7 @@ end;
 
 procedure TViewSequenceTimer.DoAferAnimation(Sender: TObject);
 begin
+  ImageTimer.OnRelease:= {$ifdef FPC}@{$endif}OnTouchTimer;
   ResetTimer;
 end;
 
