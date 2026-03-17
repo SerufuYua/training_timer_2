@@ -170,6 +170,7 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleLabel",
+                  "Alignment" : "hpRight",
                   "CustomFont" : "FontF0F",
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
@@ -237,6 +238,7 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleLabel",
+                  "Alignment" : "hpRight",
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
