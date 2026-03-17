@@ -25,7 +25,6 @@ See https://castle-engine.io/project_manifest for documentation of this file.
     <icon path="icon/icon_128.png " />
     <icon path="icon/icon_256.png " />
   </icons>
-  <version value="1.0" code="14" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
