@@ -57,7 +57,7 @@ begin
   FTxtTrans:= 0.0;
 
   { Show start animation }
-  FlashEffect.Duration:= 4.0;
+  FlashEffect.Duration:= 6.0;
   FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 end;

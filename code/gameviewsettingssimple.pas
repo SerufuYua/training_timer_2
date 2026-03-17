@@ -123,6 +123,8 @@ begin
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
 
   { Show start animation }
+  FlashEffect.Duration:= 6.0;
+  FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 end;
 

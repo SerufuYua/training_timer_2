@@ -125,6 +125,8 @@ begin
   ExhibiterActions.OnFinish:= {$ifdef FPC}@{$endif}DoAferAnimation;
 
   { Show start animation }
+  FlashEffect.Duration:= 6.0;
+  FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
 end;
 
