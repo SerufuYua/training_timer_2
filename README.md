@@ -1,4 +1,4 @@
-![banner](./data/banner/banner_blue_hr.png)
+![banner](./data_src/banner/banner_blue_hr.png)
 
 # Training Timer 2: Zero Time
 
@@ -14,7 +14,7 @@ Using [Castle Game Engine](https://castle-engine.io/).
 
 ## Building
 
-Compile by:
+Compile for Windows:
 
 - [CGE editor](https://castle-engine.io/editor). Just use menu items _"Compile"_ or _"Compile And Run"_.
 
@@ -23,3 +23,7 @@ Compile by:
 - Or use [Lazarus](https://www.lazarus-ide.org/). Open in Lazarus `TrainingTimer2_standalone.lpi` file and compile / run from Lazarus. Make sure to first register [CGE Lazarus packages](https://castle-engine.io/lazarus).
 
 - Or use [Delphi](https://www.embarcadero.com/products/Delphi). Open in Delphi `TrainingTimer2_standalone.dproj` file and compile / run from Delphi. See [CGE and Delphi](https://castle-engine.io/delphi) documentation for details.
+
+Compile for Android:
+
+- Follow this [Giude](https://castle-engine.io/android)

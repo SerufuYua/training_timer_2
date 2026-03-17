@@ -18,12 +18,13 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 SeqFlyingObjects"
 >
   <icons>
-    <icon path="icon/icon_024.png " />
-    <icon path="icon/icon_032.png " />
-    <icon path="icon/icon_048.png " />
-    <icon path="icon/icon_064.png " />
-    <icon path="icon/icon_128.png " />
-    <icon path="icon/icon_256.png " />
+    <icon path="data_src/icon/icon.ico" />
+    <icon path="data_src/icon/icon_024.png" />
+    <icon path="data_src/icon/icon_032.png" />
+    <icon path="data_src/icon/icon_048.png" />
+    <icon path="data_src/icon/icon_064.png" />
+    <icon path="data_src/icon/icon_128.png" />
+    <icon path="data_src/icon/icon_256.png" />
   </icons>
   <compiler_options>
     <search_paths>
