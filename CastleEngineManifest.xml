@@ -8,7 +8,7 @@ See https://castle-engine.io/project_manifest for documentation of this file.
 <project name="TrainingTimer2"
   standalone_source="TrainingTimer2_standalone.dpr"
   game_units="GameInitialize"
-  qualified_name="com.mycompany.TrainingTimer2"
+  qualified_name="com.serufucompany.TrainingTimer2"
   caption="Training Timer 2: Zero Time"
   author="Serufu Yua"
   screen_orientation="portrait"
