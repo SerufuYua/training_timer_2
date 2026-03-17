@@ -1,6 +1,8 @@
-![banner](./data/banner/banner_blue.png)
+![banner](./data/banner/banner_blue_hr.png)
 
 # Training Timer 2: Zero Time
+
+New Version of [Training Timer](https://github.com/SerufuYua/training_timer)
 
 This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
 
