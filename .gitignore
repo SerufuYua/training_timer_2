@@ -35,6 +35,9 @@ __history
 # Auto-updated by CGE tools when compiling Windows build
 castle-auto-generated-resources.res
 
+# Android package
+*.apk
+
 # May contain secret data (your Android keystore username and password)
 AndroidSigningProperties.txt
 
