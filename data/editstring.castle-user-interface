@@ -87,6 +87,7 @@
                   "$$ClassName" : "TCastleEdit",
                   "Alignment" : "hpMiddle",
                   "AutoOnScreenKeyboard" : true,
+                  "AutoSizeHeight" : false,
                   "BackgroundColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Alpha" : 0.0000000000000000E+000
@@ -111,6 +112,7 @@
                   },
                   "FontSize" : 4.8000000000000000E+001,
                   "Frame" : false,
+                  "Height" : 7.0000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "EditString",
@@ -120,7 +122,7 @@
                     "Green" : 7.4901962280273438E-001,
                     "Red" : 7.4901962280273438E-001
                   },
-                  "Text" : "some text",
+                  "Text" : "some text Ё",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "Y" : -1.5910000610351562E+002
@@ -143,7 +145,7 @@
                   "Spacing" : 1.4000000000000000E+002,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -2.7360000610351562E+002
+                    "Y" : -2.9310000610351562E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
