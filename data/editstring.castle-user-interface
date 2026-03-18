@@ -25,8 +25,12 @@
       "HorizontalAnchorParent" : "hpMiddle",
       "HorizontalAnchorSelf" : "hpMiddle",
       "Name" : "ControlShadow",
-      "VerticalAnchorParent" : "vpMiddle",
-      "VerticalAnchorSelf" : "vpMiddle",
+      "TranslationPersistent" : {
+        "$$ClassName" : "TCastleVector2Persistent",
+        "Y" : -5.0000000000000000E+001
+      },
+      "VerticalAnchorParent" : "vpTop",
+      "VerticalAnchorSelf" : "vpTop",
       "$Children" : [
         {
           "$$ClassName" : "TCastleImageControl",
