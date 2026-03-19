@@ -15,7 +15,7 @@ type
       protected
         FSec, Fmin: Integer;
         FOnReturnSeconds: TReturnSeconds;
-        EditMinNumber, EditSecNumber: TCastleEdit;
+        EditMinNumber, EditSecNumber: TCastleIntegerEdit;
         ButtonMinIncrease, ButtonMinDecrease: TCastleButton;
         ButtonSecIncrease, ButtonSecDecrease: TCastleButton;
         ButtonSet: TCastleButton;
@@ -55,8 +55,8 @@ begin
   Fmin:= 0;
 
   { Find components, by name, that we need to access from code }
-  EditMinNumber:= FUiOwner.FindRequiredComponent('EditMinNumber') as TCastleEdit;
-  EditSecNumber:= FUiOwner.FindRequiredComponent('EditSecNumber') as TCastleEdit;
+  EditMinNumber:= FUiOwner.FindRequiredComponent('EditMinNumber') as TCastleIntegerEdit;
+  EditSecNumber:= FUiOwner.FindRequiredComponent('EditSecNumber') as TCastleIntegerEdit;
   ButtonMinIncrease:= FUiOwner.FindRequiredComponent('ButtonMinIncrease') as TCastleButton;
   ButtonMinDecrease:= FUiOwner.FindRequiredComponent('ButtonMinDecrease') as TCastleButton;
   ButtonSecIncrease:= FUiOwner.FindRequiredComponent('ButtonSecIncrease') as TCastleButton;
@@ -74,7 +74,7 @@ end;
 procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ChangeNumber(Sender: TObject);
 var
   component: TComponent;
-  edit: TCastleEdit;
+  edit: TCastleIntegerEdit;
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
@@ -90,24 +90,24 @@ begin
       Seconds:= Seconds - 1;
     'EditMinNumber':
     begin
-      edit:= Sender as TCastleEdit;
-      Seconds:= MinSecToSeconds(StrToIntDef(edit.Text, 0), FSec);
+      edit:= Sender as TCastleIntegerEdit;
+      Seconds:= MinSecToSeconds(edit.Value, FSec);
     end;
     'EditSecNumber':
     begin
-      edit:= Sender as TCastleEdit;
-      Seconds:= MinSecToSeconds(FMin, StrToIntDef(edit.Text, 0));
+      edit:= Sender as TCastleIntegerEdit;
+      Seconds:= MinSecToSeconds(FMin, edit.Value);
     end;
   end;
 end;
 
 procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.SetSeconds(AValue: Integer);
 begin
-  if (AValue >=0) then
+  if (AValue >= 0) then
   begin
     SecondsToMinSec(AValue, FMin, FSec);
-    EditMinNumber.Text:= IntToStr(FMin);
-    EditSecNumber.Text:= IntToStr(FSec);
+    EditMinNumber.Value:= FMin;
+    EditSecNumber.Value:= FSec;
   end;
 end;
 

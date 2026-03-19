@@ -15,7 +15,7 @@ type
       protected
         FNumber, FMin, FMax: Integer;
         FOnReturnInteger: TReturnInteger;
-        EditNumber: TCastleEdit;
+        EditNumber: TCastleIntegerEdit;
         ButtonIncrease, ButtonDecrease: TCastleButton;
         ButtonSet: TCastleButton;
         procedure ChangeNumber(Sender: TObject);
@@ -54,7 +54,7 @@ begin
   FMax:= 10000;
 
   { Find components, by name, that we need to access from code }
-  EditNumber:= FUiOwner.FindRequiredComponent('EditNumber') as TCastleEdit;
+  EditNumber:= FUiOwner.FindRequiredComponent('EditNumber') as TCastleIntegerEdit;
   ButtonIncrease:= FUiOwner.FindRequiredComponent('ButtonIncrease') as TCastleButton;
   ButtonDecrease:= FUiOwner.FindRequiredComponent('ButtonDecrease') as TCastleButton;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
@@ -67,7 +67,7 @@ end;
 procedure TSeqEditInteger.TSeqEditIntegerDialog.ChangeNumber(Sender: TObject);
 var
   component: TComponent;
-  edit: TCastleEdit;
+  edit: TCastleIntegerEdit;
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
@@ -75,8 +75,8 @@ begin
   case component.Name of
     'EditNumber':
     begin
-      edit:= Sender as TCastleEdit;
-      Number:= StrToIntDef(edit.Text, 0);
+      edit:= Sender as TCastleIntegerEdit;
+      Number:= edit.Value;
     end;
     'ButtonIncrease':
       Number:= Number + 1;
@@ -96,7 +96,7 @@ begin
   if (FNumber <> AValue) then
   begin
     FNumber:= AValue;
-    EditNumber.Text:= IntToStr(FNumber);
+    EditNumber.Value:= FNumber;
   end;
 end;
 

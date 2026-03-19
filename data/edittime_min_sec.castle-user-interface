@@ -149,7 +149,7 @@
                           "Width" : 8.0000000000000000E+001
                         },
                         {
-                          "$$ClassName" : "TCastleEdit",
+                          "$$ClassName" : "TCastleIntegerEdit",
                           "Alignment" : "hpMiddle",
                           "AutoOnScreenKeyboard" : true,
                           "AutoSizeHeight" : false,
@@ -187,7 +187,6 @@
                             "Green" : 7.4901962280273438E-001,
                             "Red" : 7.4901962280273438E-001
                           },
-                          "Text" : "100",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -1.3600000000000000E+002
@@ -198,6 +197,7 @@
                             "Green" : 8.1960785388946533E-001,
                             "Red" : 8.1960785388946533E-001
                           },
+                          "Value" : 100,
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "Width" : 1.5000000000000000E+002
@@ -325,7 +325,7 @@
                           "Width" : 8.0000000000000000E+001
                         },
                         {
-                          "$$ClassName" : "TCastleEdit",
+                          "$$ClassName" : "TCastleIntegerEdit",
                           "Alignment" : "hpMiddle",
                           "AutoOnScreenKeyboard" : true,
                           "AutoSizeHeight" : false,
@@ -363,7 +363,6 @@
                             "Green" : 7.4901962280273438E-001,
                             "Red" : 7.4901962280273438E-001
                           },
-                          "Text" : "100",
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -1.3600000000000000E+002
@@ -374,6 +373,7 @@
                             "Green" : 8.1960785388946533E-001,
                             "Red" : 8.1960785388946533E-001
                           },
+                          "Value" : 100,
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
                           "Width" : 1.5000000000000000E+002

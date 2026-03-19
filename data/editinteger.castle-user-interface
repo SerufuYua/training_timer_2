@@ -143,7 +143,7 @@
                       "Width" : 8.0000000000000000E+001
                     },
                     {
-                      "$$ClassName" : "TCastleEdit",
+                      "$$ClassName" : "TCastleIntegerEdit",
                       "Alignment" : "hpMiddle",
                       "AutoOnScreenKeyboard" : true,
                       "AutoSizeHeight" : false,
@@ -181,7 +181,6 @@
                         "Green" : 7.4901962280273438E-001,
                         "Red" : 7.4901962280273438E-001
                       },
-                      "Text" : "100",
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
                         "Y" : -1.3600000000000000E+002
@@ -192,6 +191,7 @@
                         "Green" : 8.1960785388946533E-001,
                         "Red" : 8.1960785388946533E-001
                       },
+                      "Value" : 100,
                       "VerticalAnchorParent" : "vpTop",
                       "VerticalAnchorSelf" : "vpTop",
                       "Width" : 1.5000000000000000E+002
@@ -251,7 +251,7 @@
                   "Spacing" : 6.4000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -5.6509997558593750E+002
+                    "Y" : -5.6510003662109375E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -356,7 +356,7 @@
                       "Tag" : 5,
                       "TranslationPersistent" : {
                         "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.6020001220703125E+002
+                        "X" : 2.6019998168945312E+002
                       },
                       "VerticalAnchorParent" : "vpMiddle",
                       "VerticalAnchorSelf" : "vpMiddle",
