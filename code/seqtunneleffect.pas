@@ -16,7 +16,7 @@ type
     FBoxBG: TCastleBox;
     FTunnel: TCastleScene;
     FFog: TCastleFog;
-    FFlyingObjects: TSeqFlyingObjects;
+    FFlyingObjects, FFlyingObjectsStar: TSeqFlyingObjects;
     FSpeed, FColorTransit, FColorTime: Single;
     FColor, FColorBuff, FColorBG: TCastleColorRGB;
     FColorPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
@@ -150,6 +150,7 @@ begin
   FTunnel:= FDesign.DesignedComponent('Tunnel', False) as TCastleScene;
   FFog:= FDesign.DesignedComponent('FogColor', False) as TCastleFog;
   FFlyingObjects:= FDesign.DesignedComponent('FlyingObjects', False) as TSeqFlyingObjects;
+  FFlyingObjectsStar:= FDesign.DesignedComponent('FlyingObjectsStar', False) as TSeqFlyingObjects;
 
   ApplySpeed;
   ApplyColor;
@@ -181,6 +182,11 @@ begin
   begin
     FFlyingObjects.Speed:= FSpeed;
     FFlyingObjects.SpeedRandom:= FSpeed * 0.2;
+  end;
+  if Assigned(FFlyingObjectsStar) then
+  begin
+    FFlyingObjectsStar.Speed:= FSpeed;
+    FFlyingObjectsStar.SpeedRandom:= FSpeed * 0.2;
   end;
 end;
 

@@ -109,6 +109,22 @@
             "SizeRandom" : 1.0000000474974513E-003
           },
           {
+            "$$ClassName" : "TSeqFlyingObjects",
+            "Instances" : 2,
+            "Name" : "FlyingObjectsStar",
+            "PositionMaxPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Z" : 0.0000000000000000E+000
+            },
+            "PositionMinPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "Z" : -5.0000000000000000E+000
+            },
+            "Reference" : "SceneCubeStar",
+            "Size" : 1.9999999552965164E-002,
+            "SizeRandom" : 1.0000000474974513E-003
+          },
+          {
             "$$ClassName" : "TCastleScene",
             "ExposeTransforms" : [
             ],
@@ -121,6 +137,20 @@
               "X" : 2.0000000000000000E+000
             },
             "Url" : "castle-data:/tunnel/box.gltf"
+          },
+          {
+            "$$ClassName" : "TCastleScene",
+            "ExposeTransforms" : [
+            ],
+            "Name" : "SceneCubeStar",
+            "RenderOptions" : {
+              "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+            },
+            "TranslationPersistent" : {
+              "$$ClassName" : "TCastleVector3Persistent",
+              "X" : 2.0000000000000000E+000
+            },
+            "Url" : "castle-data:/tunnel/box_star.gltf"
           }
         ]
       },
@@ -137,16 +167,16 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 1.7504185438156128E-001,
-          "X" : -9.8730427026748657E-001,
-          "Y" : 1.5879189968109131E-001,
-          "Z" : 3.9348909631371498E-003
+          "W" : 2.2969630360603333E-001,
+          "X" : -9.6467167139053345E-001,
+          "Y" : 2.6309359073638916E-001,
+          "Z" : 1.3797365128993988E-002
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : -1.3206258416175842E-002,
-          "Y" : 1.1152063310146332E-001,
-          "Z" : 1.2909325361251831E+000
+          "X" : 6.2642237171530724E-003,
+          "Y" : 3.4445041418075562E-001,
+          "Z" : 8.4881287813186646E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
