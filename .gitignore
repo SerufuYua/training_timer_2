@@ -51,6 +51,7 @@ CastleProjectLocalSettings.json
 *.res
 *.conf
 *.log
+*.keystore
 backup
 code/backup
 todo.txt
