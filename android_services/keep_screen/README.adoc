@@ -1,0 +1,14 @@
+## keep_screen
+
+This service allow to Manually keep the screen on
+
+link:https://developer.android.com/develop/background-work/background-tasks/awake/screen-on
+
+[source,xml]
+----
+<android>
+  <services>
+    <service name="keep_screen" />
+  </services>
+</android>
+----

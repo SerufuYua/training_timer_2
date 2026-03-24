@@ -31,6 +31,7 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   <android>
     <services>
       <service name="keyboard" />
+      <service name="keep_screen" />
     </services>
   </android>
 </project>

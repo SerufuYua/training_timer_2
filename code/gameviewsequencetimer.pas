@@ -62,6 +62,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
+    procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
     function Press(const Event: TInputPressRelease): Boolean; override;
     procedure SetupPeriod(AIndex: Integer);
@@ -94,7 +95,7 @@ var
 implementation
 
 uses
-  SysUtils, MyTimes, CastleScene, CastleViewport;
+  SysUtils, MyTimes, CastleScene, CastleViewport, SeqKeepScreenService;
 
 constructor TViewSequenceTimer.Create(AOwner: TComponent);
 begin
@@ -130,6 +131,14 @@ begin
   FlashEffect.Duration:= 6.0;
   FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
+
+  KeepScreen(True);
+end;
+
+procedure TViewSequenceTimer.Stop;
+begin
+  KeepScreen(False);
+  inherited;
 end;
 
 procedure TViewSequenceTimer.Update(const SecondsPassed: Single; var HandleInput: boolean);
