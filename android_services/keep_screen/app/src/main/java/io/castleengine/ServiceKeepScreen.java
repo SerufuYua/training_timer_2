@@ -15,7 +15,7 @@ import android.app.Activity;
 import android.view.WindowManager;
 
 /**
- * service, since this no need special permission on Android.
+ * For this service no need special permission on Android.
  */
 public class ServiceKeepScreen extends ServiceAbstract
 {
@@ -33,13 +33,14 @@ public class ServiceKeepScreen extends ServiceAbstract
        https://developer.android.com/develop/background-work/background-tasks/awake/screen-on
     */
 
-    private void keepScr(boolean enable)
+    private void keepScrOn()
     {
-        if (enable) {
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private void keepScrOff()
+    {
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
@@ -47,9 +48,9 @@ public class ServiceKeepScreen extends ServiceAbstract
     {
         if (parts.length == 2 && parts[0].equals("keep-screen")) {
             if (parts[1].equals("ON")) {
-                keepScr(true);
+                keepScrOn();
             } else if (parts[1].equals("OFF")) {
-                keepScr(false);
+                keepScrOff();
             }
             return true;
         } else {
