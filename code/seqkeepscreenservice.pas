@@ -5,23 +5,23 @@ interface
 
 uses Classes;
 
-procedure KeepScreen(enable: Boolean);
+procedure KeepScreen(AEnable: Boolean);
 
 implementation
 
 uses CastleMessaging, CastleLog;
 
-procedure KeepScreen(enable: Boolean);
+procedure KeepScreen(AEnable: Boolean);
 begin
   {$ifdef DEBUG}
-  if enable then
+  if AEnable then
     WritelnLog('keep-screen is ON')
   else
     WritelnLog('keep-screen is OFF');
   {$endif}
 
   {$if defined(ANDROID)}
-  if enable then
+  if AEnable then
     Messaging.Send(['keep-screen', 'ON'])
   else
     Messaging.Send(['keep-screen', 'OFF']);
