@@ -49,6 +49,7 @@ type
     procedure ButtonActionClick(Sender: TObject);
     procedure OnTouchTimer(const Sender: TCastleUserInterface;
       const Event: TInputPressRelease; var Handled: Boolean);
+    procedure SetEnabled(AValue: Boolean);
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
@@ -70,6 +71,7 @@ type
     procedure Pause; override;
     procedure Resume; override;
 
+    property Enabled: Boolean read FEnabled write SetEnabled;
     property Periods: TPeriodsSettings write SetPeriods;
     property ReturnTo: TCastleView write FReturnTo;
   end;
@@ -131,14 +133,12 @@ begin
   FlashEffect.Duration:= 6.0;
   FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
-
-  KeepScreen(True);
 end;
 
 procedure TViewSequenceTimer.Stop;
 begin
-  KeepScreen(False);
   inherited;
+  KeepScreen(False);
 end;
 
 procedure TViewSequenceTimer.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -158,7 +158,7 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
-  if NOT FEnabled then Exit;
+  if NOT Enabled then Exit;
   FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FCountFactor;
   RemainingSeconds:= FTargetSeconds - FElapsedSeconds;
 
@@ -240,10 +240,8 @@ begin
   FTargetSeconds:= 0;
   FElapsedSeconds:= 0;
   SetupPeriod(0);
-  ButtonPause.Enabled:= True;
-  ButtonPause.Caption:= 'Pause';
   Play(TSoundType.Init);
-  FEnabled:= True;
+  Enabled:= True;
 end;
 
 procedure TViewSequenceTimer.SetupPeriod(AIndex: Integer);
@@ -287,7 +285,7 @@ begin
   if (NOT found) then
   begin
     { got Last Period - stop counter }
-    FEnabled:= False;
+    Enabled:= False;
     ShowColor(BlackRGB, 0.2);
   end;
 end;
@@ -302,7 +300,7 @@ begin
   case button.Name of
     'ButtonStop':
     begin
-      FEnabled:= False;
+      Enabled:= False;
       Container.View:= FReturnTo;
     end;
     'ButtonRestart': ResetTimer;
@@ -377,15 +375,23 @@ begin
   ResetTimer;
 end;
 
+procedure TViewSequenceTimer.SetEnabled(AValue: Boolean);
+begin
+  KeepScreen(AValue);
+  FEnabled:= AValue;
+end;
+
 procedure TViewSequenceTimer.Pause;
 begin
   inherited;
   FCountFactor:= 0.0;
+  KeepScreen(False);
 end;
 
 procedure TViewSequenceTimer.Resume;
 begin
   inherited;
+  KeepScreen(True);
   FCountFactor:= 1.0;
 end;
 
