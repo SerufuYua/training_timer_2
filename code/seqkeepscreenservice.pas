@@ -13,10 +13,12 @@ uses CastleMessaging, CastleLog;
 
 procedure KeepScreen(enable: Boolean);
 begin
+  {$ifdef DEBUG}
   if enable then
     WritelnLog('keep-screen is ON')
   else
     WritelnLog('keep-screen is OFF');
+  {$endif}
 
   {$if defined(ANDROID)}
   if enable then
