@@ -3,8 +3,6 @@ unit SeqKeepScreenService;
 
 interface
 
-uses Classes;
-
 procedure KeepScreen(AEnable: Boolean);
 
 implementation
