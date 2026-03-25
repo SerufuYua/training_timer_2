@@ -6,11 +6,6 @@
 
 package io.castleengine;
 
-import android.Manifest;
-import android.view.View;
-import android.os.Build;
-import android.content.Context;
-import android.content.Intent;
 import android.app.Activity;
 import android.view.WindowManager;
 
@@ -33,12 +28,12 @@ public class ServiceKeepScreen extends ServiceAbstract
        https://developer.android.com/develop/background-work/background-tasks/awake/screen-on
     */
 
-    private void keepScrOn()
+    private void keepScreenOn()
     {
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    private void keepScrOff()
+    private void keepScreenOff()
     {
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
@@ -48,9 +43,9 @@ public class ServiceKeepScreen extends ServiceAbstract
     {
         if (parts.length == 2 && parts[0].equals("keep-screen")) {
             if (parts[1].equals("ON")) {
-                keepScrOn();
+                keepScreenOn();
             } else if (parts[1].equals("OFF")) {
-                keepScrOff();
+                keepScreenOff();
             }
             return true;
         } else {
