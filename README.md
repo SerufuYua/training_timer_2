@@ -28,6 +28,8 @@ Compile for Windows:
 
 Compile for Android:
 
-- Follow this [Guide](https://castle-engine.io/android)
+- Copy content of [android_services](./android_services) folder to _Castle_Game_Engine_path_\tools\build-tool\data\android\ to support special Android fetures.
 
-- How to [Signing a release APK/AAB](https://castle-engine.io/android_faq#_signing_a_release_apk_aab)
+- Follow this [Guide](https://castle-engine.io/android).
+
+- How to [Signing a release APK/AAB](https://castle-engine.io/android_faq#_signing_a_release_apk_aab).
