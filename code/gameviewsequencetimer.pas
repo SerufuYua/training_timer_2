@@ -152,7 +152,6 @@ end;
 procedure TViewSequenceTimer.Update(const SecondsPassed: Single; var HandleInput: boolean);
 const
   initTime = 1.0;
-  keepTime = 5.0;
 var
   RemainingSeconds: Single;
 
@@ -174,7 +173,7 @@ begin
   if (FCountFactor > 0.0) then
   begin
     FKeepScreenSeconds:= FKeepScreenSeconds + SecondsPassed;
-    if (FKeepScreenSeconds > keepTime) then
+    if (FKeepScreenSeconds > 5.0) then
     begin
       FKeepScreenSeconds:= 0.0;
       KeepScreen;
