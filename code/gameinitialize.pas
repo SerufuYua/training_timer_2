@@ -47,14 +47,7 @@ begin
   ViewBanner := TViewBanner.Create(Application);
   {$endregion 'Castle View Creation'}
 
-  {$ifdef DEBUG}
-  if Application.hasOption('B', 'Banner') then
-    Window.Container.View:= ViewBanner
-  else
-    Window.Container.View:= ViewSettingsSimple;
-  {$else}
   Window.Container.View:= ViewBanner;
-  {$endif}
 end;
 
 initialization
