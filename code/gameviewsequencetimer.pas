@@ -35,6 +35,9 @@ type
     FPeriod: Integer;
     FElapsedSeconds, FStartPauseSeconds, FLastRemainingSeconds, FTargetSeconds,
       FPeriodSeconds, FWarningSeconds, FFullSeconds: Single;
+    {$if defined(WINDOWS)}
+    FKeepScreenSeconds: Single;
+    {$endif}
     FWarning: Boolean;
     FFinalSound: TSoundType;
     FSignalColor: TCastleColorRGB;
@@ -115,6 +118,9 @@ begin
   FCountFactor:= 0.0;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
+  {$if defined(WINDOWS)}
+  FKeepScreenSeconds:= 0.0;
+  {$endif}
 
   LabelSequenceName.Caption:= FSequenceName;
   FFullSeconds:= 0;
@@ -138,12 +144,15 @@ end;
 procedure TViewSequenceTimer.Stop;
 begin
   inherited;
+  {$if defined(ANDROID)}
   KeepScreen(False);
+  {$endif}
 end;
 
 procedure TViewSequenceTimer.Update(const SecondsPassed: Single; var HandleInput: boolean);
 const
   initTime = 1.0;
+  keepTime = 5.0;
 var
   RemainingSeconds: Single;
 
@@ -159,6 +168,20 @@ begin
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
   if NOT Enabled then Exit;
+
+  {$if defined(WINDOWS)}
+  { keep screen forwindows }
+  if (FCountFactor > 0.0) then
+  begin
+    FKeepScreenSeconds:= FKeepScreenSeconds + SecondsPassed;
+    if (FKeepScreenSeconds > keepTime) then
+    begin
+      FKeepScreenSeconds:= 0.0;
+      KeepScreen;
+    end;
+  end;
+  {$endif};
+
   FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FCountFactor;
   RemainingSeconds:= FTargetSeconds - FElapsedSeconds;
 
@@ -377,7 +400,9 @@ end;
 
 procedure TViewSequenceTimer.SetEnabled(AValue: Boolean);
 begin
+  {$if defined(ANDROID)}
   KeepScreen(AValue);
+  {$endif}
   FEnabled:= AValue;
 end;
 
@@ -385,13 +410,17 @@ procedure TViewSequenceTimer.Pause;
 begin
   inherited;
   FCountFactor:= 0.0;
+  {$if defined(ANDROID)}
   KeepScreen(False);
+  {$endif}
 end;
 
 procedure TViewSequenceTimer.Resume;
 begin
   inherited;
+  {$if defined(ANDROID)}
   KeepScreen(True);
+  {$endif}
   FCountFactor:= 1.0;
 end;
 

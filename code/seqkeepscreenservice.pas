@@ -3,11 +3,35 @@ unit SeqKeepScreenService;
 
 interface
 
+{ for windows }
+procedure KeepScreen; inline;
+
+{ for mobile }
 procedure KeepScreen(AEnable: Boolean); inline;
 
 implementation
 
-uses CastleMessaging, CastleLog;
+uses
+  CastleMessaging, CastleLog
+{$if defined(WINDOWS)}
+  , JwaWinBase
+  , JwaWinNT
+{$endif}
+  ;
+
+procedure KeepScreen;
+begin
+  {$ifdef DEBUG}
+  WritelnLog('keep-screen');
+  {$endif}
+
+  {$if defined(WINDOWS)}
+  { Prevent Screensaver }
+  SetThreadExecutionState(ES_DISPLAY_REQUIRED);
+  { Prevent Standby or Hibernate }
+  SetThreadExecutionState(ES_SYSTEM_REQUIRED);
+  {$endif}
+end;
 
 procedure KeepScreen(AEnable: Boolean);
 begin
