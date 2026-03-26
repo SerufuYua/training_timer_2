@@ -3,7 +3,7 @@ unit SeqKeepScreenService;
 
 interface
 
-procedure KeepScreen(AEnable: Boolean);
+procedure KeepScreen(AEnable: Boolean); inline;
 
 implementation
 
