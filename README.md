@@ -14,9 +14,13 @@ The application is completely free and open source.
 
 Using [Castle Game Engine](https://castle-engine.io/).
 
+## Binaries
+
+Binaries available on [GitHub](https://github.com/SerufuYua/training_timer_2/releases)
+
 ## Building
 
-Compile for Windows:
+### Compile for Windows:
 
 - [CGE editor](https://castle-engine.io/editor). Just use menu items _"Compile"_ or _"Compile And Run"_.
 
@@ -26,7 +30,7 @@ Compile for Windows:
 
 - Or use [Delphi](https://www.embarcadero.com/products/Delphi). Open in Delphi `TrainingTimer2_standalone.dproj` file and compile / run from Delphi. See [CGE and Delphi](https://castle-engine.io/delphi) documentation for details.
 
-Compile for Android:
+### Compile for Android:
 
 - Copy content of [android_services](./android_services) folder to _Castle_Game_Engine_path_\tools\build-tool\data\android\ to support special Android fetures.
 
