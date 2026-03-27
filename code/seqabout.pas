@@ -29,7 +29,8 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleApplicationProperties, CastleUtils;
+  SysUtils, CastleComponentSerialize, CastleApplicationProperties, CastleUtils,
+  SeqWebButton;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqAboutDialog ------------------------------------------------------------ }

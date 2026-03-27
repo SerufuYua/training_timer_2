@@ -15,7 +15,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
   editor_units="SeqExhibiter,
                 SeqTunnelEffect,
                 SeqLoadingBar,
-                SeqFlyingObjects"
+                SeqFlyingObjects,
+                SeqWebButton"
 >
   <icons>
     <icon path="data_src/icon/icon.ico" />
