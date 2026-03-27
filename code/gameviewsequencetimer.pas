@@ -28,8 +28,7 @@ type
   TViewSequenceTimer = class(TCastleView)
   protected
     FReturnTo: TCastleView;
-    FEnabled: Boolean;
-    FCountFactor: Single;
+    FEnabled, FPaused: Boolean;
     FPeriods: TPeriodsList;
     FSequenceName: String;
     FPeriod: Integer;
@@ -115,7 +114,7 @@ begin
   inherited;
 
   FEnabled:= False;
-  FCountFactor:= 0.0;
+  FPaused:= False;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
   {$if defined(WINDOWS)}
@@ -166,22 +165,19 @@ begin
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
-  if NOT Enabled then Exit;
+  if ((NOT Enabled) OR FPaused) then Exit;
 
   {$if defined(WINDOWS)}
   { keep screen forwindows }
-  if (FCountFactor > 0.0) then
+  FKeepScreenSeconds:= FKeepScreenSeconds + SecondsPassed;
+  if (FKeepScreenSeconds > 5.0) then
   begin
-    FKeepScreenSeconds:= FKeepScreenSeconds + SecondsPassed;
-    if (FKeepScreenSeconds > 5.0) then
-    begin
-      FKeepScreenSeconds:= 0.0;
-      KeepScreen;
-    end;
+    FKeepScreenSeconds:= 0.0;
+    KeepScreen;
   end;
   {$endif};
 
-  FElapsedSeconds:= FElapsedSeconds + SecondsPassed * FCountFactor;
+  FElapsedSeconds:= FElapsedSeconds + SecondsPassed;
   RemainingSeconds:= FTargetSeconds - FElapsedSeconds;
 
   { play warning and initial signals }
@@ -343,7 +339,7 @@ procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
   LoadingBarsShadow.Value:= AValue;
-  TunnelBG.Speed:= (0.2 + 2.0 * AValue) * FCountFactor;
+  TunnelBG.Speed:= (0.2 + 2.0 * AValue);
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
@@ -408,7 +404,7 @@ end;
 procedure TViewSequenceTimer.Pause;
 begin
   inherited;
-  FCountFactor:= 0.0;
+  FPaused:= True;
   {$if defined(ANDROID)}
   KeepScreen(False);
   {$endif}
@@ -420,7 +416,7 @@ begin
   {$if defined(ANDROID)}
   KeepScreen(True);
   {$endif}
-  FCountFactor:= 1.0;
+  FPaused:= False;
 end;
 
 end.
