@@ -54,7 +54,7 @@ type
     ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
-    ImageSettings, ImageActions, ImageAbout, ImageMode: TCastleImageControl;
+    ImageSettings, ImageActions: TCastleImageControl;
     LabelFps: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
@@ -106,8 +106,6 @@ begin
 
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
-  ImageAbout.Exists:= False;
-  ImageMode.Exists:= False;
   LoadSettings;
 
   { Sequence control buttons }
