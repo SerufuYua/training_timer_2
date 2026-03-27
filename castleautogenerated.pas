@@ -23,7 +23,7 @@ uses CastleApplicationProperties, CastleWindow, CastleLog;
 initialization
   ApplicationProperties.ApplicationName := 'TrainingTimer2';
   ApplicationProperties.Caption := 'Training Timer 2: Zero Time';
-  ApplicationProperties.Version := '1.1';
+  ApplicationProperties.Version := '1.2';
 
   if not IsLibrary then
     Application.ParseStandardParameters;

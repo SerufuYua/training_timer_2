@@ -50,11 +50,11 @@ type
     ExhibiterControl: TSeqExhibiter;
     ButtonSelectSeq, ButtonAddSeq, ButtonRemoveSeq, ButtonCopySeq: TCastleButton;
     ButtonName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
-      ButtonPrepareTime, ButtonWarningTime: TCastleButton;
+      ButtonPrepareTime, ButtonWarningTime, ButtonAbout: TCastleButton;
     ButtonStart: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
-    ImageSettings, ImageActions: TCastleImageControl;
+    ImageSettings, ImageActions, ImageAbout: TCastleImageControl;
     LabelFps: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
@@ -72,7 +72,8 @@ implementation
 
 uses
   SysUtils, CastleConfig, MyTimes, CastleColors,
-  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, GameSound;
+  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, SeqAbout,
+  GameSound;
 
 const
   SettingsStor = 'SettingsSimple';
@@ -102,6 +103,7 @@ begin
 
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
+  ImageAbout.Exists:= False;
   LoadSettings;
 
   { Sequence control buttons }
@@ -121,6 +123,7 @@ begin
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -401,6 +404,9 @@ begin
       ViewSequenceTimer.Periods:= MakePeriods(IndexSeq);
       Container.View:= ViewSequenceTimer;
     end;
+    'ButtonAbout':
+      if NOT (Container.FrontView is TSeqAbout) then
+        Container.PushView(TSeqAbout.CreateUntilStopped);
   end;
 end;
 
