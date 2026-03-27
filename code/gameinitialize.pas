@@ -18,6 +18,7 @@ uses SysUtils,
   , GameViewSettingsSimple
   , GameViewSequenceTimer
   , GameViewBanner
+  , GameViewSettingsPro
   {$endregion 'Castle Initialization Uses'};
 
 var
@@ -45,6 +46,7 @@ begin
   ViewSettingsSimple := TViewSettingsSimple.Create(Application);
   ViewSequenceTimer := TViewSequenceTimer.Create(Application);
   ViewBanner := TViewBanner.Create(Application);
+  ViewSettingsPro := TViewSettingsPro.Create(Application);
   {$endregion 'Castle View Creation'}
 
   Window.Container.View:= ViewBanner;

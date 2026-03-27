@@ -169,7 +169,7 @@
                   "Name" : "ButtonAddSeq",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 4.5160000610351562E+002
+                    "X" : 4.5160003662109375E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -222,7 +222,7 @@
                   "Name" : "ButtonRemoveSeq",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 5.3259997558593750E+002
+                    "X" : 5.3260003662109375E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -275,7 +275,7 @@
                   "Name" : "ButtonCopySeq",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 6.1359997558593750E+002
+                    "X" : 6.1360003662109375E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -1130,6 +1130,26 @@
           "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "BorderBottom",
           "WidthFraction" : 1.0000000000000000E+000
+        },
+        {
+          "$$ClassName" : "TCastleLabel",
+          "ColorPersistent" : {
+            "$$ClassName" : "TCastleColorPersistent",
+            "Blue" : 6.6666670143604279E-002,
+            "Green" : 9.8823529481887817E-001
+          },
+          "FontSize" : 3.2000000000000000E+001,
+          "Name" : "LabelSettingsType",
+          "Text" : [
+            "Simple Mode"
+          ],
+          "TranslationPersistent" : {
+            "$$ClassName" : "TCastleVector2Persistent",
+            "X" : 2.0000000000000000E+001,
+            "Y" : -2.0000000000000000E+001
+          },
+          "VerticalAnchorParent" : "vpTop",
+          "VerticalAnchorSelf" : "vpTop"
         },
         {
           "$$ClassName" : "TCastleLabel",
