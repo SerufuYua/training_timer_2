@@ -568,8 +568,7 @@
                               "in various sports, from",
                               "martial arts (boxing,",
                               "MMA, etc.) to swimming",
-                              "and much more,",
-                              "even cooking."
+                              "and much more."
                             ],
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
