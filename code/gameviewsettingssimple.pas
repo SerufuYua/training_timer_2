@@ -50,11 +50,11 @@ type
     ExhibiterControl: TSeqExhibiter;
     ButtonSelectSeq, ButtonAddSeq, ButtonRemoveSeq, ButtonCopySeq: TCastleButton;
     ButtonName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
-      ButtonPrepareTime, ButtonWarningTime, ButtonAbout: TCastleButton;
-    ButtonStart: TCastleButton;
+      ButtonPrepareTime, ButtonWarningTime : TCastleButton;
+    ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
-    ImageSettings, ImageActions, ImageAbout: TCastleImageControl;
+    ImageSettings, ImageActions, ImageAbout, ImageMode: TCastleImageControl;
     LabelFps: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
@@ -73,9 +73,12 @@ implementation
 uses
   SysUtils, CastleConfig, MyTimes, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, SeqAbout,
-  GameSound;
+  GameViewSettingsPro, GameSound;
 
 const
+  MainStor = 'main';
+  ModeStr = 'mode';
+  ModeThis = 'Simple';
   SettingsStor = 'SettingsSimple';
   NameStr = 'Name';
   SeqStr = 'Seq';
@@ -104,6 +107,7 @@ begin
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
   ImageAbout.Exists:= False;
+  ImageMode.Exists:= False;
   LoadSettings;
 
   { Sequence control buttons }
@@ -124,6 +128,7 @@ begin
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonMode.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -134,7 +139,6 @@ end;
 procedure TViewSettingsSimple.Stop;
 begin
   inherited;
-
   SaveSettings;
 end;
 
@@ -212,6 +216,7 @@ begin
   end;
 
   UserConfig.SetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
+  UserConfig.SetValue(MainStor + '/' + ModeStr, ModeThis);
 
   UserConfig.Save;
 end;
@@ -410,6 +415,8 @@ begin
     'ButtonAbout':
       if NOT (Container.FrontView is TSeqAbout) then
         Container.PushView(TSeqAbout.CreateUntilStopped);
+    'ButtonMode':
+      Container.View:= ViewSettingsPro;
   end;
 end;
 
