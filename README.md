@@ -12,6 +12,8 @@ Professional mode allows you to set any custom time periods with any sounds and 
 
 The application is completely free and open source.
 
+Supported platforms: Windows and Android.
+
 Using [Castle Game Engine](https://castle-engine.io/).
 
 ## Binaries
