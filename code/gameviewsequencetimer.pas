@@ -327,7 +327,7 @@ begin
     end;
     'ButtonRestart': ResetTimer;
     'ButtonPause':
-      if NOT (Container.FrontView is TSeqPause) then
+      if (Enabled AND (NOT (Container.FrontView is TSeqPause))) then
         Container.PushView(TSeqPause.CreateUntilStopped);
   end;
 end;
