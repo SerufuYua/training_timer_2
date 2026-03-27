@@ -18,7 +18,7 @@ Using [Castle Game Engine](https://castle-engine.io/).
 
 ## Binaries
 
-Binaries available on [GitHub](https://github.com/SerufuYua/training_timer_2/releases)
+Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-2-zero-time) and [GitHub](https://github.com/SerufuYua/training_timer_2/releases)
 
 ## Building
 
