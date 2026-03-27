@@ -244,6 +244,7 @@ begin
   Result.Periods[0].WarningSeconds:= FSettingsSimpleList[AIndex].WarningSeconds;
   Result.Periods[0].Warning:= FSettingsSimpleList[AIndex].Warning;
   Result.Periods[0].Color:= DefaultColorPrepare;
+  Result.Periods[0].StartSound:= TSoundType.Init;
   Result.Periods[0].FinalSound:= TSoundType.Start;
 
   lastPeriod:= FSettingsSimpleList[AIndex].Rounds * 2 - 1;
@@ -259,13 +260,15 @@ begin
       Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(FSettingsSimpleList[AIndex].Rounds);
       Result.Periods[i].Seconds:= FSettingsSimpleList[AIndex].RestSeconds;
       Result.Periods[i].Color:= DefaultColorRest;
-      Result.Periods[i].FinalSound:= TSoundType.Start;
+      Result.Periods[i].StartSound:= TSoundType.None;
+      Result.Periods[i].FinalSound:= TSoundType.None;
     end
     else
     begin
       Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(FSettingsSimpleList[AIndex].Rounds);
       Result.Periods[i].Seconds:= FSettingsSimpleList[AIndex].RoundSeconds;
       Result.Periods[i].Color:= DefaultColorRound;
+      Result.Periods[i].StartSound:= TSoundType.Start;
       if (i = lastPeriod) then
         Result.Periods[i].FinalSound:= TSoundType.Final
       else

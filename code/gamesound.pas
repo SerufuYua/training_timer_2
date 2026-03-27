@@ -25,7 +25,7 @@ unit GameSound;
 interface
 
 type
-  TSoundType = (Start, Ending, Final, Warn, Init);
+  TSoundType = (None, Start, Ending, Final, Warn, Init);
 
 { Initialize, call before any call to Play. }
 procedure InitializeSounds;
@@ -47,7 +47,7 @@ var
   sound: TCastleSound;
 begin
   nameSound:= GetEnumName(TypeInfo(TSoundType), Ord(ASound));
-  sound:= Sounds.FindRequiredComponent(nameSound) as TCastleSound;
+  sound:= Sounds.FindComponent(nameSound) as TCastleSound;
   SoundEngine.Play(sound);
 end;
 

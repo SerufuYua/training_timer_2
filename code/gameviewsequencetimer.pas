@@ -10,7 +10,7 @@ uses Classes,
 type
   TTimePeriod = record
     Name: String;
-    FinalSound: TSoundType;
+    StartSound, FinalSound: TSoundType;
     Seconds, WarningSeconds: Integer;
     Warning, Enable: Boolean;
     Color: TCastleColorRGB;
@@ -258,7 +258,6 @@ begin
   FTargetSeconds:= 0;
   FElapsedSeconds:= 0;
   SetupPeriod(0);
-  Play(TSoundType.Init);
   Enabled:= True;
 end;
 
@@ -274,6 +273,7 @@ begin
   FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].Seconds;
   FPeriodSeconds:= FPeriods[FPeriod].Seconds;
   FFinalSound:= FPeriods[FPeriod].FinalSound;
+  Play(FPeriods[FPeriod].StartSound);
 end;
 
 procedure TViewSequenceTimer.NextPeriod;
