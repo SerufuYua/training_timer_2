@@ -8,8 +8,6 @@ New Version of [Training Timer](https://github.com/SerufuYua/training_timer)
 
 This app is designed for tracking training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more.
 
-Professional mode allows you to set any custom time periods with any sounds and signal colors. You can create your own chains of periods: progressive, regressive, with an extended rest period in the middle, and much more.
-
 The application is completely free and open source.
 
 Supported platforms: Windows and Android.
