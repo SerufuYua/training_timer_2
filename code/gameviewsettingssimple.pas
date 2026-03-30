@@ -48,8 +48,8 @@ type
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
-    ButtonSelectSeq, ButtonAddSeq, ButtonRemoveSeq, ButtonCopySeq: TCastleButton;
-    ButtonName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
+    ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
+    ButtonSeqName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
       ButtonPrepareTime, ButtonWarningTime : TCastleButton;
     ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
     CheckWarning: TCastleCheckBox;
@@ -107,13 +107,13 @@ begin
   LoadSettings;
 
   { Sequence control buttons }
-  ButtonSelectSeq.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonAddSeq.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonRemoveSeq.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonCopySeq.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqSelect.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
 
   { Sequence edit buttons }
-  ButtonName.OnClick:=        {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonSeqName.OnClick:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRounds.OnClick:=      {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRoundTime.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRestTime.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -218,7 +218,7 @@ end;
 
 procedure TViewSettingsSimple.UpdateSettings;
 begin
-  ButtonName.Caption:= FSettingsSimpleList[IndexSeq].Name;
+  ButtonSeqName.Caption:= FSettingsSimpleList[IndexSeq].Name;
   ButtonRounds.Caption:= IntToStr(FSettingsSimpleList[IndexSeq].Rounds);
   ButtonRoundTime.Caption:= TimeToShortStr(FSettingsSimpleList[IndexSeq].RoundSeconds);
   ButtonRestTime.Caption:= TimeToShortStr(FSettingsSimpleList[IndexSeq].RestSeconds);
@@ -299,7 +299,7 @@ begin
   idx:= IndexSeq;
   component:= Sender as TComponent;
   case component.Name of
-    'ButtonSelectSeq':
+    'ButtonSeqSelect':
     begin
       SetLength(list, Length(FSettingsSimpleList));
 
@@ -310,7 +310,7 @@ begin
         Container.PushView(TSeqListBox.CreateUntilStopped(list,
           'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
     end;
-    'ButtonAddSeq':
+    'ButtonSeqAdd':
     begin
       SetLength(FSettingsSimpleList, (Length(FSettingsSimpleList) + 1));
       idx:= High(FSettingsSimpleList);
@@ -322,7 +322,7 @@ begin
       FSettingsSimpleList[idx].WarningSeconds:= DefaultWarningSeconds;
       FSettingsSimpleList[idx].Warning:= DefaultWarning;
     end;
-    'ButtonRemoveSeq':
+    'ButtonSeqRemove':
     begin
       if (Length(FSettingsSimpleList) > 1) then
       begin
@@ -330,7 +330,7 @@ begin
         idx:= 0;
       end;
     end;
-    'ButtonCopySeq':
+    'ButtonSeqCopy':
     begin
       if ((Length(FSettingsSimpleList) > 0) AND (IndexSeq > -1)) then
       begin
@@ -434,7 +434,7 @@ end;
 procedure TViewSettingsSimple.DoEditName(AValue: String);
 begin
   FSettingsSimpleList[IndexSeq].Name:= AValue;
-  ButtonName.Caption:= AValue;
+  ButtonSeqName.Caption:= AValue;
 end;
 
 procedure TViewSettingsSimple.DoEditRound(AValue: Integer);

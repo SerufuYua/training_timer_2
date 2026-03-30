@@ -113,7 +113,7 @@
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Name" : "ButtonSelectSeq",
+                  "Name" : "ButtonSeqSelect",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
@@ -166,10 +166,10 @@
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Name" : "ButtonAddSeq",
+                  "Name" : "ButtonSeqAdd",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 4.5160003662109375E+002
+                    "X" : 4.5160000610351562E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -219,10 +219,10 @@
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Name" : "ButtonRemoveSeq",
+                  "Name" : "ButtonSeqRemove",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 5.3260003662109375E+002
+                    "X" : 5.3259997558593750E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -272,10 +272,10 @@
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Name" : "ButtonCopySeq",
+                  "Name" : "ButtonSeqCopy",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 6.1360003662109375E+002
+                    "X" : 6.1359997558593750E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -369,7 +369,7 @@
                   "Image" : {
                     "$$ClassName" : "TCastleImagePersistent"
                   },
-                  "Name" : "ButtonName",
+                  "Name" : "ButtonSeqName",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",

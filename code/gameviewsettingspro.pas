@@ -12,6 +12,7 @@ type
     FSettingsProList: TPeriodsSettingsList;
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
+    procedure DoSelectSeq(AValue: Integer);
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
@@ -19,10 +20,14 @@ type
     procedure ShowStatistic;
     procedure SetIndexSeq(AValue: Integer);
     function GetIndexSeq: Integer;
+    procedure ButtonSeqControlClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
+    ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
+    ButtonSeqName, ButtonPeriodAdd, ButtonPeriodUp, ButtonPeriodDown,
+      ButtonPeriodEdit, ButtonPeriodRemove : TCastleButton;
     ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
     ImageSettings, ImageActions: TCastleImageControl;
     LabelOveralTimeValue: TCastleLabel;
@@ -43,7 +48,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyTimes,
-  GameSound, SeqAbout;
+  GameSound, SeqAbout, SeqListBox;
 
 const
   MainStor = 'main';
@@ -78,6 +83,14 @@ begin
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
   LoadSettings;
+
+  { Sequence control buttons }
+  ButtonSeqSelect.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+
+  { Sequence edit buttons }
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
@@ -200,9 +213,7 @@ begin
   begin
     path:= SettingsStor + '/' + SeqStr + IntToStr(i) + '/';
     UserConfig.SetValue(path + NameStr, FSettingsProList[i].Name);
-
-    UserConfig.SetValue(SettingsStor + '/' + CountPeriodsStr, Length(FSettingsProList[i].Periods));
-
+    UserConfig.SetValue(path + CountPeriodsStr, Length(FSettingsProList[i].Periods));
 
     for j:= 0 to High(FSettingsProList[i].Periods) do
     begin
@@ -241,6 +252,8 @@ end;
 
 procedure TViewSettingsPro.UpdateListPeriods;
 begin
+  ButtonSeqName.Caption:= FSettingsProList[IndexSeq].Name;
+
   { TODO: compose new periods list }
 
   ShowStatistic;
@@ -260,6 +273,58 @@ begin
   inherited;
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
+end;
+
+procedure TViewSettingsPro.ButtonSeqControlClick(Sender: TObject);
+var
+  component: TComponent;
+  idx, i: Integer;
+  list: TStringArray;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  idx:= IndexSeq;
+  component:= Sender as TComponent;
+  case component.Name of
+    'ButtonSeqSelect':
+    begin
+      SetLength(list, Length(FSettingsProList));
+
+      for i:= 0 to High(FSettingsProList) do
+        list[i]:= FSettingsProList[i].Name;
+
+      if NOT (Container.FrontView is TSeqListBox) then
+        Container.PushView(TSeqListBox.CreateUntilStopped(list,
+          'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
+    end;
+    'ButtonSeqAdd':
+    begin
+      SetLength(FSettingsProList, (Length(FSettingsProList) + 1));
+      idx:= High(FSettingsProList);
+      FSettingsProList[idx]:= MakeDefaultPeriods;
+      FSettingsProList[idx].Name:= DefaultSeqName + ' ' + IntToStr(idx);
+    end;
+    'ButtonSeqRemove':
+    begin
+      if (Length(FSettingsProList) > 1) then
+      begin
+        Delete(FSettingsProList, idx, 1);
+        idx:= 0;
+      end;
+    end;
+    'ButtonSeqCopy':
+    begin
+      if ((Length(FSettingsProList) > 0) AND (IndexSeq > -1)) then
+      begin
+        SetLength(FSettingsProList, (Length(FSettingsProList) + 1));
+        idx:= High(FSettingsProList);
+        FSettingsProList[idx]:= FSettingsProList[IndexSeq];
+        FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' Copy';
+      end;
+    end;
+  end;
+
+  IndexSeq:= idx;
 end;
 
 procedure TViewSettingsPro.ButtonActionClick(Sender: TObject);
@@ -282,6 +347,11 @@ begin
     'ButtonMode':
       Container.View:= ViewSettingsSimple;
   end;
+end;
+
+procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
+begin
+  IndexSeq:= AValue;
 end;
 
 procedure TViewSettingsPro.DoAferLoad(Sender: TObject);
