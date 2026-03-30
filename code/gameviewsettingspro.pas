@@ -384,9 +384,9 @@ begin
   case component.Name of
     'ButtonStart':
     begin
-      {ViewSequenceTimer.ReturnTo:= self;
-      ViewSequenceTimer.Periods:= MakePeriods(IndexSeq);
-      Container.View:= ViewSequenceTimer;}
+      ViewSequenceTimer.ReturnTo:= self;
+      ViewSequenceTimer.Periods:= FSettingsProList[IndexSeq];
+      Container.View:= ViewSequenceTimer;
     end;
     'ButtonAbout':
       if NOT (Container.FrontView is TSeqAbout) then
