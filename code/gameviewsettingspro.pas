@@ -12,6 +12,7 @@ type
     FSettingsProList: TPeriodsSettingsList;
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
+    function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
     procedure UpdateListPeriods;
@@ -42,7 +43,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyTimes,
-  SeqAbout;
+  GameSound, SeqAbout;
 
 const
   MainStor = 'main';
@@ -95,9 +96,95 @@ begin
   SaveSettings;
 end;
 
-procedure TViewSettingsPro.LoadSettings;
+function TViewSettingsPro.MakeDefaultPeriods: TPeriodsSettings;
+var
+  i: Integer;
+const
+  lastPeriod = DefaultRounds * 2 - 1;
 begin
+  { prepare periods list }
+  Result.Name:= DefaultSeqName;
+  Result.Periods:= [];
+  SetLength(Result.Periods, DefaultRounds * 2);
 
+  Result.Periods[0].Name:= 'Prepare';
+  Result.Periods[0].Enable:= True;
+  Result.Periods[0].Seconds:= DefaultRoundSeconds;
+  Result.Periods[0].WarningSeconds:= DefaultWarningSeconds;
+  Result.Periods[0].Warning:= DefaultWarning;
+  Result.Periods[0].Color:= DefaultColorPrepare;
+  Result.Periods[0].StartSound:= TSoundType.Init;
+  Result.Periods[0].FinalSound:= TSoundType.Start;
+
+  for i:= 1 to lastPeriod do
+  begin
+    Result.Periods[i].Enable:= True;
+    Result.Periods[i].WarningSeconds:= DefaultWarningSeconds;
+    Result.Periods[i].Warning:= DefaultWarning;
+
+    if ((i mod 2) = 0) then
+    begin
+      Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
+      Result.Periods[i].Seconds:= DefaultRestSeconds;
+      Result.Periods[i].Color:= DefaultColorRest;
+      Result.Periods[i].StartSound:= TSoundType.None;
+      Result.Periods[i].FinalSound:= TSoundType.None;
+    end
+    else
+    begin
+      Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
+      Result.Periods[i].Seconds:= DefaultRoundSeconds;
+      Result.Periods[i].Color:= DefaultColorRound;
+      Result.Periods[i].StartSound:= TSoundType.Start;
+      if (i = lastPeriod) then
+        Result.Periods[i].FinalSound:= TSoundType.Final
+      else
+        Result.Periods[i].FinalSound:= TSoundType.Ending;
+    end;
+  end;
+end;
+
+procedure TViewSettingsPro.LoadSettings;
+var
+  i, j, num, countPeriods: Integer;
+  path, pathPeriod: String;
+begin
+  num:= UserConfig.GetValue(SettingsStor + '/' + CountSeqsStr, 0);
+
+  if (num > 0) then
+  begin
+    SetLength(FSettingsProList, num);
+
+    for i:= 0 to (num - 1) do
+    begin
+      path:= SettingsStor + '/' + SeqStr + IntToStr(i) + '/';
+
+      FSettingsProList[i].Name:= UserConfig.GetValue(path + NameStr, SeqStr + ' ' + IntToStr(i + 1));
+
+      countPeriods:= UserConfig.GetValue(path + CountPeriodsStr, 0);
+      SetLength(FSettingsProList[i].Periods, countPeriods);
+      for j:= 0 to (countPeriods - 1) do
+      begin
+        pathPeriod:= path + PeriodStr + IntToStr(j) + '/';
+        FSettingsProList[i].Periods[j].Name:= UserConfig.GetValue(pathPeriod + NameStr, PeriodStr + ' ' + IntToStr(j + 1));
+        FSettingsProList[i].Periods[j].Enable:= UserConfig.GetValue(pathPeriod + EnableStr, DefaultEnable);
+        FSettingsProList[i].Periods[j].Seconds:= UserConfig.GetValue(pathPeriod + SecondsStr, DefaultRoundSeconds);
+        FSettingsProList[i].Periods[j].WarningSeconds:= UserConfig.GetValue(pathPeriod + WarningSecondsStr, DefaultWarningSeconds);
+        FSettingsProList[i].Periods[j].Warning:= UserConfig.GetValue(pathPeriod + WarningStr, DefaultWarning);
+        FSettingsProList[i].Periods[j].StartSound:= TSoundType(UserConfig.GetValue(pathPeriod + StartSoundStr, Ord(DefaultStartSound)));
+        FSettingsProList[i].Periods[j].FinalSound:= TSoundType(UserConfig.GetValue(pathPeriod + FinalSoundStr, Ord(DefaultFinalSound)));
+        FSettingsProList[i].Periods[j].Color:= UserConfig.GetColorRGB(pathPeriod + ColorStr, DefaultColorPrepare);
+      end;
+    end;
+
+    IndexSeq:= UserConfig.GetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
+  end
+  else
+  begin
+    SetLength(FSettingsProList, 1);
+    FSettingsProList[0]:= MakeDefaultPeriods;
+    IndexSeq:= 0;
+  end
 end;
 
 procedure TViewSettingsPro.SaveSettings;
@@ -142,7 +229,7 @@ begin
         UserConfig.SetValue(pathPeriod + FinalSoundStr, Ord(FSettingsProList[i].Periods[j].FinalSound));
 
       if (TVector3.Equals(FSettingsProList[i].Periods[j].Color, DefaultColorPrepare)) then
-        UserConfig.SetValue(pathPeriod + ColorStr, FSettingsProList[i].Periods[j].Color.ToString);
+        UserConfig.SetColorRGB(pathPeriod + ColorStr, FSettingsProList[i].Periods[j].Color);
     end;
   end;
 
