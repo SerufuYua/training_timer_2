@@ -270,8 +270,11 @@ end;
 procedure TViewSettingsPro.ShowStatistic;
 var
   sec: Integer;
+  Period: TTimePeriod;
 begin
-  sec:= 1000;
+  sec:= 0;
+  for Period in FSettingsProList[IndexSeq].Periods do
+    sec:= sec + Period.Seconds;
 
   LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
