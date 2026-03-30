@@ -88,7 +88,8 @@ const
   DefaultWarningSeconds = 10;
   DefaultWarning = True;
   DefaultEnable = True;
-  DefaultFinalSound = TSoundType.Start;
+  DefaultStartSound = TSoundType.Start;
+  DefaultFinalSound = TSoundType.Final;
   DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 1.0; Z: 0.0); { Lime }
   DefaultColorRest: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 0.0); { Yellow }
   DefaultColorRound: TCastleColorRGB = (X: 1.0; Y: 0.0; Z: 0.0); { Red }

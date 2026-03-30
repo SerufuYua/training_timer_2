@@ -94,9 +94,7 @@ const
 constructor TViewSettingsSimple.Create(AOwner: TComponent);
 begin
   inherited;
-
   FIndexSeq:= 0;
-
   DesignUrl := 'castle-data:/gameviewsettingssimple.castle-user-interface';
 end;
 
@@ -181,15 +179,14 @@ end;
 
 procedure TViewSettingsSimple.SaveSettings;
 var
-  i, num: Integer;
+  i: Integer;
   path: String;
 begin
   UserConfig.DeletePath(SettingsStor);
 
-  num:= Length(FSettingsSimpleList);
-  UserConfig.SetValue(SettingsStor + '/' + CountSeqsStr, num);
+  UserConfig.SetValue(SettingsStor + '/' + CountSeqsStr, Length(FSettingsSimpleList));
 
-  for i:= 0 to (num - 1) do
+  for i:= 0 to High(FSettingsSimpleList) do
   begin
     path:= SettingsStor + '/' + SeqStr + IntToStr(i) + '/';
     UserConfig.SetValue(path + NameStr, FSettingsSimpleList[i].Name);
@@ -230,6 +227,17 @@ begin
   CheckWarning.Checked:= FSettingsSimpleList[IndexSeq].Warning;
 
   ShowStatistic;
+end;
+
+procedure TViewSettingsSimple.ShowStatistic;
+var
+  sec: Integer;
+begin
+  sec:= FSettingsSimpleList[IndexSeq].PrepareSeconds +
+        FSettingsSimpleList[IndexSeq].RestSeconds * (FSettingsSimpleList[IndexSeq].Rounds - 1) +
+        FSettingsSimpleList[IndexSeq].RoundSeconds * FSettingsSimpleList[IndexSeq].Rounds;
+
+  LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
 
 function TViewSettingsSimple.MakePeriods(AIndex: Integer): TPeriodsSettings;
@@ -468,17 +476,6 @@ begin
   inherited;
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
-end;
-
-procedure TViewSettingsSimple.ShowStatistic;
-var
-  sec: Integer;
-begin
-  sec:= FSettingsSimpleList[IndexSeq].PrepareSeconds +
-        FSettingsSimpleList[IndexSeq].RestSeconds * (FSettingsSimpleList[IndexSeq].Rounds - 1) +
-        FSettingsSimpleList[IndexSeq].RoundSeconds * FSettingsSimpleList[IndexSeq].Rounds;
-
-  LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
 
 procedure TViewSettingsSimple.DoAferLoad(Sender: TObject);
