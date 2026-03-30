@@ -13,6 +13,7 @@ type
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
     procedure DoSelectSeq(AValue: Integer);
+    procedure DoEditName(AValue: String);
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
@@ -21,6 +22,7 @@ type
     procedure SetIndexSeq(AValue: Integer);
     function GetIndexSeq: Integer;
     procedure ButtonSeqControlClick(Sender: TObject);
+    procedure ButtonSeqEditClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
   published
     FlashEffect: TCastleFlashEffect;
@@ -48,7 +50,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyTimes,
-  GameSound, SeqAbout, SeqListBox;
+  GameSound, SeqAbout, SeqListBox, SeqEditString;
 
 const
   MainStor = 'main';
@@ -91,11 +93,17 @@ begin
   ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
 
   { Sequence edit buttons }
+  ButtonSeqName.OnClick:=      {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodUp.OnClick:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodDown.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodEdit.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
-  ButtonMode.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonMode.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -327,6 +335,45 @@ begin
   IndexSeq:= idx;
 end;
 
+procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
+var
+  component: TComponent;
+  check: TCastleCheckBox;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  component:= Sender as TComponent;
+  case component.Name of
+    'ButtonSeqName':
+    begin
+      if NOT (Container.FrontView is TSeqEditString) then
+        Container.PushView(TSeqEditString.CreateUntilStopped(
+          FSettingsProList[IndexSeq].Name,
+          'Sequence Name', {$ifdef FPC}@{$endif}DoEditName));
+    end;
+    'ButtonPeriodAdd':
+    begin
+
+    end;
+    'ButtonPeriodUp':
+    begin
+
+    end;
+    'ButtonPeriodDown':
+    begin
+
+    end;
+    'ButtonPeriodEdit':
+    begin
+
+    end;
+    'ButtonPeriodRemove':
+    begin
+
+    end;
+  end;
+end;
+
 procedure TViewSettingsPro.ButtonActionClick(Sender: TObject);
 var
   component: TComponent;
@@ -352,6 +399,12 @@ end;
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
 begin
   IndexSeq:= AValue;
+end;
+
+procedure TViewSettingsPro.DoEditName(AValue: String);
+begin
+  FSettingsProList[IndexSeq].Name:= AValue;
+  ButtonSeqName.Caption:= AValue;
 end;
 
 procedure TViewSettingsPro.DoAferLoad(Sender: TObject);

@@ -354,7 +354,7 @@ begin
 
   component:= Sender as TComponent;
   case component.Name of
-    'ButtonName':
+    'ButtonSeqName':
     begin
       if NOT (Container.FrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
