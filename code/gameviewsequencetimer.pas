@@ -90,8 +90,8 @@ const
   DefaultEnable = True;
   DefaultStartSound = TSoundType.Start;
   DefaultFinalSound = TSoundType.Final;
-  DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 1.0; Z: 0.0); { Lime }
-  DefaultColorRest: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 0.0); { Yellow }
+  DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 0.85; Z: 0.0); { Green }
+  DefaultColorRest: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.85); { Blue }
   DefaultColorRound: TCastleColorRGB = (X: 1.0; Y: 0.0; Z: 0.0); { Red }
 
 var
