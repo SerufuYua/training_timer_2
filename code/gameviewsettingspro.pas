@@ -262,11 +262,12 @@ end;
 
 procedure TViewSettingsPro.UpdateListPeriods;
 var
-  i: integer;
+  i, idx: integer;
   Period: TTimePeriod;
 begin
   ButtonSeqName.Caption:= FSettingsProList[IndexSeq].Name;
 
+  idx:= ListPeriods.Index;
   i:= 0;
   ListPeriods.List.Clear;
   for Period in FSettingsProList[IndexSeq].Periods do
@@ -276,7 +277,10 @@ begin
     ListPeriods.SetColor(i, Vector4(Period.Color, 1.0));
     i:= i + 1;
   end;
-  ListPeriods.Index:= -1;
+
+  if (idx > High(FSettingsProList[IndexSeq].Periods)) then
+    idx:= High(FSettingsProList[IndexSeq].Periods);
+  ListPeriods.Index:= idx;
 
   ShowStatistic;
 end;
@@ -356,6 +360,7 @@ procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
 var
   component: TComponent;
   check: TCastleCheckBox;
+  period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
 
@@ -374,11 +379,29 @@ begin
     end;
     'ButtonPeriodUp':
     begin
+      if (ListPeriods.Index > 0) then
+      begin
+        period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1];
+        FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1]:=
+          FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
+        FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
+        ListPeriods.Index:= ListPeriods.Index - 1;
+        UpdateListPeriods;
+      end;
     end;
     'ButtonPeriodDown':
     begin
+      if (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods)) then
+      begin
+        period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1];
+        FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1]:=
+          FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
+        FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
+        ListPeriods.Index:= ListPeriods.Index + 1;
+        UpdateListPeriods;
+      end;
     end;
     'ButtonPeriodEdit':
     begin
