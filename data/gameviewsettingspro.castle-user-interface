@@ -435,7 +435,6 @@
                   "Height" : 8.0000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Index" : 3,
                   "LineCursor" : {
                     "$$ClassName" : "TCastleImagePersistent",
                     "ProtectedSides" : {
@@ -459,15 +458,11 @@
                   "LinePadding" : 1.8000000000000000E+001,
                   "List" : [
                     "one",
-                    "two",
-                    "three",
-                    "four"
+                    "two"
                   ],
                   "ListColors" : [
                     "D2FF3C",
-                    "FF521D",
-                    "37FFCA",
-                    "5E4FFF"
+                    "FF521D"
                   ],
                   "Name" : "ListPeriods",
                   "ScrollbarFrame" : {

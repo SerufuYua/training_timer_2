@@ -28,6 +28,7 @@ type
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
+    ListPeriods: TCastleCheckColorListBox;
     ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
     ButtonSeqName, ButtonPeriodAdd, ButtonPeriodUp, ButtonPeriodDown,
       ButtonPeriodEdit, ButtonPeriodRemove : TCastleButton;
@@ -260,10 +261,24 @@ begin
 end;
 
 procedure TViewSettingsPro.UpdateListPeriods;
+var
+  i: integer;
+  Period: TTimePeriod;
 begin
   ButtonSeqName.Caption:= FSettingsProList[IndexSeq].Name;
 
   { TODO: compose new periods list }
+
+  i:= 0;
+  ListPeriods.List.Clear;
+  for Period in FSettingsProList[IndexSeq].Periods do
+  begin
+    ListPeriods.List.Add(TimeToShortStr(Period.Seconds) + ' ' + Period.Name);
+    ListPeriods.SetCheck(i, Period.Enable);
+    ListPeriods.SetColor(i, Vector4(Period.Color, 1.0));
+    i:= i + 1;
+  end;
+  ListPeriods.Index:= -1;
 
   ShowStatistic;
 end;
