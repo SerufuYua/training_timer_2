@@ -248,7 +248,7 @@ begin
       if (FSettingsProList[i].Periods[j].FinalSound <> DefaultFinalSound) then
         UserConfig.SetValue(pathPeriod + FinalSoundStr, Ord(FSettingsProList[i].Periods[j].FinalSound));
 
-      if (TVector3.Equals(FSettingsProList[i].Periods[j].Color, DefaultColorPrepare)) then
+      if NOT TVector3.Equals(FSettingsProList[i].Periods[j].Color, DefaultColorPrepare) then
         UserConfig.SetColorRGB(pathPeriod + ColorStr, FSettingsProList[i].Periods[j].Color);
     end;
   end;
