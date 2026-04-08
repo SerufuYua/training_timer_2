@@ -267,8 +267,6 @@ var
 begin
   ButtonSeqName.Caption:= FSettingsProList[IndexSeq].Name;
 
-  { TODO: compose new periods list }
-
   i:= 0;
   ListPeriods.List.Clear;
   for Period in FSettingsProList[IndexSeq].Periods do

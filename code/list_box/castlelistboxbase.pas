@@ -33,7 +33,7 @@ type
     FScrollbarLeft: Boolean;
     FClickStarted, FMoveStarted, FMoveMain, FMoveSlider: boolean;
     FClickStartedFinger: TFingerIndex;
-    FOnClick: TNotifyEvent;
+    FOnClick, FOnChange: TNotifyEvent;
     FColor: TCastleColor;
     FColorPersistent: TCastleColorPersistent;
     function GetColorForPersistent: TCastleColor;
@@ -43,10 +43,12 @@ type
     procedure SetPadding(const AValue: Single);
     procedure SetAreaPosY(const AValue: Single);
     procedure SetSliderPosY(const AValue: Single);
+    procedure SetIndex(const AValue: Integer);
     procedure UpdateListPosition;
     procedure CalcLineHeight;
     procedure CalcRectangles; virtual;
     procedure DoClick;
+    procedure DoChange;
   public
     const
       DefaultTextMargin = 12;
@@ -84,7 +86,7 @@ type
              {$ifdef FPC}default DefaultCursorSpeed{$endif};
     property AreaSpeed: Single read FAreaSpeed write FAreaSpeed
              {$ifdef FPC}default DefaultAreaSpeed{$endif};
-    property Index: Integer read FIndex write FIndex
+    property Index: Integer read FIndex write SetIndex
              {$ifdef FPC}default DefaultIndex{$endif};
     property LineFrame: TCastleImagePersistent read FLineFrame;
     property LineCursor: TCastleImagePersistent read FLineCursor;
@@ -95,7 +97,8 @@ type
     property LinePadding: Single read FLinePadding write SetPadding
              {$ifdef FPC}default DefaultLinePadding{$endif};
     property ColorPersistent: TCastleColorPersistent read FColorPersistent;
-    property OnClick: TNotifyEvent read FOnClick write FOnClick;
+    property OnClick: TNotifyEvent read FOnClick write FOnClick; { called when got click in list area }
+    property OnChange: TNotifyEvent read FOnChange write FOnChange; { called when Index is changed }
   end;
 
 implementation
@@ -108,6 +111,7 @@ begin
   inherited;
 
   FOnClick:= nil;
+  FOnChange:= nil;
   FAreaPosY:= 0.0;
   FAreaTargetPosY:= 0.0;
   FSliderPosY:= 0.0;
@@ -195,6 +199,8 @@ begin
 end;
 
 function TCastleListBoxBase.Press(const Event: TInputPressRelease): boolean;
+var
+  LinesInPage, NewPos: Integer;
 begin
   Result:= inherited;
   if Result then Exit;
@@ -216,12 +222,39 @@ begin
   if (Event.EventType = itMouseWheel) then
   begin
     AreaPosY:= AreaPosY + FLineHeight * Event.MouseWheelScroll;
+  end
+  else
+  if (Event.EventType = itKey) then
+  begin
+    if (Event.IsKey(keyArrowUp) AND (Index > 0)) then
+      Index:= Index - 1
+    else if (Event.IsKey(keyArrowDown) AND (Index < (FList.Count - 1))) then
+      Index:= Index + 1
+    else if (Event.IsKey(keyPageUp) AND (Index > 0)) then
+    begin
+      LinesInPage:= Trunc(FMoveRect.Height / FLineHeight);
+      NewPos:= Index - LinesInPage;
+      if (NewPos < 0) then
+        Index:= 0
+      else
+        Index:= NewPos;
+    end
+    else if (Event.IsKey(keyPageDown) AND (Index < (FList.Count - 1))) then
+    begin
+      LinesInPage:= Trunc(FMoveRect.Height / FLineHeight);
+      NewPos:= Index + LinesInPage;
+      if (NewPos > (FList.Count - 1)) then
+        Index:= FList.Count - 1
+      else
+        Index:= NewPos;
+    end;
   end;
 end;
 
 function TCastleListBoxBase.Release(const Event: TInputPressRelease): boolean;
 var
   h: Single;
+  i: Integer;
 begin
   Result:= inherited;
   if Result or (Event.EventType <> itMouseButton) then Exit;
@@ -235,8 +268,12 @@ begin
       begin
         Result:= True;
         h:= FAreaRect.Height - (Event.Position.Y - FAreaRect.Bottom);
-        Index:= Trunc(h / FLineHeight);
-        DoClick;
+        i:= Trunc(h / FLineHeight);
+        if (i < FList.Count) then
+        begin
+          Index:= i;
+          DoClick;
+        end;
       end
       else if FScrollFrameRect.Contains(Event.Position) then
       begin
@@ -420,6 +457,23 @@ begin
   end;
 end;
 
+procedure TCastleListBoxBase.SetIndex(const AValue: Integer);
+var
+  CursorBottom: Single;
+begin
+  if (FIndex = AValue) then Exit;
+  FIndex:= AValue;
+
+  CursorBottom:= FAreaRect.Top - FLineHeight * (Single(FIndex) + 1.0);
+
+  if (CursorBottom < FMoveRect.Bottom) then
+    AreaPosY:= AreaPosY - (FMoveRect.Bottom - CursorBottom)
+  else if ((CursorBottom + FLineHeight) > FMoveRect.Top) then
+    AreaPosY:= AreaPosY + ((CursorBottom + FLineHeight) - FMoveRect.Top);
+
+  DoChange;
+end;
+
 procedure TCastleListBoxBase.UpdateListPosition;
 var
   MinPosY, MaxPosY, Value: Single;
@@ -464,7 +518,7 @@ begin
   FMoveRect.Bottom:= RenderRect.Bottom;
   FMoveRect.Height:= RenderRect.Height;
 
-  { move area }
+  { click area }
   FClickRect:= FMoveRect;
 
   { cursor area }
@@ -507,6 +561,12 @@ procedure TCastleListBoxBase.DoClick;
 begin
   if Assigned(OnClick) then
     OnClick(Self);
+end;
+
+procedure TCastleListBoxBase.DoChange;
+begin
+  if Assigned(OnChange) then
+    OnChange(Self);
 end;
 
 function TCastleListBoxBase.PropertySections(const PropertyName: String): TPropertySections;
