@@ -25,6 +25,7 @@ type
     procedure ButtonSeqControlClick(Sender: TObject);
     procedure ButtonSeqEditClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
+    procedure CheckPeriod(Sender: TObject; AIndex: Integer; ACheck: Boolean);
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
@@ -101,6 +102,7 @@ begin
   ButtonPeriodDown.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodEdit.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ListPeriods.OnCheck:= {$ifdef FPC}@{$endif}CheckPeriod;
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
@@ -434,6 +436,11 @@ begin
     'ButtonMode':
       Container.View:= ViewSettingsSimple;
   end;
+end;
+
+procedure TViewSettingsPro.CheckPeriod(Sender: TObject; AIndex: Integer; ACheck: Boolean);
+begin
+  FSettingsProList[IndexSeq].Periods[AIndex].Enable:= ACheck;
 end;
 
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
