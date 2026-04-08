@@ -4,7 +4,8 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleFlashEffect, SeqExhibiter, GameViewSequenceTimer;
+  CastleFlashEffect, SeqExhibiter, CastleCheckColorListBox,
+  GameViewSequenceTimer;
 
 type
   TViewSettingsPro = class(TCastleView)

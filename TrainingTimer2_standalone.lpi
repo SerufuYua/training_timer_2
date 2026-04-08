@@ -183,8 +183,8 @@
       <Filename Value="TrainingTimer2"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="code"/>
-      <OtherUnitFiles Value="code"/>
+      <IncludeFiles Value="code;$(ProjOutDir)"/>
+      <OtherUnitFiles Value="code;code/list_box"/>
       <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
