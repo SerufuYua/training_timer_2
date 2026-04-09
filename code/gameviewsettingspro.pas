@@ -18,7 +18,8 @@ type
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
-    procedure UpdateListPeriods;
+    procedure UpdateListLength;
+    procedure UpdateListContent;
     procedure ShowStatistic;
     procedure SetIndexSeq(AValue: Integer);
     function GetIndexSeq: Integer;
@@ -263,29 +264,61 @@ begin
   UserConfig.Save;
 end;
 
-procedure TViewSettingsPro.UpdateListPeriods;
+procedure TViewSettingsPro.UpdateListLength;
 var
-  i, idx: integer;
-  Period: TTimePeriod;
+  i, idx, len, pos: integer;
+  StrList: TStringList;
 begin
   ButtonSeqName.Caption:= FSettingsProList[IndexSeq].Name;
 
-  idx:= ListPeriods.Index;
-  i:= 0;
-  ListPeriods.List.Clear;
-  for Period in FSettingsProList[IndexSeq].Periods do
+  if (ListPeriods.List is TStringList) then
   begin
-    ListPeriods.List.Add(TimeToShortStr(Period.Seconds) + ' ' + Period.Name);
-    ListPeriods.SetCheck(i, Period.Enable);
-    ListPeriods.SetColor(i, Vector4(Period.Color, 1.0));
-    i:= i + 1;
+    StrList:= ListPeriods.List as TStringList;
+    idx:= ListPeriods.Index;
+    i:= 0;
+
+    { sync ListPeriods.List and Periods Length }
+    len:= Length(FSettingsProList[IndexSeq].Periods);
+    if (StrList.Count < len) then { increase List }
+    begin
+      len:= len - StrList.Count;
+      for i:= 1 to len do
+        StrList.Add('empty');
+    end
+    else if (StrList.Count > len) then { decrease List }
+    begin
+      len:= StrList.Count - len;
+      for i:= 1 to len do
+        StrList.Delete(StrList.Count - 1);
+
+      pos:= High(FSettingsProList[IndexSeq].Periods);
+      if (idx > pos) then
+        ListPeriods.Index:= pos;
+    end;
+
+    UpdateListContent;
   end;
 
-  if (idx > High(FSettingsProList[IndexSeq].Periods)) then
-    idx:= High(FSettingsProList[IndexSeq].Periods);
-  ListPeriods.Index:= idx;
-
   ShowStatistic;
+end;
+
+procedure TViewSettingsPro.UpdateListContent;
+var
+  i: integer;
+  StrList: TStringList;
+  Period: TTimePeriod;
+begin
+  if (ListPeriods.List is TStringList) then
+  begin
+    StrList:= ListPeriods.List as TStringList;
+    for i:= 0 to High(FSettingsProList[IndexSeq].Periods) do
+    begin
+      Period:= FSettingsProList[IndexSeq].Periods[i];
+      StrList[i]:= TimeToShortStr(Period.Seconds) + ' ' + Period.Name;
+      ListPeriods.SetCheck(i, Period.Enable);
+      ListPeriods.SetColor(i, Vector4(Period.Color, 1.0));
+    end;
+  end;
 end;
 
 procedure TViewSettingsPro.ShowStatistic;
@@ -363,6 +396,7 @@ procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
 var
   idx: Integer;
   component: TComponent;
+  StrList: TStringList;
   period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
@@ -392,8 +426,9 @@ begin
       else
         idx:= Length(FSettingsProList[IndexSeq].Periods);
 
-      Insert(period, FSettingsProList[IndexSeq].Periods, idx);
-      UpdateListPeriods;
+      System.Insert(period, FSettingsProList[IndexSeq].Periods, idx);
+      ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.Seconds) + ' ' + period.Name);
+
       ListPeriods.Index:= idx;
     end;
     'ButtonPeriodUp':
@@ -405,8 +440,9 @@ begin
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        UpdateListPeriods;
-        ListPeriods.Index:= ListPeriods.Index - 1;
+        idx:= ListPeriods.Index;
+        ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index - 1);
+        ListPeriods.Index:= idx - 1;
       end;
     end;
     'ButtonPeriodDown':
@@ -418,8 +454,9 @@ begin
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        UpdateListPeriods;
-        ListPeriods.Index:= ListPeriods.Index + 1;
+        idx:= ListPeriods.Index;
+        ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index + 1);
+        ListPeriods.Index:= idx + 1;
       end;
     end;
     'ButtonPeriodEdit':
@@ -428,15 +465,17 @@ begin
     end;
     'ButtonPeriodRemove':
     begin
-      if ((ListPeriods.Index > -1) AND
-          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+      idx:= ListPeriods.Index;
+      if ((idx > -1) AND
+          (idx < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
-        Delete(FSettingsProList[IndexSeq].Periods, ListPeriods.Index, 1);
+        Delete(FSettingsProList[IndexSeq].Periods, idx, 1);
 
-        UpdateListPeriods;
+        ListPeriods.LineDelete(idx);
 
-        if (ListPeriods.Index > High(FSettingsProList[IndexSeq].Periods)) then
-          ListPeriods.Index:= High(FSettingsProList[IndexSeq].Periods);
+        if (idx > High(FSettingsProList[IndexSeq].Periods)) then
+          idx:= High(FSettingsProList[IndexSeq].Periods);
+        ListPeriods.Index:= idx;
       end;
     end;
   end;
@@ -494,7 +533,7 @@ begin
   if ((AValue >= Low(FSettingsProList)) AND (AValue <= High(FSettingsProList))) then
   begin
     FIndexSeq:= AValue;
-    UpdateListPeriods;
+    UpdateListLength;
   end;
 end;
 
