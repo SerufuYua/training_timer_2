@@ -56,6 +56,7 @@ uses
   GameSound, SeqAbout, SeqListBox, SeqEditString;
 
 const
+  DefaultPeriodName = 'New Period';
   MainStor = 'main';
   ModeStr = 'mode';
   ModeThis = 'Pro';
@@ -360,8 +361,8 @@ end;
 
 procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
 var
+  idx: Integer;
   component: TComponent;
-  check: TCastleCheckBox;
   period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
@@ -377,7 +378,23 @@ begin
     end;
     'ButtonPeriodAdd':
     begin
+      period.Name:= DefaultPeriodName;
+      period.Color:= DefaultColorRest;
+      period.Enable:= True;
+      period.StartSound:= TSoundType.None;
+      period.FinalSound:= DefaultFinalSound;
+      period.Seconds:= DefaultRestSeconds;
+      period.Warning:= True;
+      period.WarningSeconds:= DefaultWarningSeconds;
 
+      if ((ListPeriods.Index > -1) AND (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+        idx:= ListPeriods.Index
+      else
+        idx:= Length(FSettingsProList[IndexSeq].Periods);
+
+      Insert(period, FSettingsProList[IndexSeq].Periods, idx);
+      UpdateListPeriods;
+      ListPeriods.Index:= idx;
     end;
     'ButtonPeriodUp':
     begin
@@ -388,8 +405,8 @@ begin
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        ListPeriods.Index:= ListPeriods.Index - 1;
         UpdateListPeriods;
+        ListPeriods.Index:= ListPeriods.Index - 1;
       end;
     end;
     'ButtonPeriodDown':
@@ -401,8 +418,8 @@ begin
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        ListPeriods.Index:= ListPeriods.Index + 1;
         UpdateListPeriods;
+        ListPeriods.Index:= ListPeriods.Index + 1;
       end;
     end;
     'ButtonPeriodEdit':
@@ -411,7 +428,16 @@ begin
     end;
     'ButtonPeriodRemove':
     begin
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+      begin
+        Delete(FSettingsProList[IndexSeq].Periods, ListPeriods.Index, 1);
 
+        UpdateListPeriods;
+
+        if (ListPeriods.Index > High(FSettingsProList[IndexSeq].Periods)) then
+          ListPeriods.Index:= High(FSettingsProList[IndexSeq].Periods);
+      end;
     end;
   end;
 end;
