@@ -16,7 +16,7 @@ See https://castle-engine.io/manual_castle_settings.php for documentation of thi
       url="font/future_n0t_found_regular.ttf"
       size="160"
       anti_aliased="true"
-      sample_text="ЙЦУКЕЁНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮйцукеёнгшщзхъфывапролджэячсмитьбю№"
+      sample_text="ЙЦУКЕЁНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮйцукеёнгшщзхъфывапролджэячсмитьбю№˂˃˄˅"
     />
 </default_font>
 </castle_settings>

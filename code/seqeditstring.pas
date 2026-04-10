@@ -14,7 +14,6 @@ type
       TSeqEditStringDialog = class(TSeqBaseDialog)
       protected
         FOnReturnString: TReturnString;
-        GroupList: TCastleVerticalGroup;
         EditString: TCastleEdit;
         ButtonSet: TCastleButton;
         procedure ClickControl(Sender: TObject);

@@ -30,7 +30,12 @@ var
 implementation
 
 uses
-  CastleVectors, GameViewSettingsSimple, Math, CastleUtils;
+  CastleVectors, CastleConfig, GameViewSettingsSimple, GameViewSettingsPro,
+  Math, CastleUtils;
+
+const
+  MainStor = 'main';
+  ModeStr = 'mode';
 
 constructor TViewBanner.Create(AOwner: TComponent);
 begin
@@ -104,7 +109,12 @@ begin
       (Event.MouseButton = buttonRight) OR
       (Event.MouseButton = buttonMiddle) OR
       Event.IsKey(TKey.keyNone)) then
-    Container.View:= ViewSettingsSimple;
+  begin
+    case UserConfig.GetValue(MainStor + '/' + ModeStr, 'Simple') of
+      'Simple': Container.View:= ViewSettingsSimple;
+      'Pro': Container.View:= ViewSettingsPro;
+    end;
+  end;
 end;
 
 procedure TViewBanner.DoAferLoad(Sender: TObject);

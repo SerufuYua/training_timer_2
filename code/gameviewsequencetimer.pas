@@ -10,7 +10,7 @@ uses Classes,
 type
   TTimePeriod = record
     Name: String;
-    FinalSound: TSoundType;
+    StartSound, FinalSound: TSoundType;
     Seconds, WarningSeconds: Integer;
     Warning, Enable: Boolean;
     Color: TCastleColorRGB;
@@ -88,9 +88,10 @@ const
   DefaultWarningSeconds = 10;
   DefaultWarning = True;
   DefaultEnable = True;
-  DefaultFinalSound = TSoundType.Start;
-  DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 1.0; Z: 0.0); { Lime }
-  DefaultColorRest: TCastleColorRGB = (X: 1.0; Y: 1.0; Z: 0.0); { Yellow }
+  DefaultStartSound = TSoundType.Start;
+  DefaultFinalSound = TSoundType.Final;
+  DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 0.85; Z: 0.0); { Green }
+  DefaultColorRest: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.85); { Blue }
   DefaultColorRound: TCastleColorRGB = (X: 1.0; Y: 0.0; Z: 0.0); { Red }
 
 var
@@ -258,7 +259,6 @@ begin
   FTargetSeconds:= 0;
   FElapsedSeconds:= 0;
   SetupPeriod(0);
-  Play(TSoundType.Init);
   Enabled:= True;
 end;
 
@@ -274,6 +274,7 @@ begin
   FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].Seconds;
   FPeriodSeconds:= FPeriods[FPeriod].Seconds;
   FFinalSound:= FPeriods[FPeriod].FinalSound;
+  Play(FPeriods[FPeriod].StartSound);
 end;
 
 procedure TViewSequenceTimer.NextPeriod;

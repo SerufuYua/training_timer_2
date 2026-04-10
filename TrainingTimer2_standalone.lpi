@@ -66,7 +66,7 @@
         <PackageName Value="castle_engine_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="21">
+    <Units Count="25">
       <Unit0>
         <Filename Value="TrainingTimer2_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -170,6 +170,26 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SeqWebButton"/>
       </Unit20>
+      <Unit21>
+        <Filename Value="code/gameviewsettingspro.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="GameViewSettingsPro"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="code/seqeditperiod.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqEditPeriod"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="code/myutils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyUtils"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="code/seqlistcolors.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqListColors"/>
+      </Unit24>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -178,8 +198,8 @@
       <Filename Value="TrainingTimer2"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="code"/>
-      <OtherUnitFiles Value="code"/>
+      <IncludeFiles Value="code;$(ProjOutDir)"/>
+      <OtherUnitFiles Value="code;code/list_box"/>
       <UnitOutputDirectory Value="castle-engine-output/standalone/lazarus-lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

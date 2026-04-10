@@ -48,13 +48,13 @@ type
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
-    ButtonSelectSeq, ButtonAddSeq, ButtonRemoveSeq, ButtonCopySeq: TCastleButton;
-    ButtonName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
-      ButtonPrepareTime, ButtonWarningTime, ButtonAbout: TCastleButton;
-    ButtonStart: TCastleButton;
+    ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
+    ButtonSeqName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
+      ButtonPrepareTime, ButtonWarningTime : TCastleButton;
+    ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
-    ImageSettings, ImageActions, ImageAbout: TCastleImageControl;
+    ImageSettings, ImageActions: TCastleImageControl;
     LabelFps: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
@@ -73,9 +73,12 @@ implementation
 uses
   SysUtils, CastleConfig, MyTimes, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, SeqAbout,
-  GameSound;
+  GameViewSettingsPro, GameSound;
 
 const
+  MainStor = 'main';
+  ModeStr = 'mode';
+  ModeThis = 'Simple';
   SettingsStor = 'SettingsSimple';
   NameStr = 'Name';
   SeqStr = 'Seq';
@@ -91,9 +94,7 @@ const
 constructor TViewSettingsSimple.Create(AOwner: TComponent);
 begin
   inherited;
-
   FIndexSeq:= 0;
-
   DesignUrl := 'castle-data:/gameviewsettingssimple.castle-user-interface';
 end;
 
@@ -103,17 +104,16 @@ begin
 
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
-  ImageAbout.Exists:= False;
   LoadSettings;
 
   { Sequence control buttons }
-  ButtonSelectSeq.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonAddSeq.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonRemoveSeq.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
-  ButtonCopySeq.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqSelect.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
 
   { Sequence edit buttons }
-  ButtonName.OnClick:=        {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonSeqName.OnClick:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRounds.OnClick:=      {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRoundTime.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonRestTime.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -124,6 +124,7 @@ begin
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonMode.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -134,7 +135,6 @@ end;
 procedure TViewSettingsSimple.Stop;
 begin
   inherited;
-
   SaveSettings;
 end;
 
@@ -179,15 +179,14 @@ end;
 
 procedure TViewSettingsSimple.SaveSettings;
 var
-  i, num: Integer;
+  i: Integer;
   path: String;
 begin
   UserConfig.DeletePath(SettingsStor);
 
-  num:= Length(FSettingsSimpleList);
-  UserConfig.SetValue(SettingsStor + '/' + CountSeqsStr, num);
+  UserConfig.SetValue(SettingsStor + '/' + CountSeqsStr, Length(FSettingsSimpleList));
 
-  for i:= 0 to (num - 1) do
+  for i:= 0 to High(FSettingsSimpleList) do
   begin
     path:= SettingsStor + '/' + SeqStr + IntToStr(i) + '/';
     UserConfig.SetValue(path + NameStr, FSettingsSimpleList[i].Name);
@@ -212,13 +211,14 @@ begin
   end;
 
   UserConfig.SetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
+  UserConfig.SetValue(MainStor + '/' + ModeStr, ModeThis);
 
   UserConfig.Save;
 end;
 
 procedure TViewSettingsSimple.UpdateSettings;
 begin
-  ButtonName.Caption:= FSettingsSimpleList[IndexSeq].Name;
+  ButtonSeqName.Caption:= FSettingsSimpleList[IndexSeq].Name;
   ButtonRounds.Caption:= IntToStr(FSettingsSimpleList[IndexSeq].Rounds);
   ButtonRoundTime.Caption:= TimeToShortStr(FSettingsSimpleList[IndexSeq].RoundSeconds);
   ButtonRestTime.Caption:= TimeToShortStr(FSettingsSimpleList[IndexSeq].RestSeconds);
@@ -227,6 +227,17 @@ begin
   CheckWarning.Checked:= FSettingsSimpleList[IndexSeq].Warning;
 
   ShowStatistic;
+end;
+
+procedure TViewSettingsSimple.ShowStatistic;
+var
+  sec: Integer;
+begin
+  sec:= FSettingsSimpleList[IndexSeq].PrepareSeconds +
+        FSettingsSimpleList[IndexSeq].RestSeconds * (FSettingsSimpleList[IndexSeq].Rounds - 1) +
+        FSettingsSimpleList[IndexSeq].RoundSeconds * FSettingsSimpleList[IndexSeq].Rounds;
+
+  LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
 
 function TViewSettingsSimple.MakePeriods(AIndex: Integer): TPeriodsSettings;
@@ -244,6 +255,7 @@ begin
   Result.Periods[0].WarningSeconds:= FSettingsSimpleList[AIndex].WarningSeconds;
   Result.Periods[0].Warning:= FSettingsSimpleList[AIndex].Warning;
   Result.Periods[0].Color:= DefaultColorPrepare;
+  Result.Periods[0].StartSound:= TSoundType.Init;
   Result.Periods[0].FinalSound:= TSoundType.Start;
 
   lastPeriod:= FSettingsSimpleList[AIndex].Rounds * 2 - 1;
@@ -259,13 +271,15 @@ begin
       Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(FSettingsSimpleList[AIndex].Rounds);
       Result.Periods[i].Seconds:= FSettingsSimpleList[AIndex].RestSeconds;
       Result.Periods[i].Color:= DefaultColorRest;
-      Result.Periods[i].FinalSound:= TSoundType.Start;
+      Result.Periods[i].StartSound:= TSoundType.None;
+      Result.Periods[i].FinalSound:= TSoundType.None;
     end
     else
     begin
       Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(FSettingsSimpleList[AIndex].Rounds);
       Result.Periods[i].Seconds:= FSettingsSimpleList[AIndex].RoundSeconds;
       Result.Periods[i].Color:= DefaultColorRound;
+      Result.Periods[i].StartSound:= TSoundType.Start;
       if (i = lastPeriod) then
         Result.Periods[i].FinalSound:= TSoundType.Final
       else
@@ -285,7 +299,7 @@ begin
   idx:= IndexSeq;
   component:= Sender as TComponent;
   case component.Name of
-    'ButtonSelectSeq':
+    'ButtonSeqSelect':
     begin
       SetLength(list, Length(FSettingsSimpleList));
 
@@ -296,7 +310,7 @@ begin
         Container.PushView(TSeqListBox.CreateUntilStopped(list,
           'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
     end;
-    'ButtonAddSeq':
+    'ButtonSeqAdd':
     begin
       SetLength(FSettingsSimpleList, (Length(FSettingsSimpleList) + 1));
       idx:= High(FSettingsSimpleList);
@@ -308,7 +322,7 @@ begin
       FSettingsSimpleList[idx].WarningSeconds:= DefaultWarningSeconds;
       FSettingsSimpleList[idx].Warning:= DefaultWarning;
     end;
-    'ButtonRemoveSeq':
+    'ButtonSeqRemove':
     begin
       if (Length(FSettingsSimpleList) > 1) then
       begin
@@ -316,7 +330,7 @@ begin
         idx:= 0;
       end;
     end;
-    'ButtonCopySeq':
+    'ButtonSeqCopy':
     begin
       if ((Length(FSettingsSimpleList) > 0) AND (IndexSeq > -1)) then
       begin
@@ -340,7 +354,7 @@ begin
 
   component:= Sender as TComponent;
   case component.Name of
-    'ButtonName':
+    'ButtonSeqName':
     begin
       if NOT (Container.FrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
@@ -407,6 +421,8 @@ begin
     'ButtonAbout':
       if NOT (Container.FrontView is TSeqAbout) then
         Container.PushView(TSeqAbout.CreateUntilStopped);
+    'ButtonMode':
+      Container.View:= ViewSettingsPro;
   end;
 end;
 
@@ -418,7 +434,7 @@ end;
 procedure TViewSettingsSimple.DoEditName(AValue: String);
 begin
   FSettingsSimpleList[IndexSeq].Name:= AValue;
-  ButtonName.Caption:= AValue;
+  ButtonSeqName.Caption:= AValue;
 end;
 
 procedure TViewSettingsSimple.DoEditRound(AValue: Integer);
@@ -460,17 +476,6 @@ begin
   inherited;
   Assert(LabelFps <> nil, 'If you remove LabelFps from the design, remember to remove also the assignment "LabelFps.Caption := ..." from code');
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
-end;
-
-procedure TViewSettingsSimple.ShowStatistic;
-var
-  sec: Integer;
-begin
-  sec:= FSettingsSimpleList[IndexSeq].PrepareSeconds +
-        FSettingsSimpleList[IndexSeq].RestSeconds * (FSettingsSimpleList[IndexSeq].Rounds - 1) +
-        FSettingsSimpleList[IndexSeq].RoundSeconds * FSettingsSimpleList[IndexSeq].Rounds;
-
-  LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
 
 procedure TViewSettingsSimple.DoAferLoad(Sender: TObject);

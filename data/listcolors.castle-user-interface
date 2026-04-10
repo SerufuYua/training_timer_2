@@ -86,7 +86,7 @@
                   "VerticalAnchorSelf" : "vpTop"
                 },
                 {
-                  "$$ClassName" : "TCastleListBox",
+                  "$$ClassName" : "TCastleColorListBox",
                   "Border" : {
                     "$$ClassName" : "TBorder",
                     "Bottom" : 2.0000000000000000E+000,
@@ -100,6 +100,39 @@
                     "Red" : 1.0000000000000000E+000
                   },
                   "ClipChildren" : true,
+                  "ColorBox" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 1.2000000000000000E+001,
+                      "Left" : 1.0000000000000000E+001,
+                      "Right" : 1.0000000000000000E+001,
+                      "Top" : 1.2000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/color_preview_box.png"
+                  },
+                  "ColorBoxMargin" : {
+                    "$$ClassName" : "TBorder",
+                    "AllSides" : 4.0000000000000000E+000,
+                    "Left" : 1.0000000000000000E+001
+                  },
+                  "ColorFrame" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "Bottom" : 1.2000000000000000E+001,
+                      "Left" : 1.0000000000000000E+001,
+                      "Right" : 1.0000000000000000E+001,
+                      "Top" : 1.2000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/color_preview_frame.png"
+                  },
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 7.4901962280273438E-001,
+                    "Green" : 7.4901962280273438E-001,
+                    "Red" : 0.0000000000000000E+000
+                  },
                   "FontSize" : 4.8000000000000000E+001,
                   "Height" : 8.0000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
@@ -125,12 +158,13 @@
                   },
                   "LinePadding" : 2.4000000000000000E+001,
                   "List" : [
-                    "one",
-                    "two",
-                    "thee",
-                    "four"
+                    "00D900",
+                    "0000D9",
+                    "FF0000",
+                    "D900D9",
+                    "00BFBF"
                   ],
-                  "Name" : "ListBox",
+                  "Name" : "ColorListBox",
                   "ScrollbarFrame" : {
                     "$$ClassName" : "TCastleImagePersistent",
                     "ProtectedSides" : {
@@ -149,7 +183,6 @@
                     },
                     "Url" : "castle-data:/ui/x.png"
                   },
-                  "TextMargin" : 3.2000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "Y" : -1.2710000610351562E+002
