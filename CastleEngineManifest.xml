@@ -18,7 +18,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 SeqFlyingObjects,
                 SeqWebButton,
                 CastleCheckColorListBox,
-                CastleColorListBox"
+                CastleColorListBox,
+                CastleListBox"
 >
   <icons>
     <icon path="data_src/icon/icon.ico" />

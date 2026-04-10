@@ -20,7 +20,6 @@ type
         procedure ClickColor(Sender: TObject);
       public
         constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
-        procedure Start; override;
         procedure CustomColors(AColors: TCastleColors);
       end;
     var
@@ -50,11 +49,6 @@ begin
   { Find components, by name, that we need to access from code }
   ColorListBox:= FUiOwner.FindRequiredComponent('ColorListBox') as TCastleColorListBox;
   ColorListBox.OnChange:= {$ifdef FPC}@{$endif}ClickColor;
-end;
-
-procedure TSeqListColors.TSeqListColorsDialog.Start;
-begin
-  inherited;
 end;
 
 procedure TSeqListColors.TSeqListColorsDialog.CustomColors(AColors: TCastleColors);
