@@ -435,7 +435,7 @@ begin
     end;
     'ButtonPeriodUp':
     begin
-      if (ListPeriods.Index > 0) then
+      if (ListPeriods.Index > -1) then
       begin
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1]:=
@@ -463,7 +463,7 @@ begin
     end;
     'ButtonPeriodEdit':
     begin
-      if ((ListPeriods.Index > 0) AND
+      if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
       begin
         if NOT (Container.FrontView is TSeqEditPeriod) then
@@ -532,7 +532,7 @@ end;
 
 procedure TViewSettingsPro.DoEditPeriod(AValue: TTimePeriod);
 begin
-  if ((ListPeriods.Index > 0) AND
+  if ((ListPeriods.Index > -1) AND
       (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
   begin
     FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= AValue;
