@@ -71,7 +71,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleConfig, MyTimes, CastleColors,
+  SysUtils, CastleConfig, MyUtils, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, SeqAbout,
   GameViewSettingsPro, GameSound;
 

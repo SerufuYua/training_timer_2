@@ -42,7 +42,7 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleFonts, MyTimes;
+  SysUtils, CastleComponentSerialize, CastleFonts, MyUtils;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqListBoxDialog ---------------------------------------------------------- }

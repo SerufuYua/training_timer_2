@@ -49,7 +49,7 @@ implementation
 
 uses
   SysUtils, CastleComponentSerialize, CastleFonts, SeqEditString, SeqListBox,
-  MyUtils, GameSound, TypInfo, MyTimes;
+  MyUtils, GameSound, TypInfo;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqEditPeriodDialog ------------------------------------------------------- }

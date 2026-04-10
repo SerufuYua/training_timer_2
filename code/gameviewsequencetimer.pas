@@ -100,7 +100,7 @@ var
 implementation
 
 uses
-  SysUtils, MyTimes, CastleScene, CastleViewport, SeqKeepScreenService;
+  SysUtils, MyUtils, CastleScene, CastleViewport, SeqKeepScreenService;
 
 constructor TViewSequenceTimer.Create(AOwner: TComponent);
 begin

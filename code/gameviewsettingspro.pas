@@ -54,7 +54,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyTimes,
+  SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyUtils,
   GameSound, SeqAbout, SeqListBox, SeqEditString, SeqEditPeriod;
 
 const
