@@ -137,8 +137,8 @@ begin
 
   Result.Periods[0].Name:= 'Prepare';
   Result.Periods[0].Enable:= True;
-  Result.Periods[0].Seconds:= DefaultRoundSeconds;
-  Result.Periods[0].WarningSeconds:= DefaultWarningSeconds;
+  Result.Periods[0].DurationSec:= DefaultRoundSeconds;
+  Result.Periods[0].WarningSec:= DefaultWarningSeconds;
   Result.Periods[0].Warning:= DefaultWarning;
   Result.Periods[0].Color:= DefaultColorPrepare;
   Result.Periods[0].StartSound:= TSoundType.Init;
@@ -147,13 +147,13 @@ begin
   for i:= 1 to lastPeriod do
   begin
     Result.Periods[i].Enable:= True;
-    Result.Periods[i].WarningSeconds:= DefaultWarningSeconds;
+    Result.Periods[i].WarningSec:= DefaultWarningSeconds;
     Result.Periods[i].Warning:= DefaultWarning;
 
     if ((i mod 2) = 0) then
     begin
       Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
-      Result.Periods[i].Seconds:= DefaultRestSeconds;
+      Result.Periods[i].DurationSec:= DefaultRestSeconds;
       Result.Periods[i].Color:= DefaultColorRest;
       Result.Periods[i].StartSound:= TSoundType.None;
       Result.Periods[i].FinalSound:= TSoundType.None;
@@ -161,7 +161,7 @@ begin
     else
     begin
       Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
-      Result.Periods[i].Seconds:= DefaultRoundSeconds;
+      Result.Periods[i].DurationSec:= DefaultRoundSeconds;
       Result.Periods[i].Color:= DefaultColorRound;
       Result.Periods[i].StartSound:= TSoundType.Start;
       if (i = lastPeriod) then
@@ -196,8 +196,8 @@ begin
         pathPeriod:= path + PeriodStr + IntToStr(j) + '/';
         FSettingsProList[i].Periods[j].Name:= UserConfig.GetValue(pathPeriod + NameStr, PeriodStr + ' ' + IntToStr(j + 1));
         FSettingsProList[i].Periods[j].Enable:= UserConfig.GetValue(pathPeriod + EnableStr, DefaultEnable);
-        FSettingsProList[i].Periods[j].Seconds:= UserConfig.GetValue(pathPeriod + SecondsStr, DefaultRoundSeconds);
-        FSettingsProList[i].Periods[j].WarningSeconds:= UserConfig.GetValue(pathPeriod + WarningSecondsStr, DefaultWarningSeconds);
+        FSettingsProList[i].Periods[j].DurationSec:= UserConfig.GetValue(pathPeriod + SecondsStr, DefaultRoundSeconds);
+        FSettingsProList[i].Periods[j].WarningSec:= UserConfig.GetValue(pathPeriod + WarningSecondsStr, DefaultWarningSeconds);
         FSettingsProList[i].Periods[j].Warning:= UserConfig.GetValue(pathPeriod + WarningStr, DefaultWarning);
         FSettingsProList[i].Periods[j].StartSound:= TSoundType(UserConfig.GetValue(pathPeriod + StartSoundStr, Ord(DefaultStartSound)));
         FSettingsProList[i].Periods[j].FinalSound:= TSoundType(UserConfig.GetValue(pathPeriod + FinalSoundStr, Ord(DefaultFinalSound)));
@@ -239,11 +239,11 @@ begin
       if (FSettingsProList[i].Periods[j].Enable <> DefaultEnable) then
         UserConfig.SetValue(pathPeriod + EnableStr, FSettingsProList[i].Periods[j].Enable);
 
-      if (FSettingsProList[i].Periods[j].Seconds <> DefaultRoundSeconds) then
-        UserConfig.SetValue(pathPeriod + SecondsStr, FSettingsProList[i].Periods[j].Seconds);
+      if (FSettingsProList[i].Periods[j].DurationSec <> DefaultRoundSeconds) then
+        UserConfig.SetValue(pathPeriod + SecondsStr, FSettingsProList[i].Periods[j].DurationSec);
 
-      if (FSettingsProList[i].Periods[j].WarningSeconds <> DefaultWarningSeconds) then
-        UserConfig.SetValue(pathPeriod + WarningSecondsStr, FSettingsProList[i].Periods[j].WarningSeconds);
+      if (FSettingsProList[i].Periods[j].WarningSec <> DefaultWarningSeconds) then
+        UserConfig.SetValue(pathPeriod + WarningSecondsStr, FSettingsProList[i].Periods[j].WarningSec);
 
       if (FSettingsProList[i].Periods[j].Warning <> DefaultWarning) then
         UserConfig.SetValue(pathPeriod + WarningStr, FSettingsProList[i].Periods[j].Warning);
@@ -315,7 +315,7 @@ begin
     for i:= 0 to High(FSettingsProList[IndexSeq].Periods) do
     begin
       Period:= FSettingsProList[IndexSeq].Periods[i];
-      StrList[i]:= TimeToShortStr(Period.Seconds) + ' ' + Period.Name;
+      StrList[i]:= TimeToShortStr(Period.DurationSec) + ' ' + Period.Name;
       ListPeriods.SetCheck(i, Period.Enable);
       ListPeriods.SetColor(i, Vector4(Period.Color, 1.0));
     end;
@@ -330,7 +330,7 @@ begin
   sec:= 0;
   for Period in FSettingsProList[IndexSeq].Periods do
     if Period.Enable then
-      sec:= sec + Period.Seconds;
+      sec:= sec + Period.DurationSec;
 
   LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
@@ -423,12 +423,12 @@ begin
       period.Enable:= True;
       period.StartSound:= TSoundType.None;
       period.FinalSound:= DefaultFinalSound;
-      period.Seconds:= DefaultRestSeconds;
+      period.DurationSec:= DefaultRestSeconds;
       period.Warning:= True;
-      period.WarningSeconds:= DefaultWarningSeconds;
+      period.WarningSec:= DefaultWarningSeconds;
 
       System.Insert(period, FSettingsProList[IndexSeq].Periods, idx);
-      ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.Seconds) + ' ' + period.Name);
+      ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.DurationSec) + ' ' + period.Name);
 
       ListPeriods.Index:= idx;
       ShowStatistic;
@@ -537,7 +537,7 @@ begin
   begin
     FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= AValue;
 
-    ListPeriods.List[ListPeriods.Index]:= TimeToShortStr(AValue.Seconds) + ' ' + AValue.Name;
+    ListPeriods.List[ListPeriods.Index]:= TimeToShortStr(AValue.DurationSec) + ' ' + AValue.Name;
     ListPeriods.SetCheck(ListPeriods.Index, AValue.Enable);
     ListPeriods.SetColor(ListPeriods.Index, Vector4(AValue.Color, 1.0));
     ShowStatistic;

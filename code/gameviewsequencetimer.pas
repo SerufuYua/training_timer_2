@@ -11,7 +11,7 @@ type
   TTimePeriod = record
     Name: String;
     StartSound, FinalSound: TSoundType;
-    Seconds, WarningSeconds: Integer;
+    DurationSec, WarningSec: Integer;
     Warning, Enable: Boolean;
     Color: TCastleColorRGB;
   end;
@@ -126,7 +126,7 @@ begin
   FFullSeconds:= 0;
   for i:= Low(FPeriods) to High(FPeriods) do
     if FPeriods[i].Enable then
-      FFullSeconds:= FFullSeconds + FPeriods[i].Seconds;
+      FFullSeconds:= FFullSeconds + FPeriods[i].DurationSec;
 
   { Actions buttons }
   ButtonStop.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
@@ -265,14 +265,14 @@ end;
 procedure TViewSequenceTimer.SetupPeriod(AIndex: Integer);
 begin
   FPeriod:= AIndex;
-  ShowTime(FPeriods[FPeriod].Seconds);
+  ShowTime(FPeriods[FPeriod].DurationSec);
   LabelPeriodName.Caption:= FPeriods[FPeriod].Name;
   FSignalColor:= FPeriods[FPeriod].Color;
   ShowColor(FSignalColor, 0.2);
-  FWarningSeconds:= FPeriods[FPeriod].WarningSeconds;
+  FWarningSeconds:= FPeriods[FPeriod].WarningSec;
   FWarning:= FPeriods[FPeriod].Warning;
-  FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].Seconds;
-  FPeriodSeconds:= FPeriods[FPeriod].Seconds;
+  FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].DurationSec;
+  FPeriodSeconds:= FPeriods[FPeriod].DurationSec;
   FFinalSound:= FPeriods[FPeriod].FinalSound;
   Play(FPeriods[FPeriod].StartSound);
 end;

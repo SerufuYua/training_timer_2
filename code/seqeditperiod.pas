@@ -116,13 +116,13 @@ begin
     begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
-          FPeriod.Seconds, 'Period Time', {$ifdef FPC}@{$endif}DoEditDuration));
+          FPeriod.DurationSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditDuration));
     end;
     'ButtonWarningTime':
     begin
       if NOT (Container.FrontView is TSeqEditTimeMinSec) then
         Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
-          FPeriod.WarningSeconds, 'Period Time', {$ifdef FPC}@{$endif}DoEditWarning));
+          FPeriod.WarningSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditWarning));
     end;
     'CheckWarning':
     begin
@@ -158,8 +158,8 @@ begin
   CheckEnable.Checked:= FPeriod.Enable;
   ButtonSoundStart.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.StartSound));
   ButtonSoundFinal.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.FinalSound));
-  ButtonDuration.Caption:= TimeToShortStr(FPeriod.Seconds);
-  ButtonWarningTime.Caption:= TimeToShortStr(FPeriod.WarningSeconds);
+  ButtonDuration.Caption:= TimeToShortStr(FPeriod.DurationSec);
+  ButtonWarningTime.Caption:= TimeToShortStr(FPeriod.WarningSec);
   CheckWarning.Checked:= FPeriod.Warning;
   ButtonColor.CustomBackgroundNormal.Color:= Vector4(FPeriod.Color, 1.0);
   ButtonColor.CustomBackgroundFocused.Color:= Vector4(FPeriod.Color, 1.0);
@@ -186,13 +186,13 @@ end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.DoEditDuration(ASeconds: Integer);
 begin
-  FPeriod.Seconds:= ASeconds;
+  FPeriod.DurationSec:= ASeconds;
   ButtonDuration.Caption:= TimeToShortStr(ASeconds);
 end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.DoEditWarning(ASeconds: Integer);
 begin
-  FPeriod.WarningSeconds:= ASeconds;
+  FPeriod.WarningSec:= ASeconds;
   ButtonWarningTime.Caption:= TimeToShortStr(ASeconds);
 end;
 
