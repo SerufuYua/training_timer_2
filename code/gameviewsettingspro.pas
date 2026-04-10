@@ -329,7 +329,8 @@ var
 begin
   sec:= 0;
   for Period in FSettingsProList[IndexSeq].Periods do
-    sec:= sec + Period.Seconds;
+    if Period.Enable then
+      sec:= sec + Period.Seconds;
 
   LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
 end;
@@ -430,6 +431,7 @@ begin
       ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.Seconds) + ' ' + period.Name);
 
       ListPeriods.Index:= idx;
+      ShowStatistic;
     end;
     'ButtonPeriodUp':
     begin
@@ -483,6 +485,7 @@ begin
         if (idx > High(FSettingsProList[IndexSeq].Periods)) then
           idx:= High(FSettingsProList[IndexSeq].Periods);
         ListPeriods.Index:= idx;
+        ShowStatistic;
       end;
     end;
   end;
@@ -513,6 +516,7 @@ end;
 procedure TViewSettingsPro.CheckPeriod(Sender: TObject; AIndex: Integer; ACheck: Boolean);
 begin
   FSettingsProList[IndexSeq].Periods[AIndex].Enable:= ACheck;
+  ShowStatistic;
 end;
 
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
@@ -536,6 +540,7 @@ begin
     ListPeriods.List[ListPeriods.Index]:= TimeToShortStr(AValue.Seconds) + ' ' + AValue.Name;
     ListPeriods.SetCheck(ListPeriods.Index, AValue.Enable);
     ListPeriods.SetColor(ListPeriods.Index, Vector4(AValue.Color, 1.0));
+    ShowStatistic;
   end;
 end;
 
