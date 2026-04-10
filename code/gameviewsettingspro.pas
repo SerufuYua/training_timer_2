@@ -15,6 +15,7 @@ type
     procedure DoAferLoad(Sender: TObject);
     procedure DoSelectSeq(AValue: Integer);
     procedure DoEditName(AValue: String);
+    procedure DoEditPeriod(AValue: TTimePeriod);
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
@@ -54,7 +55,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyTimes,
-  GameSound, SeqAbout, SeqListBox, SeqEditString;
+  GameSound, SeqAbout, SeqListBox, SeqEditString, SeqEditPeriod;
 
 const
   DefaultPeriodName = 'New Period';
@@ -396,7 +397,6 @@ procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
 var
   idx: Integer;
   component: TComponent;
-  StrList: TStringList;
   period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
@@ -412,7 +412,12 @@ begin
     end;
     'ButtonPeriodAdd':
     begin
-      period.Name:= DefaultPeriodName;
+      if ((ListPeriods.Index > -1) AND (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+        idx:= ListPeriods.Index
+      else
+        idx:= Length(FSettingsProList[IndexSeq].Periods);
+
+      period.Name:= DefaultPeriodName + ' ' + IntToStr(idx);
       period.Color:= DefaultColorRest;
       period.Enable:= True;
       period.StartSound:= TSoundType.None;
@@ -420,11 +425,6 @@ begin
       period.Seconds:= DefaultRestSeconds;
       period.Warning:= True;
       period.WarningSeconds:= DefaultWarningSeconds;
-
-      if ((ListPeriods.Index > -1) AND (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
-        idx:= ListPeriods.Index
-      else
-        idx:= Length(FSettingsProList[IndexSeq].Periods);
 
       System.Insert(period, FSettingsProList[IndexSeq].Periods, idx);
       ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.Seconds) + ' ' + period.Name);
@@ -461,7 +461,14 @@ begin
     end;
     'ButtonPeriodEdit':
     begin
-
+      if ((ListPeriods.Index > 0) AND
+          (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
+      begin
+        if NOT (Container.FrontView is TSeqEditPeriod) then
+          Container.PushView(TSeqEditPeriod.CreateUntilStopped(
+            FSettingsProList[IndexSeq].Periods[ListPeriods.Index],
+            'Edit Period', {$ifdef FPC}@{$endif}DoEditPeriod));
+      end;
     end;
     'ButtonPeriodRemove':
     begin
@@ -517,6 +524,19 @@ procedure TViewSettingsPro.DoEditName(AValue: String);
 begin
   FSettingsProList[IndexSeq].Name:= AValue;
   ButtonSeqName.Caption:= AValue;
+end;
+
+procedure TViewSettingsPro.DoEditPeriod(AValue: TTimePeriod);
+begin
+  if ((ListPeriods.Index > 0) AND
+      (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
+  begin
+    FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= AValue;
+
+    ListPeriods.List[ListPeriods.Index]:= TimeToShortStr(AValue.Seconds) + ' ' + AValue.Name;
+    ListPeriods.SetCheck(ListPeriods.Index, AValue.Enable);
+    ListPeriods.SetColor(ListPeriods.Index, Vector4(AValue.Color, 1.0));
+  end;
 end;
 
 procedure TViewSettingsPro.DoAferLoad(Sender: TObject);
