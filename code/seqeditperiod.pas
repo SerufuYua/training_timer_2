@@ -4,7 +4,7 @@ interface
 
 uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, CastleColors, SeqExhibiter,
-  GameViewSequenceTimer, SeqEditTimeMinSec;
+  GameViewSequenceTimer, SeqEditTimeMinSec, SeqListColors;
 
 type
   TReturnPeriod = procedure(AValue: TTimePeriod) of object;
@@ -131,7 +131,9 @@ begin
     end;
     'ButtonColor':
     begin
-
+      if NOT (Container.FrontView is TSeqListColors) then
+        Container.PushView(TSeqListColors.CreateUntilStopped(
+          nil, 'Period Color', {$ifdef FPC}@{$endif}DoEditColor));
     end;
   end;
 end;

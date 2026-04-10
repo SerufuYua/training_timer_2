@@ -17,7 +17,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 SeqLoadingBar,
                 SeqFlyingObjects,
                 SeqWebButton,
-                CastleCheckColorListBox"
+                CastleCheckColorListBox,
+                CastleColorListBox"
 >
   <icons>
     <icon path="data_src/icon/icon.ico" />
