@@ -258,7 +258,8 @@ procedure TViewSequenceTimer.ResetTimer;
 begin
   FTargetSeconds:= 0;
   FElapsedSeconds:= 0;
-  SetupPeriod(0);
+  FPeriod:= -1;
+  NextPeriod;
   Enabled:= True;
 end;
 
