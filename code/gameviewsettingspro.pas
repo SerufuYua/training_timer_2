@@ -105,6 +105,7 @@ begin
   ButtonPeriodDown.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodEdit.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ListPeriods.OnClickSecond:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ListPeriods.OnCheck:= {$ifdef FPC}@{$endif}CheckPeriod;
 
   { Actions buttons }
@@ -461,7 +462,7 @@ begin
         ListPeriods.Index:= idx + 1;
       end;
     end;
-    'ButtonPeriodEdit':
+    'ButtonPeriodEdit', 'ListPeriods':
     begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
