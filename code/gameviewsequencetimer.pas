@@ -59,9 +59,15 @@ type
     ImageTimer, ImageActions: TCastleImageControl;
     TunnelBG: TSeqTunnelEffect;
     LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
-    LabelFps, LabelSequenceName, LabelPeriodName,
-      LabelMin, LabelMinShadow, LabelSec, LabelSecShadow, LabelSecPart,
-      LabelSecPartShadow, LabelFullTime, LabelFullTimeShadow: TCastleLabel;
+    LabelFps, LabelSequenceName, LabelPeriodName: TCastleLabel;
+    LabelMin, LabelMinShadow,
+      LabelSec, LabelSecShadow,
+      LabelSecPart, LabelSecPartShadow,
+      LabelFullTime, LabelFullTimeShadow,
+      LabelSecBig, LabelSecBigShadow,
+      LabelSecPartBig, LabelSecPartBigShadow: TCastleLabel;
+    GroupTimer, GroupTimerShadow,
+      GroupTimerBig, GroupTimerBigShadow:TCastleUserInterface;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -355,20 +361,44 @@ var
   min, sec, part: Integer;
   s: String;
 begin
-  SecondsToMinSec(Round(ASeconds), min, sec);
   part:= Trunc(Frac(ASeconds) * 10.0);
 
-  s:= Format('%.2d', [min]);
-  LabelMin.Caption:= s;
-  LabelMinShadow.Caption:= s;
+  if (ASeconds < 60.0) then
+  begin
+    GroupTimerBig.Exists:= True;
+    GroupTimerBigShadow.Exists:= True;
+    GroupTimer.Exists:= False;
+    GroupTimerShadow.Exists:= False;
 
-  s:= Format('%.2d', [sec]);
-  LabelSec.Caption:= s;
-  LabelSecShadow.Caption:= s;
+    s:= Format('%.2d', [Trunc(ASeconds)]);
+    LabelSecBig.Caption:= s;
+    LabelSecBigShadow.Caption:= s;
 
-  s:= Format('%.1d', [part]);
-  LabelSecPart.Caption:= s;
-  LabelSecPartShadow.Caption:= s;
+    s:= Format('%.1d', [part]);
+    LabelSecPartBig.Caption:= s;
+    LabelSecPartBigShadow.Caption:= s;
+  end
+  else
+  begin
+    GroupTimer.Exists:= True;
+    GroupTimerShadow.Exists:= True;
+    GroupTimerBig.Exists:= False;
+    GroupTimerBigShadow.Exists:= False;
+
+    SecondsToMinSec(Round(ASeconds), min, sec);
+
+    s:= Format('%.2d', [min]);
+    LabelMin.Caption:= s;
+    LabelMinShadow.Caption:= s;
+
+    s:= Format('%.2d', [sec]);
+    LabelSec.Caption:= s;
+    LabelSecShadow.Caption:= s;
+
+    s:= Format('%.1d', [part]);
+    LabelSecPart.Caption:= s;
+    LabelSecPartShadow.Caption:= s;
+  end;
 end;
 
 procedure TViewSequenceTimer.ShowFullTime(ASeconds: Single);
