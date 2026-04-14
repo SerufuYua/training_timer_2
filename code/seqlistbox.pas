@@ -46,7 +46,7 @@ begin
 
   { Find components, by name, that we need to access from code }
   ListBox:= FUiOwner.FindRequiredComponent('ListBox') as TCastleListBox;
-  ListBox.OnChange:= {$ifdef FPC}@{$endif}ClickList;
+  ListBox.OnCursorArrive:= {$ifdef FPC}@{$endif}ClickList;
 end;
 
 procedure TSeqListBox.TSeqListBoxDialog.SetList(AList: TStringArray);
