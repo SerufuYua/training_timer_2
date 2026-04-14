@@ -416,7 +416,7 @@ begin
     begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
-        idx:= ListPeriods.Index
+        idx:= ListPeriods.Index + 1
       else
         idx:= Length(FSettingsProList[IndexSeq].Periods);
 
