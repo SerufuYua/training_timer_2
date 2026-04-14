@@ -660,12 +660,12 @@
               "ClipChildren" : true,
               "Name" : "GroupActions",
               "Padding" : 3.0000000000000000E+001,
-              "Spacing" : 3.2000000000000000E+001,
+              "Spacing" : 1.2800000000000000E+002,
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleButton",
+                  "AutoSize" : false,
                   "AutoSizeHeight" : false,
-                  "Caption" : "Stop",
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -702,9 +702,9 @@
                   },
                   "CustomTextColorUse" : true,
                   "FontSize" : 4.8000000000000000E+001,
-                  "Height" : 6.5000000000000000E+001,
                   "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui_icons/stop.png"
                   },
                   "Name" : "ButtonStop",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
@@ -717,8 +717,8 @@
                 },
                 {
                   "$$ClassName" : "TCastleButton",
+                  "AutoSize" : false,
                   "AutoSizeHeight" : false,
-                  "Caption" : "Restart",
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -755,23 +755,23 @@
                   },
                   "CustomTextColorUse" : true,
                   "FontSize" : 4.8000000000000000E+001,
-                  "Height" : 6.5000000000000000E+001,
                   "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui_icons/restart.png"
                   },
                   "Name" : "ButtonRestart",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.1530000305175781E+002
+                    "X" : 2.5800000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"
                 },
                 {
                   "$$ClassName" : "TCastleButton",
+                  "AutoSize" : false,
                   "AutoSizeHeight" : false,
-                  "Caption" : "Pause",
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -808,15 +808,15 @@
                   },
                   "CustomTextColorUse" : true,
                   "FontSize" : 4.8000000000000000E+001,
-                  "Height" : 6.5000000000000000E+001,
                   "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui_icons/pause.png"
                   },
                   "Name" : "ButtonPause",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 4.6179998779296875E+002
+                    "X" : 4.8600000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle"

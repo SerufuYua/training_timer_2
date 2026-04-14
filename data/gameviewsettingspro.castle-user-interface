@@ -170,7 +170,7 @@
                   "Name" : "ButtonSeqAdd",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.7729998779296875E+002
+                    "X" : 2.7730001831054688E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -223,7 +223,7 @@
                   "Name" : "ButtonSeqCopy",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 3.5829998779296875E+002
+                    "X" : 3.5830001831054688E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -895,7 +895,6 @@
                 {
                   "$$ClassName" : "TCastleButton",
                   "AutoSize" : false,
-                  "Caption" : "!",
                   "CustomBackground" : true,
                   "CustomBackgroundDisabled" : {
                     "$$ClassName" : "TCastleImagePersistent"
@@ -934,7 +933,8 @@
                   "FontSize" : 4.8000000000000000E+001,
                   "Height" : 6.5000000000000000E+001,
                   "Image" : {
-                    "$$ClassName" : "TCastleImagePersistent"
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui_icons/attention.png"
                   },
                   "Name" : "ButtonAbout",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
