@@ -138,7 +138,7 @@ begin
 
   Result.Periods[0].Name:= 'Prepare';
   Result.Periods[0].Enable:= True;
-  Result.Periods[0].DurationSec:= DefaultRoundSeconds;
+  Result.Periods[0].DurationSec:= DefaultPrepareSeconds;
   Result.Periods[0].WarningSec:= DefaultWarningSeconds;
   Result.Periods[0].Warning:= DefaultWarning;
   Result.Periods[0].Color:= DefaultColorPrepare;
@@ -414,7 +414,8 @@ begin
     end;
     'ButtonPeriodAdd':
     begin
-      if ((ListPeriods.Index > -1) AND (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
         idx:= ListPeriods.Index
       else
         idx:= Length(FSettingsProList[IndexSeq].Periods);
@@ -436,30 +437,30 @@ begin
     end;
     'ButtonPeriodUp':
     begin
-      if (ListPeriods.Index > -1) then
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1]:=
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        idx:= ListPeriods.Index;
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index - 1);
-        ListPeriods.Index:= idx - 1;
+        ListPeriods.Index:= ListPeriods.Index - 1;
       end;
     end;
     'ButtonPeriodDown':
     begin
-      if (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods)) then
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1]:=
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index]:= period;
 
-        idx:= ListPeriods.Index;
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index + 1);
-        ListPeriods.Index:= idx + 1;
+        ListPeriods.Index:= ListPeriods.Index + 1;
       end;
     end;
     'ButtonPeriodEdit', 'ListPeriods':
@@ -560,6 +561,7 @@ begin
   begin
     FIndexSeq:= AValue;
     UpdateListLength;
+    ListPeriods.Index:= -1;
   end;
 end;
 
