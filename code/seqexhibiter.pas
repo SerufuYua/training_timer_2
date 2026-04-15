@@ -21,9 +21,11 @@ type
     FMoveType: TMoveType;
     FShowType: TShowType;
     FChainNext: TSeqExhibiter;
+    FChainNextObserver: TFreeNotificationObserver;
     FOnStart, FOnFinish: TNotifyEvent;
     procedure SetExecuteOnce(AValue: Boolean);
     procedure SetChain(AValue: TSeqExhibiter);
+    procedure ChainFreeNotification(const Sender: TFreeNotificationObserver);
   public
     const
       DefaultExecuteOnce = False;
@@ -33,6 +35,7 @@ type
       DefaultMoveType = Linear;
 
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure Update(const SecondsPassed: Single;
                      var HandleInput: Boolean); override;
     function PropertySections(const PropertyName: String): TPropertySections; override;
@@ -75,6 +78,17 @@ begin
   FDirection:= DefaultDirection;
   FMoveType:= DefaultMoveType;
   FShowType:= DefaultShowType;
+
+  FChainNextObserver:= TFreeNotificationObserver.Create(Self);
+  FChainNextObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}ChainFreeNotification;
+end;
+
+destructor TSeqExhibiter.Destroy;
+begin
+  if Assigned(FChainNextObserver) then
+    FreeAndNil(FChainNextObserver);
+
+  inherited;
 end;
 
 procedure TSeqExhibiter.Update(const SecondsPassed: Single;
@@ -195,8 +209,8 @@ begin
 
       FTimeCounter:= 0.0;
 
-      if Assigned(FOnStart) then
-        FOnStart(self);
+      if Assigned(OnStart) then
+        OnStart(self);
     end
   end
   else
@@ -208,11 +222,11 @@ begin
       Parent.AutoSizeToChildren:= FAutoSizeState;
     end;
 
-    if Assigned(FOnFinish) then
-      FOnFinish(self);
+    if Assigned(OnFinish) then
+      OnFinish(self);
 
-    if Assigned(FChainNext) then
-      FChainNext.ExecuteOnce:= True;
+    if Assigned(ChainNext) then
+      ChainNext.ExecuteOnce:= True;
   end;
 
   FExecuteOnce:= AValue;
@@ -221,7 +235,15 @@ end;
 procedure TSeqExhibiter.SetChain(AValue: TSeqExhibiter);
 begin
   if (FChainNext <> AValue) then
+  begin
+    FChainNextObserver.Observed:= AValue;
     FChainNext:= AValue;
+  end;
+end;
+
+procedure TSeqExhibiter.ChainFreeNotification(const Sender: TFreeNotificationObserver);
+begin
+  FChainNext:= nil;
 end;
 
 function TSeqExhibiter.PropertySections(const PropertyName: String): TPropertySections;
