@@ -17,10 +17,12 @@ type
         FOnReturnString: TReturnPeriod;
         FPeriod: TTimePeriod;
         ButtonSet, ButtonPeriodName, ButtonSoundStart,
-          ButtonSoundFinal, ButtonDuration, ButtonWarningTime,
-          ButtonColor: TCastleButton;
+          ButtonSoundEnd, ButtonDuration, ButtonWarningTime,
+          ButtonColor,
+          ButtonSoundcheckStart, ButtonSoundcheckEnd: TCastleButton;
         CheckEnable, CheckWarning: TCastleCheckbox;
         procedure ClickEdit(Sender: TObject);
+        procedure ClickSoundcheck(Sender: TObject);
         procedure ClickControl(Sender: TObject);
         procedure SetPeriod(AValue: TTimePeriod);
         procedure DoEditName(AValue: String);
@@ -63,22 +65,26 @@ begin
   ButtonPeriodName:= FUiOwner.FindRequiredComponent('ButtonPeriodName') as TCastleButton;
   CheckEnable:= FUiOwner.FindRequiredComponent('CheckEnable') as TCastleCheckbox;
   ButtonSoundStart:= FUiOwner.FindRequiredComponent('ButtonSoundStart') as TCastleButton;
-  ButtonSoundFinal:= FUiOwner.FindRequiredComponent('ButtonSoundFinal') as TCastleButton;
+  ButtonSoundEnd:= FUiOwner.FindRequiredComponent('ButtonSoundEnd') as TCastleButton;
   ButtonDuration:= FUiOwner.FindRequiredComponent('ButtonDuration') as TCastleButton;
   ButtonWarningTime:= FUiOwner.FindRequiredComponent('ButtonWarningTime') as TCastleButton;
   CheckWarning:= FUiOwner.FindRequiredComponent('CheckWarning') as TCastleCheckbox;
   ButtonColor:= FUiOwner.FindRequiredComponent('ButtonColor') as TCastleButton;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
+  ButtonSoundcheckStart:= FUiOwner.FindRequiredComponent('ButtonSoundcheckStart') as TCastleButton;
+  ButtonSoundcheckEnd:= FUiOwner.FindRequiredComponent('ButtonSoundcheckEnd') as TCastleButton;
 
   ButtonPeriodName.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
   CheckEnable.OnChange:= {$ifdef FPC}@{$endif}ClickEdit;
   ButtonSoundStart.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonSoundFinal.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonSoundEnd.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
   ButtonDuration.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
   ButtonWarningTime.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
   CheckWarning.OnChange:= {$ifdef FPC}@{$endif}ClickEdit;
   ButtonColor.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  ButtonSoundcheckStart.OnClick:= {$ifdef FPC}@{$endif}ClickSoundcheck;
+  ButtonSoundcheckEnd.OnClick:= {$ifdef FPC}@{$endif}ClickSoundcheck;
 end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.ClickEdit(Sender: TObject);
@@ -106,7 +112,7 @@ begin
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
           'Select Start Sound', {$ifdef FPC}@{$endif}DoSelectStartSound));
     end;
-    'ButtonSoundFinal':
+    'ButtonSoundEnd':
     begin
       if NOT (Container.FrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
@@ -138,6 +144,19 @@ begin
   end;
 end;
 
+procedure TSeqEditPeriod.TSeqEditPeriodDialog.ClickSoundcheck(Sender: TObject);
+var
+  component: TComponent;
+begin
+  if (NOT (Sender is TComponent)) then Exit;
+
+  component:= Sender as TComponent;
+  case component.Name of
+    'ButtonSoundcheckStart': Play(FPeriod.SoundStart);
+    'ButtonSoundcheckEnd':   Play(FPeriod.SoundEnding);
+  end;
+end;
+
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
@@ -156,8 +175,8 @@ begin
   FPeriod:= AValue;
   ButtonPeriodName.Caption:= FPeriod.Name;
   CheckEnable.Checked:= FPeriod.Enable;
-  ButtonSoundStart.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.StartSound));
-  ButtonSoundFinal.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.FinalSound));
+  ButtonSoundStart.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.SoundStart));
+  ButtonSoundEnd.Caption:= GetEnumName(TypeInfo(TSoundType), Ord(FPeriod.SoundEnding));
   ButtonDuration.Caption:= TimeToShortStr(FPeriod.DurationSec);
   ButtonWarningTime.Caption:= TimeToShortStr(FPeriod.WarningSec);
   CheckWarning.Checked:= FPeriod.Warning;
@@ -174,14 +193,14 @@ end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.DoSelectStartSound(AValue: Integer);
 begin
-  FPeriod.StartSound:= TSoundType(AValue);
+  FPeriod.SoundStart:= TSoundType(AValue);
   ButtonSoundStart.Caption:= GetEnumName(TypeInfo(TSoundType), AValue);
 end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.DoSelectFinalSound(AValue: Integer);
 begin
-  FPeriod.FinalSound:= TSoundType(AValue);
-  ButtonSoundFinal.Caption:= GetEnumName(TypeInfo(TSoundType), AValue);
+  FPeriod.SoundEnding:= TSoundType(AValue);
+  ButtonSoundEnd.Caption:= GetEnumName(TypeInfo(TSoundType), AValue);
 end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.DoEditDuration(ASeconds: Integer);

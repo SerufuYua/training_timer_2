@@ -142,8 +142,8 @@ begin
   Result.Periods[0].WarningSec:= DefaultWarningSeconds;
   Result.Periods[0].Warning:= DefaultWarning;
   Result.Periods[0].Color:= DefaultColorPrepare;
-  Result.Periods[0].StartSound:= TSoundType.Init;
-  Result.Periods[0].FinalSound:= TSoundType.Start;
+  Result.Periods[0].SoundStart:= TSoundType.Init;
+  Result.Periods[0].SoundEnding:= TSoundType.Start;
 
   for i:= 1 to lastPeriod do
   begin
@@ -156,19 +156,19 @@ begin
       Result.Periods[i].Name:= 'Rest before Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
       Result.Periods[i].DurationSec:= DefaultRestSeconds;
       Result.Periods[i].Color:= DefaultColorRest;
-      Result.Periods[i].StartSound:= TSoundType.None;
-      Result.Periods[i].FinalSound:= TSoundType.None;
+      Result.Periods[i].SoundStart:= TSoundType.None;
+      Result.Periods[i].SoundEnding:= TSoundType.None;
     end
     else
     begin
       Result.Periods[i].Name:= 'Round ' + IntToStr((i div 2) + 1) + ' / ' + IntToStr(DefaultRounds);
       Result.Periods[i].DurationSec:= DefaultRoundSeconds;
       Result.Periods[i].Color:= DefaultColorRound;
-      Result.Periods[i].StartSound:= TSoundType.Start;
+      Result.Periods[i].SoundStart:= TSoundType.Start;
       if (i = lastPeriod) then
-        Result.Periods[i].FinalSound:= TSoundType.Final
+        Result.Periods[i].SoundEnding:= TSoundType.Final
       else
-        Result.Periods[i].FinalSound:= TSoundType.Ending;
+        Result.Periods[i].SoundEnding:= TSoundType.Ending;
     end;
   end;
 end;
@@ -200,8 +200,8 @@ begin
         FSettingsProList[i].Periods[j].DurationSec:= UserConfig.GetValue(pathPeriod + SecondsStr, DefaultRoundSeconds);
         FSettingsProList[i].Periods[j].WarningSec:= UserConfig.GetValue(pathPeriod + WarningSecondsStr, DefaultWarningSeconds);
         FSettingsProList[i].Periods[j].Warning:= UserConfig.GetValue(pathPeriod + WarningStr, DefaultWarning);
-        FSettingsProList[i].Periods[j].StartSound:= TSoundType(UserConfig.GetValue(pathPeriod + StartSoundStr, Ord(DefaultStartSound)));
-        FSettingsProList[i].Periods[j].FinalSound:= TSoundType(UserConfig.GetValue(pathPeriod + FinalSoundStr, Ord(DefaultFinalSound)));
+        FSettingsProList[i].Periods[j].SoundStart:= TSoundType(UserConfig.GetValue(pathPeriod + StartSoundStr, Ord(DefaultStartSound)));
+        FSettingsProList[i].Periods[j].SoundEnding:= TSoundType(UserConfig.GetValue(pathPeriod + FinalSoundStr, Ord(DefaultEndingSound)));
         FSettingsProList[i].Periods[j].Color:= UserConfig.GetColorRGB(pathPeriod + ColorStr, DefaultColorPrepare);
       end;
     end;
@@ -249,11 +249,11 @@ begin
       if (FSettingsProList[i].Periods[j].Warning <> DefaultWarning) then
         UserConfig.SetValue(pathPeriod + WarningStr, FSettingsProList[i].Periods[j].Warning);
 
-      if (FSettingsProList[i].Periods[j].StartSound <> DefaultStartSound) then
-        UserConfig.SetValue(pathPeriod + StartSoundStr, Ord(FSettingsProList[i].Periods[j].StartSound));
+      if (FSettingsProList[i].Periods[j].SoundStart <> DefaultStartSound) then
+        UserConfig.SetValue(pathPeriod + StartSoundStr, Ord(FSettingsProList[i].Periods[j].SoundStart));
 
-      if (FSettingsProList[i].Periods[j].FinalSound <> DefaultFinalSound) then
-        UserConfig.SetValue(pathPeriod + FinalSoundStr, Ord(FSettingsProList[i].Periods[j].FinalSound));
+      if (FSettingsProList[i].Periods[j].SoundEnding <> DefaultEndingSound) then
+        UserConfig.SetValue(pathPeriod + FinalSoundStr, Ord(FSettingsProList[i].Periods[j].SoundEnding));
 
       if NOT TVector3.Equals(FSettingsProList[i].Periods[j].Color, DefaultColorPrepare) then
         UserConfig.SetColorRGB(pathPeriod + ColorStr, FSettingsProList[i].Periods[j].Color);
@@ -423,8 +423,8 @@ begin
       period.Name:= DefaultPeriodName + ' ' + IntToStr(idx);
       period.Color:= DefaultColorRest;
       period.Enable:= True;
-      period.StartSound:= TSoundType.None;
-      period.FinalSound:= DefaultFinalSound;
+      period.SoundStart:= TSoundType.None;
+      period.SoundEnding:= DefaultEndingSound;
       period.DurationSec:= DefaultRestSeconds;
       period.Warning:= True;
       period.WarningSec:= DefaultWarningSeconds;

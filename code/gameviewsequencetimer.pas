@@ -10,7 +10,7 @@ uses Classes,
 type
   TTimePeriod = record
     Name: String;
-    StartSound, FinalSound: TSoundType;
+    SoundStart, SoundEnding: TSoundType;
     DurationSec, WarningSec: Integer;
     Warning, Enable: Boolean;
     Color: TCastleColorRGB;
@@ -38,7 +38,7 @@ type
     FKeepScreenSeconds: Single;
     {$endif}
     FWarning: Boolean;
-    FFinalSound: TSoundType;
+    FSoundEnding: TSoundType;
     FSignalColor: TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
     procedure DoAferAnimation(Sender: TObject);
@@ -95,7 +95,7 @@ const
   DefaultWarning = True;
   DefaultEnable = True;
   DefaultStartSound = TSoundType.Start;
-  DefaultFinalSound = TSoundType.Final;
+  DefaultEndingSound = TSoundType.Ending;
   DefaultColorPrepare: TCastleColorRGB = (X: 0.0; Y: 0.85; Z: 0.0); { Green }
   DefaultColorRest: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.85); { Blue }
   DefaultColorRound: TCastleColorRGB = (X: 1.0; Y: 0.0; Z: 0.0); { Red }
@@ -229,7 +229,7 @@ begin
   else
   begin
     ShowTime(0.0);
-    Play(FFinalSound);
+    Play(FSoundEnding);
     NextPeriod;
   end;
 
@@ -280,8 +280,8 @@ begin
   FWarning:= FPeriods[FPeriod].Warning;
   FTargetSeconds:= FTargetSeconds + FPeriods[FPeriod].DurationSec;
   FPeriodSeconds:= FPeriods[FPeriod].DurationSec;
-  FFinalSound:= FPeriods[FPeriod].FinalSound;
-  Play(FPeriods[FPeriod].StartSound);
+  FSoundEnding:= FPeriods[FPeriod].SoundEnding;
+  Play(FPeriods[FPeriod].SoundStart);
 end;
 
 procedure TViewSequenceTimer.NextPeriod;
