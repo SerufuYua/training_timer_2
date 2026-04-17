@@ -37,6 +37,7 @@ type
     procedure DoEditWarningTime(ASeconds: Integer);
     procedure LoadSettings;
     procedure SaveSettings;
+    function MakeDefaultSettings: TSettingsSimple;
     function MakePeriods(AIndex: Integer): TPeriodsSettings;
     procedure UpdateSettings;
     procedure ShowStatistic;
@@ -166,13 +167,8 @@ begin
   else
   begin
     SetLength(FSettingsSimpleList, 1);
-    FSettingsSimpleList[0].Name:= DefaultSeqName + ' 0';
-    FSettingsSimpleList[0].Rounds:= DefaultRounds;
-    FSettingsSimpleList[0].RoundSeconds:= DefaultRoundSeconds;
-    FSettingsSimpleList[0].RestSeconds:= DefaultRestSeconds;
-    FSettingsSimpleList[0].PrepareSeconds:= DefaultPrepareSeconds;
-    FSettingsSimpleList[0].WarningSeconds:= DefaultWarningSeconds;
-    FSettingsSimpleList[0].Warning:= DefaultWarning;
+    FSettingsSimpleList[0]:= MakeDefaultSettings;
+    FSettingsSimpleList[0].Name:= FSettingsSimpleList[0].Name + ' 0';
     IndexSeq:= 0;
   end;
 end;
@@ -238,6 +234,17 @@ begin
         FSettingsSimpleList[IndexSeq].RoundSeconds * FSettingsSimpleList[IndexSeq].Rounds;
 
   LabelOveralTimeValue.Caption:= TimeToFullStr(sec);
+end;
+
+function TViewSettingsSimple.MakeDefaultSettings: TSettingsSimple;
+begin
+  Result.Name:= DefaultSeqName;
+  Result.Rounds:= DefaultRounds;
+  Result.RoundSeconds:= DefaultRoundSeconds;
+  Result.RestSeconds:= DefaultRestSeconds;
+  Result.PrepareSeconds:= DefaultPrepareSeconds;
+  Result.WarningSeconds:= DefaultWarningSeconds;
+  Result.Warning:= DefaultWarning;
 end;
 
 function TViewSettingsSimple.MakePeriods(AIndex: Integer): TPeriodsSettings;
@@ -314,13 +321,9 @@ begin
     begin
       SetLength(FSettingsSimpleList, (Length(FSettingsSimpleList) + 1));
       idx:= High(FSettingsSimpleList);
-      FSettingsSimpleList[idx].Name:= DefaultSeqName + ' ' + IntToStr(idx);
-      FSettingsSimpleList[idx].Rounds:= DefaultRounds;
-      FSettingsSimpleList[idx].RoundSeconds:= DefaultRoundSeconds;
-      FSettingsSimpleList[idx].RestSeconds:= DefaultRestSeconds;
-      FSettingsSimpleList[idx].PrepareSeconds:= DefaultPrepareSeconds;
-      FSettingsSimpleList[idx].WarningSeconds:= DefaultWarningSeconds;
-      FSettingsSimpleList[idx].Warning:= DefaultWarning;
+      FSettingsSimpleList[idx]:= MakeDefaultSettings;
+      FSettingsSimpleList[idx].Name:= FSettingsSimpleList[idx].Name + ' ' +
+                                      IntToStr(idx);
     end;
     'ButtonSeqRemove':
     begin

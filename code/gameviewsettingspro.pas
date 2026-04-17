@@ -212,6 +212,7 @@ begin
   begin
     SetLength(FSettingsProList, 1);
     FSettingsProList[0]:= MakeDefaultPeriods;
+    FSettingsProList[0].Name:= FSettingsProList[0].Name + ' 0';
     IndexSeq:= 0;
   end
 end;
@@ -370,7 +371,8 @@ begin
       SetLength(FSettingsProList, (Length(FSettingsProList) + 1));
       idx:= High(FSettingsProList);
       FSettingsProList[idx]:= MakeDefaultPeriods;
-      FSettingsProList[idx].Name:= DefaultSeqName + ' ' + IntToStr(idx);
+      FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' ' +
+                                   IntToStr(idx);
     end;
     'ButtonSeqRemove':
     begin
