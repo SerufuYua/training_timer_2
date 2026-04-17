@@ -354,14 +354,31 @@ end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);
 var
-  dec: Integer;
+  sec, dec: Integer;
   s: String;
 begin
   dec:= Trunc(Frac(ASeconds) * 10.0);
 
-  s:= TimeToAdaptiveStr(Round(ASeconds));
+  sec:= Round(ASeconds);
+  s:= TimeToAdaptiveStr(sec);
   LabelTime.Caption:= s;
   LabelTimeShadow.Caption:= s;
+
+  if (sec < 60) then
+  begin
+    LabelTime.FontSize:= 400;
+    LabelTimeShadow.FontSize:= 400;
+  end
+  else if (sec < 60 * 60) then
+  begin
+    LabelTime.FontSize:= 220;
+    LabelTimeShadow.FontSize:= 220;
+  end
+  else
+  begin
+    LabelTime.FontSize:= 120;
+    LabelTimeShadow.FontSize:= 120;
+  end;
 
   s:= Format('.%.1d', [dec]);
   LabelDec.Caption:= s;
