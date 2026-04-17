@@ -258,7 +258,7 @@
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelTimeShadow",
                   "Text" : [
-                    "00"
+                    "0"
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
@@ -316,7 +316,7 @@
                   "HorizontalAnchorSelf" : "hpMiddle",
                   "Name" : "LabelTime",
                   "Text" : [
-                    "00"
+                    "0"
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",

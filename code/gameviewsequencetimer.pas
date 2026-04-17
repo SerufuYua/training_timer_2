@@ -359,7 +359,7 @@ var
 begin
   dec:= Trunc(Frac(ASeconds) * 10.0);
 
-  s:= TimeToShortStr(Round(ASeconds));
+  s:= TimeToAdaptiveStr(Round(ASeconds));
   LabelTime.Caption:= s;
   LabelTimeShadow.Caption:= s;
 
