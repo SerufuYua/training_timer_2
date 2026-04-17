@@ -1,23 +1,21 @@
-{ Mobile Operating system Screen Keeping integration }
 unit MySysUtils;
 
 interface
 
-{ for windows }
+{ Screen Keeping integration for Windows }
 procedure KeepScreen; inline;
 
-{ for mobile }
+{ Screen Keeping integration for Android }
 procedure KeepScreen(AEnable: Boolean); inline;
 
 implementation
 
 uses
   CastleMessaging, CastleLog
-{$if defined(WINDOWS)}
+  {$if defined(WINDOWS)}
   , JwaWinBase
   , JwaWinNT
-{$endif}
-  ;
+  {$endif};
 
 procedure KeepScreen;
 begin
