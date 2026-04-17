@@ -7,8 +7,8 @@ interface
 uses
   SysUtils, TypInfo;
 
-procedure SecondsToMinSec(const ASeconds: Integer; var VMin, VSec: Integer); inline;
-function MinSecToSeconds(AMin, ASec: Integer): Integer; inline;
+procedure SecondsToHrMinSec(const ASeconds: Integer; var VHour, VMin, VSec: Integer); inline;
+function HrMinSecToSeconds(const AHr, AMin, ASec: Integer): Integer; inline;
 function TimeToShortStr(ASeconds: Integer): String;
 function TimeToFullStr(ASeconds: Integer): String;
 
@@ -17,32 +17,34 @@ function ListOfSet(AType: PTypeInfo): TStringArray;
 
 implementation
 
-procedure SecondsToMinSec(const ASeconds: Integer; var VMin, VSec: Integer);
+procedure SecondsToHrMinSec(const ASeconds: Integer; var VHour, VMin, VSec: Integer);
 begin
   VSec:= ASeconds;
   VMin:= VSec div 60;
   VSec:= VSec - (VMin * 60);
+  VHour:= VMin div 60;
+  VMin:= VMin - (VHour * 60);
 end;
 
-function MinSecToSeconds(AMin, ASec: Integer): Integer;
+function HrMinSecToSeconds(const AHr, AMin, ASec: Integer): Integer;
 begin
-  Result:= (AMin * 60) + ASec;
+  Result:= (AHr * 60 * 60) + (AMin * 60) + ASec;
 end;
 
 function TimeToShortStr(ASeconds: Integer): String;
 var
-  min, sec: Integer;
+  hr, min, sec: Integer;
 begin
-  SecondsToMinSec(ASeconds, min, sec);
-  Result:= Format('%.2d:%.2d', [min, sec]);
+  SecondsToHrMinSec(ASeconds, hr, min, sec);
+  Result:= Format('%.2d:%.2d:%.2d', [hr, min, sec]);
 end;
 
 function TimeToFullStr(ASeconds: Integer): String;
 var
-  min, sec: Integer;
+  hr, min, sec: Integer;
 begin
-  SecondsToMinSec(ASeconds, min, sec);
-  Result:= Format('%dm %ds', [min, sec]);
+  SecondsToHrMinSec(ASeconds, hr, min, sec);
+  Result:= Format('%dh %dm %ds', [hr, min, sec]);
 end;
 
 function ListOfSet(AType: PTypeInfo): TStringArray;

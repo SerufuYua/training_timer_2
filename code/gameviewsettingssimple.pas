@@ -73,7 +73,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, MyUtils, CastleColors,
-  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTimeMinSec, SeqAbout,
+  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout,
   GameViewSettingsPro, GameSound;
 
 const
@@ -373,29 +373,29 @@ begin
     end;
     'ButtonRoundTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RoundSeconds,
           'Round Time', {$ifdef FPC}@{$endif}DoEditRoundTime));
     end;
     'ButtonRestTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RestSeconds,
           'Rest Time', {$ifdef FPC}@{$endif}DoEditRestTime));
     end;
     'ButtonPrepareTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].PrepareSeconds,
           'Prepare Time', {$ifdef FPC}@{$endif}DoEditPrepareTime));
     end;
     'ButtonWarningTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].WarningSeconds,
           'Warning Time', {$ifdef FPC}@{$endif}DoEditWarningTime));
     end;

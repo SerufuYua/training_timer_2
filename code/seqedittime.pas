@@ -1,4 +1,4 @@
-unit SeqEditTimeMinSec;
+unit SeqEditTime;
 
 interface
 
@@ -8,14 +8,15 @@ uses Classes, SeqBaseDialog,
 type
   TReturnSeconds = procedure(AValue: Integer) of object;
 
-  TSeqEditTimeMinSec = class(TCastleView)
+  TSeqEditTime = class(TCastleView)
   strict private
     type
-      TSeqEditTimeMinSecDialog = class(TSeqBaseDialog)
+      TSeqEditTimeDialog = class(TSeqBaseDialog)
       protected
-        FSec, Fmin: Integer;
+        FHr, FSec, Fmin: Integer;
         FOnReturnSeconds: TReturnSeconds;
-        EditMinNumber, EditSecNumber: TCastleIntegerEdit;
+        EditHrNumber, EditMinNumber, EditSecNumber: TCastleIntegerEdit;
+        ButtonHrIncrease, ButtonHrDecrease: TCastleButton;
         ButtonMinIncrease, ButtonMinDecrease: TCastleButton;
         ButtonSecIncrease, ButtonSecDecrease: TCastleButton;
         ButtonSet: TCastleButton;
@@ -32,7 +33,7 @@ type
       FTitle: String;
       FSeconds: Integer;
       FOnReturnSeconds: TReturnSeconds;
-      FDialog: TSeqEditTimeMinSecDialog;
+      FDialog: TSeqEditTimeDialog;
   public
     constructor CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
     procedure Start; override;
@@ -48,22 +49,28 @@ uses
 { TSeqListBoxDialog ---------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.CreateNew(const AUrl: String; AOwner: TComponent);
+constructor TSeqEditTime.TSeqEditTimeDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 begin
   inherited;
   FSec:= 0;
   Fmin:= 0;
 
   { Find components, by name, that we need to access from code }
+  EditHrNumber:= FUiOwner.FindRequiredComponent('EditHrNumber') as TCastleIntegerEdit;
   EditMinNumber:= FUiOwner.FindRequiredComponent('EditMinNumber') as TCastleIntegerEdit;
   EditSecNumber:= FUiOwner.FindRequiredComponent('EditSecNumber') as TCastleIntegerEdit;
+  ButtonHrIncrease:= FUiOwner.FindRequiredComponent('ButtonHrIncrease') as TCastleButton;
+  ButtonHrDecrease:= FUiOwner.FindRequiredComponent('ButtonHrDecrease') as TCastleButton;
   ButtonMinIncrease:= FUiOwner.FindRequiredComponent('ButtonMinIncrease') as TCastleButton;
   ButtonMinDecrease:= FUiOwner.FindRequiredComponent('ButtonMinDecrease') as TCastleButton;
   ButtonSecIncrease:= FUiOwner.FindRequiredComponent('ButtonSecIncrease') as TCastleButton;
   ButtonSecDecrease:= FUiOwner.FindRequiredComponent('ButtonSecDecrease') as TCastleButton;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
+  EditHrNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
   EditMinNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
   EditSecNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
+  ButtonHrIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
+  ButtonHrDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSecIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
@@ -71,7 +78,7 @@ begin
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
 end;
 
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ChangeNumber(Sender: TObject);
+procedure TSeqEditTime.TSeqEditTimeDialog.ChangeNumber(Sender: TObject);
 var
   component: TComponent;
   edit: TCastleIntegerEdit;
@@ -80,6 +87,10 @@ begin
 
   component:= Sender as TComponent;
   case component.Name of
+    'ButtonHrIncrease':
+      Seconds:= Seconds + 60 * 60;
+    'ButtonHrDecrease':
+      Seconds:= Seconds - 60 * 60;
     'ButtonMinIncrease':
       Seconds:= Seconds + 60;
     'ButtonMinDecrease':
@@ -88,35 +99,41 @@ begin
       Seconds:= Seconds + 1;
     'ButtonSecDecrease':
       Seconds:= Seconds - 1;
+    'EditHrNumber':
+    begin
+      edit:= Sender as TCastleIntegerEdit;
+      Seconds:= HrMinSecToSeconds(edit.Value, FMin, FSec);
+    end;
     'EditMinNumber':
     begin
       edit:= Sender as TCastleIntegerEdit;
-      Seconds:= MinSecToSeconds(edit.Value, FSec);
+      Seconds:= HrMinSecToSeconds(FHr, edit.Value, FSec);
     end;
     'EditSecNumber':
     begin
       edit:= Sender as TCastleIntegerEdit;
-      Seconds:= MinSecToSeconds(FMin, edit.Value);
+      Seconds:= HrMinSecToSeconds(FHr, FMin, edit.Value);
     end;
   end;
 end;
 
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.SetSeconds(AValue: Integer);
+procedure TSeqEditTime.TSeqEditTimeDialog.SetSeconds(AValue: Integer);
 begin
   if (AValue >= 0) then
   begin
-    SecondsToMinSec(AValue, FMin, FSec);
+    SecondsToHrMinSec(AValue, FHr, FMin, FSec);
+    EditHrNumber.Value:= FHr;
     EditMinNumber.Value:= FMin;
     EditSecNumber.Value:= FSec;
   end;
 end;
 
-function TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.GetSeconds: Integer;
+function TSeqEditTime.TSeqEditTimeDialog.GetSeconds: Integer;
 begin
-  Result:= MinSecToSeconds(FMin, FSec);
+  Result:= HrMinSecToSeconds(FHr, FMin, FSec);
 end;
 
-procedure TSeqEditTimeMinSec.TSeqEditTimeMinSecDialog.ClickControl(Sender: TObject);
+procedure TSeqEditTime.TSeqEditTimeDialog.ClickControl(Sender: TObject);
 var
   button: TCastleButton;
 begin
@@ -130,10 +147,10 @@ begin
 end;
 
 { ========= ------------------------------------------------------------------ }
-{ TSeqEditTimeMinSec --------------------------------------------------------- }
+{ TSeqEditTime --------------------------------------------------------- }
 { ========= ------------------------------------------------------------------ }
 
-constructor TSeqEditTimeMinSec.CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
+constructor TSeqEditTime.CreateUntilStopped(AValue: Integer; ATitle: String; AOnReturnSeconds: TReturnSeconds);
 begin
   inherited CreateUntilStopped;
   FTitle:= ATitle;
@@ -142,12 +159,12 @@ begin
   DesignUrl:= 'castle-data:/bgwin.castle-user-interface';
 end;
 
-procedure TSeqEditTimeMinSec.Start;
+procedure TSeqEditTime.Start;
 begin
   inherited;
   InterceptInput:= True;
 
-  FDialog:= TSeqEditTimeMinSecDialog.CreateNew('castle-data:/edittime_min_sec.castle-user-interface', FreeAtStop);
+  FDialog:= TSeqEditTimeDialog.CreateNew('castle-data:/edittime.castle-user-interface', FreeAtStop);
   FDialog.Anchor(hpMiddle);
   FDialog.Anchor(vpMiddle);
   FDialog.FullSize:= True;
@@ -158,7 +175,7 @@ begin
   FDialog.Start;
 end;
 
-procedure TSeqEditTimeMinSec.Update(const SecondsPassed: Single; var HandleInput: boolean);
+procedure TSeqEditTime.Update(const SecondsPassed: Single; var HandleInput: boolean);
 begin
   inherited;
 

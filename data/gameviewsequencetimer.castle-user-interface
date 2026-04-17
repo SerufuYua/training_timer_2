@@ -174,6 +174,42 @@
               "VerticalAnchorSelf" : "vpTop"
             },
             {
+              "$$ClassName" : "TCastleLabel",
+              "FontSize" : 9.6000000000000000E+001,
+              "HorizontalAnchorParent" : "hpRight",
+              "HorizontalAnchorSelf" : "hpRight",
+              "Name" : "LabelDecShadow",
+              "Text" : [
+                ".0"
+              ],
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : -1.6000000000000000E+001,
+                "Y" : 1.0000000000000000E+001
+              }
+            },
+            {
+              "$$ClassName" : "TCastleLabel",
+              "ColorPersistent" : {
+                "$$ClassName" : "TCastleColorPersistent",
+                "Blue" : 1.0000000000000000E+000,
+                "Green" : 1.0000000000000000E+000,
+                "Red" : 1.0000000000000000E+000
+              },
+              "FontSize" : 9.6000000000000000E+001,
+              "HorizontalAnchorParent" : "hpRight",
+              "HorizontalAnchorSelf" : "hpRight",
+              "Name" : "LabelDec",
+              "Text" : [
+                ".0"
+              ],
+              "TranslationPersistent" : {
+                "$$ClassName" : "TCastleVector2Persistent",
+                "X" : -2.0000000000000000E+001,
+                "Y" : 1.4000000000000000E+001
+              }
+            },
+            {
               "$$ClassName" : "TCastleVerticalGroup",
               "Alignment" : "hpMiddle",
               "HorizontalAnchorParent" : "hpMiddle",
@@ -216,164 +252,20 @@
                   "Width" : 5.6000000000000000E+002
                 },
                 {
-                  "$$ClassName" : "TCastleUserInterface",
-                  "AutoSizeToChildren" : true,
-                  "Exists" : false,
+                  "$$ClassName" : "TCastleLabel",
+                  "FontSize" : 1.9200000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "GroupTimerShadow",
+                  "Name" : "LabelTimeShadow",
+                  "Text" : [
+                    "00"
+                  ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "Y" : -1.8000000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "$Children" : [
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelMinShadow",
-                      "Text" : [
-                        "00"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : -1.6000000000000000E+002
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelim1Shadow",
-                      "Text" : [
-                        ":"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : -3.5000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecShadow",
-                      "Text" : [
-                        "00"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelim2Shadow",
-                      "Text" : [
-                        "."
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.1000000000000000E+002,
-                        "Y" : -3.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecPartShadow",
-                      "Text" : [
-                        "0"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.4500000000000000E+002,
-                        "Y" : -3.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    }
-                  ]
-                },
-                {
-                  "$$ClassName" : "TCastleUserInterface",
-                  "AutoSizeToChildren" : true,
-                  "Exists" : false,
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "GroupTimerBigShadow",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.8000000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "$Children" : [
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 3.2000000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecBigShadow",
-                      "Text" : [
-                        "00"
-                      ],
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelimBigShadow",
-                      "Text" : [
-                        "."
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 1.9000000000000000E+002,
-                        "Y" : -8.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecPartBigShadow",
-                      "Text" : [
-                        "0"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.2500000000000000E+002,
-                        "Y" : -8.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    }
-                  ]
+                  "VerticalAnchorSelf" : "vpTop"
                 }
               ]
             },
@@ -412,212 +304,26 @@
                   "Width" : 5.6000000000000000E+002
                 },
                 {
-                  "$$ClassName" : "TCastleUserInterface",
-                  "AutoSizeToChildren" : true,
-                  "Exists" : false,
+                  "$$ClassName" : "TCastleLabel",
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "FontSize" : 1.9200000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "GroupTimer",
+                  "Name" : "LabelTime",
+                  "Text" : [
+                    "00"
+                  ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
                     "Y" : -1.8000000000000000E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "$Children" : [
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelMin",
-                      "Text" : [
-                        "00"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : -1.6000000000000000E+002
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelim1",
-                      "Text" : [
-                        ":"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : -3.5000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 1.9200000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSec",
-                      "Text" : [
-                        "00"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 9.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelim2",
-                      "Text" : [
-                        "."
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.1000000000000000E+002,
-                        "Y" : -3.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecPart",
-                      "Text" : [
-                        "0"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.4500000000000000E+002,
-                        "Y" : -3.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    }
-                  ]
-                },
-                {
-                  "$$ClassName" : "TCastleUserInterface",
-                  "AutoSizeToChildren" : true,
-                  "Exists" : false,
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "GroupTimerBig",
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.8000000000000000E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop",
-                  "$Children" : [
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 3.2000000000000000E+002,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecBig",
-                      "Text" : [
-                        "00"
-                      ],
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelDelimBig",
-                      "Text" : [
-                        "."
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 1.9000000000000000E+002,
-                        "Y" : -8.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    },
-                    {
-                      "$$ClassName" : "TCastleLabel",
-                      "ColorPersistent" : {
-                        "$$ClassName" : "TCastleColorPersistent",
-                        "Blue" : 1.0000000000000000E+000,
-                        "Green" : 1.0000000000000000E+000,
-                        "Red" : 1.0000000000000000E+000
-                      },
-                      "FontSize" : 9.6000000000000000E+001,
-                      "HorizontalAnchorParent" : "hpMiddle",
-                      "HorizontalAnchorSelf" : "hpMiddle",
-                      "Name" : "LabelSecPartBig",
-                      "Text" : [
-                        "0"
-                      ],
-                      "TranslationPersistent" : {
-                        "$$ClassName" : "TCastleVector2Persistent",
-                        "X" : 2.2500000000000000E+002,
-                        "Y" : -8.0000000000000000E+001
-                      },
-                      "VerticalAnchorParent" : "vpMiddle",
-                      "VerticalAnchorSelf" : "vpMiddle"
-                    }
-                  ]
+                  "VerticalAnchorSelf" : "vpTop"
                 }
               ]
             },

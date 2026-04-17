@@ -107,9 +107,9 @@
         <UnitName Value="SeqEditString"/>
       </Unit7>
       <Unit8>
-        <Filename Value="code/seqedittimeminsec.pas"/>
+        <Filename Value="code/seqedittime.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SeqEditTimeMinSec"/>
+        <UnitName Value="SeqEditTime"/>
       </Unit8>
       <Unit9>
         <Filename Value="code/gameviewsequencetimer.pas"/>

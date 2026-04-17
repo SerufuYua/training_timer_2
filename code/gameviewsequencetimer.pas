@@ -61,13 +61,9 @@ type
     LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
     LabelFps, LabelSequenceName, LabelPeriodName: TCastleLabel;
     LabelMin, LabelMinShadow,
-      LabelSec, LabelSecShadow,
-      LabelSecPart, LabelSecPartShadow,
-      LabelFullTime, LabelFullTimeShadow,
-      LabelSecBig, LabelSecBigShadow,
-      LabelSecPartBig, LabelSecPartBigShadow: TCastleLabel;
-    GroupTimer, GroupTimerShadow,
-      GroupTimerBig, GroupTimerBigShadow:TCastleUserInterface;
+      LabelTime, LabelTimeShadow,
+      LabelDec, LabelDecShadow,
+      LabelFullTime, LabelFullTimeShadow: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
     procedure Start; override;
@@ -358,47 +354,18 @@ end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);
 var
-  min, sec, part: Integer;
+  dec: Integer;
   s: String;
 begin
-  part:= Trunc(Frac(ASeconds) * 10.0);
+  dec:= Trunc(Frac(ASeconds) * 10.0);
 
-  if (ASeconds < 60.0) then
-  begin
-    GroupTimerBig.Exists:= True;
-    GroupTimerBigShadow.Exists:= True;
-    GroupTimer.Exists:= False;
-    GroupTimerShadow.Exists:= False;
+  s:= TimeToShortStr(Round(ASeconds));
+  LabelTime.Caption:= s;
+  LabelTimeShadow.Caption:= s;
 
-    s:= Format('%.2d', [Trunc(ASeconds)]);
-    LabelSecBig.Caption:= s;
-    LabelSecBigShadow.Caption:= s;
-
-    s:= Format('%.1d', [part]);
-    LabelSecPartBig.Caption:= s;
-    LabelSecPartBigShadow.Caption:= s;
-  end
-  else
-  begin
-    GroupTimer.Exists:= True;
-    GroupTimerShadow.Exists:= True;
-    GroupTimerBig.Exists:= False;
-    GroupTimerBigShadow.Exists:= False;
-
-    SecondsToMinSec(Round(ASeconds), min, sec);
-
-    s:= Format('%.2d', [min]);
-    LabelMin.Caption:= s;
-    LabelMinShadow.Caption:= s;
-
-    s:= Format('%.2d', [sec]);
-    LabelSec.Caption:= s;
-    LabelSecShadow.Caption:= s;
-
-    s:= Format('%.1d', [part]);
-    LabelSecPart.Caption:= s;
-    LabelSecPartShadow.Caption:= s;
-  end;
+  s:= Format('.%.1d', [dec]);
+  LabelDec.Caption:= s;
+  LabelDecShadow.Caption:= s;
 end;
 
 procedure TViewSequenceTimer.ShowFullTime(ASeconds: Single);

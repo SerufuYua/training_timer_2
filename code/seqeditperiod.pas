@@ -4,7 +4,7 @@ interface
 
 uses Classes, SeqBaseDialog,
   CastleVectors, CastleUIControls, CastleControls, CastleColors, SeqExhibiter,
-  GameViewSequenceTimer, SeqEditTimeMinSec, SeqListColors;
+  GameViewSequenceTimer, SeqListColors;
 
 type
   TReturnPeriod = procedure(AValue: TTimePeriod) of object;
@@ -50,8 +50,8 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleFonts, SeqEditString, SeqListBox,
-  MyUtils, GameSound, TypInfo;
+  SysUtils, CastleComponentSerialize, CastleFonts, SeqEditString, SeqEditTime,
+  SeqListBox, MyUtils, GameSound, TypInfo;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqEditPeriodDialog ------------------------------------------------------- }
@@ -120,14 +120,14 @@ begin
     end;
     'ButtonDuration':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.DurationSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditDuration));
     end;
     'ButtonWarningTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTimeMinSec) then
-        Container.PushView(TSeqEditTimeMinSec.CreateUntilStopped(
+      if NOT (Container.FrontView is TSeqEditTime) then
+        Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.WarningSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditWarning));
     end;
     'CheckWarning':
