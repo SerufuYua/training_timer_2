@@ -1,5 +1,5 @@
 { Mobile Operating system Screen Keeping integration }
-unit SeqKeepScreenService;
+unit MySysUtils;
 
 interface
 

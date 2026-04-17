@@ -152,9 +152,9 @@
         <UnitName Value="GameViewBanner"/>
       </Unit16>
       <Unit17>
-        <Filename Value="code/seqkeepscreenservice.pas"/>
+        <Filename Value="code/mysysutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SeqKeepScreenService"/>
+        <UnitName Value="MySysUtils"/>
       </Unit17>
       <Unit18>
         <Filename Value="code/seqabout.pas"/>
