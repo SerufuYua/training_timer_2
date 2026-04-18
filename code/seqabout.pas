@@ -52,7 +52,9 @@ begin
   inherited;
 
   LabelAppName.Caption:= ApplicationProperties.Caption;
-  LabelVersionNum.Caption:= ApplicationProperties.Version;
+  LabelVersionNum.Caption:= ApplicationProperties.Version
+                            {$ifdef DEBUG} + ' Debug'
+                            {$else} + ' Release'{$endif};
   LabelCGENum.Caption:= StringReplace(CastleEngineVersion, ' (commit', NL + '(commit', [rfReplaceAll, rfIgnoreCase]);
   LabelPascalNum.Caption:= {$I %FPCVERSION%};
 end;
