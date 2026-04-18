@@ -221,7 +221,7 @@
                           "Height" : 6.5000000000000000E+001,
                           "Name" : "LabelSoundEnd",
                           "Text" : [
-                            "Sound Final"
+                            "Sound End"
                           ],
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
