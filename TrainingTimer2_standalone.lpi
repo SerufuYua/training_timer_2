@@ -66,7 +66,7 @@
         <PackageName Value="castle_engine_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="24">
+    <Units Count="25">
       <Unit0>
         <Filename Value="TrainingTimer2_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -186,6 +186,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SeqListColors"/>
       </Unit23>
+      <Unit24>
+        <Filename Value="code/seqconfirm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqConfirm"/>
+      </Unit24>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

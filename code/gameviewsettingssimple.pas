@@ -29,6 +29,7 @@ type
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
     procedure DoSelectSeq(AValue: Integer);
+    procedure DoRemoveSeq(Sender: TObject);
     procedure DoEditName(AValue: String);
     procedure DoEditRound(AValue: Integer);
     procedure DoEditRoundTime(ASeconds: Integer);
@@ -73,7 +74,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, MyUtils, CastleColors,
-  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout,
+  SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout, SeqConfirm,
   GameViewSettingsPro, GameSound;
 
 const
@@ -329,8 +330,11 @@ begin
     begin
       if (Length(FSettingsSimpleList) > 1) then
       begin
-        Delete(FSettingsSimpleList, idx, 1);
-        idx:= 0;
+        if NOT (Container.FrontView is TSeqConfirm) then
+          Container.PushView(TSeqConfirm.CreateUntilStopped(
+            ['Do You want to Remove ',
+             '"' + FSettingsSimpleList[idx].Name + '"'],
+            'Question', {$ifdef FPC}@{$endif}DoRemoveSeq));
       end;
     end;
     'ButtonSeqCopy':
@@ -432,6 +436,12 @@ end;
 procedure TViewSettingsSimple.DoSelectSeq(AValue: Integer);
 begin
   IndexSeq:= AValue;
+end;
+
+procedure TViewSettingsSimple.DoRemoveSeq(Sender: TObject);
+begin
+  Delete(FSettingsSimpleList, IndexSeq, 1);
+  IndexSeq:= 0;
 end;
 
 procedure TViewSettingsSimple.DoEditName(AValue: String);

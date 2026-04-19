@@ -14,8 +14,10 @@ type
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
     procedure DoSelectSeq(AValue: Integer);
+    procedure DoRemoveSeq(Sender: TObject);
     procedure DoEditName(AValue: String);
     procedure DoEditPeriod(AValue: TTimePeriod);
+    procedure DoRemovePeriod(Sender: TObject);
     function MakeDefaultPeriods: TPeriodsSettings;
     procedure LoadSettings;
     procedure SaveSettings;
@@ -55,7 +57,7 @@ implementation
 
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyUtils,
-  GameSound, SeqAbout, SeqListBox, SeqEditString, SeqEditPeriod;
+  GameSound, SeqAbout, SeqListBox, SeqEditString, SeqEditPeriod, SeqConfirm;
 
 const
   DefaultPeriodName = 'New Period';
@@ -378,8 +380,11 @@ begin
     begin
       if (Length(FSettingsProList) > 1) then
       begin
-        Delete(FSettingsProList, idx, 1);
-        idx:= 0;
+        if NOT (Container.FrontView is TSeqConfirm) then
+          Container.PushView(TSeqConfirm.CreateUntilStopped(
+            ['Do You want to Remove ',
+             '"' + FSettingsProList[idx].Name + '"'],
+            'Question', {$ifdef FPC}@{$endif}DoRemoveSeq));
       end;
     end;
     'ButtonSeqCopy':
@@ -478,18 +483,13 @@ begin
     end;
     'ButtonPeriodRemove':
     begin
-      idx:= ListPeriods.Index;
-      if ((idx > -1) AND
-          (idx < Length(FSettingsProList[IndexSeq].Periods))) then
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
-        Delete(FSettingsProList[IndexSeq].Periods, idx, 1);
-
-        ListPeriods.LineDelete(idx);
-
-        if (idx > High(FSettingsProList[IndexSeq].Periods)) then
-          idx:= High(FSettingsProList[IndexSeq].Periods);
-        ListPeriods.Index:= idx;
-        ShowStatistic;
+        if NOT (Container.FrontView is TSeqConfirm) then
+          Container.PushView(TSeqConfirm.CreateUntilStopped(
+            ['Do You want to Remove ', '"' + FSettingsProList[IndexSeq].Periods[ListPeriods.Index].Name + '"'],
+            'Question', {$ifdef FPC}@{$endif}DoRemovePeriod));
       end;
     end;
   end;
@@ -528,6 +528,12 @@ begin
   IndexSeq:= AValue;
 end;
 
+procedure TViewSettingsPro.DoRemoveSeq(Sender: TObject);
+begin
+  Delete(FSettingsProList, IndexSeq, 1);
+  IndexSeq:= 0;
+end;
+
 procedure TViewSettingsPro.DoEditName(AValue: String);
 begin
   FSettingsProList[IndexSeq].Name:= AValue;
@@ -546,6 +552,21 @@ begin
     ListPeriods.SetColor(ListPeriods.Index, Vector4(AValue.Color, 1.0));
     ShowStatistic;
   end;
+end;
+
+procedure TViewSettingsPro.DoRemovePeriod(Sender: TObject);
+var
+  idx: Integer;
+begin
+  idx:= ListPeriods.Index;
+  Delete(FSettingsProList[IndexSeq].Periods, idx, 1);
+
+  ListPeriods.LineDelete(idx);
+
+  if (idx > High(FSettingsProList[IndexSeq].Periods)) then
+    idx:= High(FSettingsProList[IndexSeq].Periods);
+  ListPeriods.Index:= idx;
+  ShowStatistic;
 end;
 
 procedure TViewSettingsPro.DoAferLoad(Sender: TObject);
