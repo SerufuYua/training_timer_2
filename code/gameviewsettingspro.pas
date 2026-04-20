@@ -364,7 +364,7 @@ begin
       for i:= 0 to High(FSettingsProList) do
         list[i]:= FSettingsProList[i].Name;
 
-      if NOT (Container.FrontView is TSeqListBox) then
+      if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(list,
           'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
     end;
@@ -380,7 +380,7 @@ begin
     begin
       if (Length(FSettingsProList) > 1) then
       begin
-        if NOT (Container.FrontView is TSeqConfirm) then
+        if NOT (Container.CurrentFrontView is TSeqConfirm) then
           Container.PushView(TSeqConfirm.CreateUntilStopped(
             ['Do You want to Remove ',
              '"' + FSettingsProList[idx].Name + '"'],
@@ -414,7 +414,7 @@ begin
   case component.Name of
     'ButtonSeqName':
     begin
-      if NOT (Container.FrontView is TSeqEditString) then
+      if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FSettingsProList[IndexSeq].Name,
           'Sequence Name', {$ifdef FPC}@{$endif}DoEditName));
@@ -475,7 +475,7 @@ begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
-        if NOT (Container.FrontView is TSeqEditPeriod) then
+        if NOT (Container.CurrentFrontView is TSeqEditPeriod) then
           Container.PushView(TSeqEditPeriod.CreateUntilStopped(
             FSettingsProList[IndexSeq].Periods[ListPeriods.Index],
             'Edit Period', {$ifdef FPC}@{$endif}DoEditPeriod));
@@ -486,7 +486,7 @@ begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
-        if NOT (Container.FrontView is TSeqConfirm) then
+        if NOT (Container.CurrentFrontView is TSeqConfirm) then
           Container.PushView(TSeqConfirm.CreateUntilStopped(
             ['Do You want to Remove ', '"' + FSettingsProList[IndexSeq].Periods[ListPeriods.Index].Name + '"'],
             'Question', {$ifdef FPC}@{$endif}DoRemovePeriod));
@@ -510,7 +510,7 @@ begin
       Container.View:= ViewSequenceTimer;
     end;
     'ButtonAbout':
-      if NOT (Container.FrontView is TSeqAbout) then
+      if NOT (Container.CurrentFrontView is TSeqAbout) then
         Container.PushView(TSeqAbout.CreateUntilStopped);
     'ButtonMode':
       Container.View:= ViewSettingsSimple;

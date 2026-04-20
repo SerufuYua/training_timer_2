@@ -314,7 +314,7 @@ begin
       for i:= 0 to High(FSettingsSimpleList) do
         list[i]:= FSettingsSimpleList[i].Name;
 
-      if NOT (Container.FrontView is TSeqListBox) then
+      if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(list,
           'Select Sequence', {$ifdef FPC}@{$endif}DoSelectSeq));
     end;
@@ -330,7 +330,7 @@ begin
     begin
       if (Length(FSettingsSimpleList) > 1) then
       begin
-        if NOT (Container.FrontView is TSeqConfirm) then
+        if NOT (Container.CurrentFrontView is TSeqConfirm) then
           Container.PushView(TSeqConfirm.CreateUntilStopped(
             ['Do You want to Remove ',
              '"' + FSettingsSimpleList[idx].Name + '"'],
@@ -363,42 +363,42 @@ begin
   case component.Name of
     'ButtonSeqName':
     begin
-      if NOT (Container.FrontView is TSeqEditString) then
+      if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].Name,
           'Sequence Name', {$ifdef FPC}@{$endif}DoEditName));
     end;
     'ButtonRounds':
     begin
-      if NOT (Container.FrontView is TSeqEditInteger) then
+      if NOT (Container.CurrentFrontView is TSeqEditInteger) then
         Container.PushView(TSeqEditInteger.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].Rounds, 1, 1000,
           'Rounds', {$ifdef FPC}@{$endif}DoEditRound));
     end;
     'ButtonRoundTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RoundSeconds,
           'Round Time', {$ifdef FPC}@{$endif}DoEditRoundTime));
     end;
     'ButtonRestTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RestSeconds,
           'Rest Time', {$ifdef FPC}@{$endif}DoEditRestTime));
     end;
     'ButtonPrepareTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].PrepareSeconds,
           'Prepare Time', {$ifdef FPC}@{$endif}DoEditPrepareTime));
     end;
     'ButtonWarningTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].WarningSeconds,
           'Warning Time', {$ifdef FPC}@{$endif}DoEditWarningTime));
@@ -426,7 +426,7 @@ begin
       Container.View:= ViewSequenceTimer;
     end;
     'ButtonAbout':
-      if NOT (Container.FrontView is TSeqAbout) then
+      if NOT (Container.CurrentFrontView is TSeqAbout) then
         Container.PushView(TSeqAbout.CreateUntilStopped);
     'ButtonMode':
       Container.View:= ViewSettingsPro;

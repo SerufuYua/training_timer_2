@@ -244,7 +244,7 @@ begin
       Event.IsKey(TKey.keyPause) OR
       Event.IsKey(TKey.keyEnter)) then
   begin
-    if NOT (Container.FrontView is TSeqPause) then
+    if NOT (Container.CurrentFrontView is TSeqPause) then
       Container.PushView(TSeqPause.CreateUntilStopped);
     Exit(True);
   end;
@@ -327,7 +327,7 @@ begin
     end;
     'ButtonRestart': ResetTimer;
     'ButtonPause':
-      if (Enabled AND (NOT (Container.FrontView is TSeqPause))) then
+      if (Enabled AND (NOT (Container.CurrentFrontView is TSeqPause))) then
         Container.PushView(TSeqPause.CreateUntilStopped);
   end;
 end;
@@ -335,7 +335,7 @@ end;
 procedure TViewSequenceTimer.OnTouchTimer(const Sender: TCastleUserInterface;
   const Event: TInputPressRelease; var Handled: Boolean);
 begin
-  if NOT (Container.FrontView is TSeqPause) then
+  if NOT (Container.CurrentFrontView is TSeqPause) then
     Container.PushView(TSeqPause.CreateUntilStopped);
 end;
 
@@ -389,7 +389,7 @@ procedure TViewSequenceTimer.ShowFullTime(ASeconds: Single);
 var
   s: String;
 begin
-  s:= TimeToShortStr(Round(ASeconds));;
+  s:= TimeToShortStr(Round(ASeconds));
   LabelFullTime.Caption:= s;
   LabelFullTimeShadow.Caption:= s;
 end;

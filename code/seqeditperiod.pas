@@ -97,7 +97,7 @@ begin
   case component.Name of
     'ButtonPeriodName':
     begin
-      if NOT (Container.FrontView is TSeqEditString) then
+      if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FPeriod.Name, 'Period Name', {$ifdef FPC}@{$endif}DoEditName));
     end;
@@ -108,25 +108,25 @@ begin
     end;
     'ButtonSoundStart':
     begin
-      if NOT (Container.FrontView is TSeqListBox) then
+      if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
           'Select Start Sound', {$ifdef FPC}@{$endif}DoSelectStartSound));
     end;
     'ButtonSoundEnd':
     begin
-      if NOT (Container.FrontView is TSeqListBox) then
+      if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
           'Select Final Sound', {$ifdef FPC}@{$endif}DoSelectFinalSound));
     end;
     'ButtonDuration':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.DurationSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditDuration));
     end;
     'ButtonWarningTime':
     begin
-      if NOT (Container.FrontView is TSeqEditTime) then
+      if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.WarningSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditWarning));
     end;
@@ -137,7 +137,7 @@ begin
     end;
     'ButtonColor':
     begin
-      if NOT (Container.FrontView is TSeqListColors) then
+      if NOT (Container.CurrentFrontView is TSeqListColors) then
         Container.PushView(TSeqListColors.CreateUntilStopped(
           nil, 'Period Color', {$ifdef FPC}@{$endif}DoEditColor));
     end;
