@@ -335,7 +335,7 @@ end;
 procedure TViewSequenceTimer.OnTouchTimer(const Sender: TCastleUserInterface;
   const Event: TInputPressRelease; var Handled: Boolean);
 begin
-  if NOT (Container.CurrentFrontView is TSeqPause) then
+  if (Enabled AND (NOT (Container.CurrentFrontView is TSeqPause))) then
     Container.PushView(TSeqPause.CreateUntilStopped);
 end;
 
