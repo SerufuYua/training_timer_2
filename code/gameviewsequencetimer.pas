@@ -42,6 +42,7 @@ type
     FSignalColor: TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
     procedure DoAferAnimation(Sender: TObject);
+    procedure DoResetTimer(Sender: TObject);
     procedure SetPeriods(AValue: TPeriodsSettings);
     procedure ResetTimer;
     procedure ShowColor(AValue: TCastleColorRGB; ATransition: Single);
@@ -102,7 +103,7 @@ var
 implementation
 
 uses
-  SysUtils, MyUtils, CastleScene, CastleViewport, MySysUtils;
+  SysUtils, MyUtils, CastleScene, CastleViewport, SeqConfirm, MySysUtils;
 
 constructor TViewSequenceTimer.Create(AOwner: TComponent);
 begin
@@ -325,7 +326,11 @@ begin
       Enabled:= False;
       Container.View:= FReturnTo;
     end;
-    'ButtonRestart': ResetTimer;
+    'ButtonRestart':
+      if NOT (Container.CurrentFrontView is TSeqConfirm) then
+        Container.PushView(TSeqConfirm.CreateUntilStopped(
+          ['Do You want to', 'Restart timer?'],
+          'Question', {$ifdef FPC}@{$endif}DoResetTimer));
     'ButtonPause':
       if (Enabled AND (NOT (Container.CurrentFrontView is TSeqPause))) then
         Container.PushView(TSeqPause.CreateUntilStopped);
@@ -406,6 +411,11 @@ end;
 procedure TViewSequenceTimer.DoAferAnimation(Sender: TObject);
 begin
   ImageTimer.OnRelease:= {$ifdef FPC}@{$endif}OnTouchTimer;
+  ResetTimer;
+end;
+
+procedure TViewSequenceTimer.DoResetTimer(Sender: TObject);
+begin
   ResetTimer;
 end;
 
