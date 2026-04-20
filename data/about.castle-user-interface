@@ -60,7 +60,7 @@
               "$$ClassName" : "TCastleVerticalGroup",
               "Alignment" : "hpMiddle",
               "Name" : "GroupListFull",
-              "Padding" : 4.8000000000000000E+001,
+              "Padding" : 3.2000000000000000E+001,
               "Spacing" : 3.2000000000000000E+001,
               "$Children" : [
                 {
@@ -80,7 +80,7 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -4.8000000000000000E+001
+                    "Y" : -3.2000000000000000E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"
@@ -221,7 +221,7 @@
                                 "Spacing" : 2.4000000000000000E+001,
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -5.5100002288818359E+001
+                                  "Y" : -5.5100006103515625E+001
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -270,7 +270,7 @@
                                 "Spacing" : 2.4000000000000000E+001,
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -1.1020000457763672E+002
+                                  "Y" : -1.1020001220703125E+002
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -306,7 +306,7 @@
                                     ],
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "X" : 2.6609997558593750E+002
+                                      "X" : 2.6610000610351562E+002
                                     },
                                     "VerticalAnchorParent" : "vpMiddle",
                                     "VerticalAnchorSelf" : "vpMiddle"
@@ -721,7 +721,7 @@
                                     "Name" : "WebCGE",
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "Y" : -5.5100002288818359E+001
+                                      "Y" : -5.5100006103515625E+001
                                     },
                                     "VerticalAnchorParent" : "vpTop",
                                     "VerticalAnchorSelf" : "vpTop",
@@ -755,7 +755,7 @@
                   },
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.2710000610351562E+002
+                    "Y" : -1.1110000610351562E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
@@ -812,7 +812,7 @@
                   "Tag" : 5,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.2590999755859375E+003
+                    "Y" : -1.2430999755859375E+003
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop",
