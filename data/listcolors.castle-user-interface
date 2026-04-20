@@ -129,7 +129,7 @@
                   },
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 7.4901962280273438E-001,
+                    "Blue" : 5.2156865596771240E-001,
                     "Green" : 7.4901962280273438E-001,
                     "Red" : 0.0000000000000000E+000
                   },
@@ -162,7 +162,13 @@
                     "0000D9",
                     "FF0000",
                     "D900D9",
-                    "00BFBF"
+                    "00BFBF",
+                    "9EBF00",
+                    "BF8C00",
+                    "BF007E",
+                    "8400BF",
+                    "0085BF",
+                    "00BF85"
                   ],
                   "Name" : "ColorListBox",
                   "ScrollbarFrame" : {

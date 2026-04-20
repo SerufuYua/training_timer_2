@@ -48,7 +48,7 @@ begin
 
   { Find components, by name, that we need to access from code }
   ColorListBox:= FUiOwner.FindRequiredComponent('ColorListBox') as TCastleColorListBox;
-  ColorListBox.OnChange:= {$ifdef FPC}@{$endif}ClickColor;
+  ColorListBox.OnCursorArrive:= {$ifdef FPC}@{$endif}ClickColor;
 end;
 
 procedure TSeqListColors.TSeqListColorsDialog.CustomColors(AColors: TCastleColors);
