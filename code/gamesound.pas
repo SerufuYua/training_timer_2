@@ -11,7 +11,8 @@ interface
 
 type
   TSoundType = (None, Start, Ending, Final, Warn, Init);
-  TSfxType = (ClickMode, ClickAction, ClickEdit, PointerHover, ClickStart, Check);
+  TSfxType = (ClickMode, ClickAction, ClickEdit, PointerHover, ClickStart,
+              ClickStop, Check);
 
 { Initialize, call before any call to Play. }
 procedure InitializeSounds;

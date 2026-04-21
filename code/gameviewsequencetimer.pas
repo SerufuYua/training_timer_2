@@ -49,6 +49,7 @@ type
     procedure ShowProgress(AValue: Single);
     procedure ShowTime(ASeconds: Single);
     procedure ShowFullTime(ASeconds: Single);
+    procedure ControlHover(const Sender: TCastleUserInterface);
     procedure ButtonActionClick(Sender: TObject);
     procedure OnTouchTimer(const Sender: TCastleUserInterface;
       const Event: TInputPressRelease; var Handled: Boolean);
@@ -135,6 +136,9 @@ begin
   ButtonStop.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonRestart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonPause.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonStop.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonRestart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPause.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 
   ExhibiterActions.OnFinish:= {$ifdef FPC}@{$endif}DoAferAnimation;
 
@@ -313,6 +317,11 @@ begin
   end;
 end;
 
+procedure TViewSequenceTimer.ControlHover(const Sender: TCastleUserInterface);
+begin
+  PlaySfx(TSfxType.PointerHover);
+end;
+
 procedure TViewSequenceTimer.ButtonActionClick(Sender: TObject);
 var
   button: TCastleButton;
@@ -323,17 +332,24 @@ begin
   case button.Name of
     'ButtonStop':
     begin
+      PlaySfx(TSfxType.ClickStop);
       Enabled:= False;
       Container.View:= FReturnTo;
     end;
     'ButtonRestart':
       if NOT (Container.CurrentFrontView is TSeqConfirm) then
+      begin
+        PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqConfirm.CreateUntilStopped(
           ['Do You want to', 'Restart timer?'],
           'Question', {$ifdef FPC}@{$endif}DoResetTimer));
+      end;
     'ButtonPause':
       if (Enabled AND (NOT (Container.CurrentFrontView is TSeqPause))) then
+      begin
+        PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqPause.CreateUntilStopped);
+      end;
   end;
 end;
 
@@ -341,7 +357,10 @@ procedure TViewSequenceTimer.OnTouchTimer(const Sender: TCastleUserInterface;
   const Event: TInputPressRelease; var Handled: Boolean);
 begin
   if (Enabled AND (NOT (Container.CurrentFrontView is TSeqPause))) then
+  begin
+    PlaySfx(TSfxType.ClickAction);
     Container.PushView(TSeqPause.CreateUntilStopped);
+  end;
 end;
 
 procedure TViewSequenceTimer.ShowProgress(AValue: Single);
