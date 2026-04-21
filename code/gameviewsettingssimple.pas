@@ -44,6 +44,7 @@ type
     procedure ShowStatistic;
     procedure SetIndexSeq(AValue: Integer);
     function GetIndexSeq: Integer;
+    procedure ControlHover(const Sender: TCastleUserInterface);
     procedure ButtonSeqControlClick(Sender: TObject);
     procedure ButtonSeqEditClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
@@ -113,6 +114,10 @@ begin
   ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqSelect.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqAdd.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqRemove.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqCopy.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
 
   { Sequence edit buttons }
   ButtonSeqName.OnClick:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -122,11 +127,21 @@ begin
   ButtonPrepareTime.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonWarningTime.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   CheckWarning.OnChange:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonSeqName.OnInternalMouseEnter:=     {$ifdef FPC}@{$endif}ControlHover;
+  ButtonRounds.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
+  ButtonRoundTime.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
+  ButtonRestTime.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPrepareTime.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonWarningTime.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  CheckWarning.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonMode.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonAbout.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonMode.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -296,6 +311,11 @@ begin
   end;
 end;
 
+procedure TViewSettingsSimple.ControlHover(const Sender: TCastleUserInterface);
+begin
+  PlaySfx(TSfxType.PointerHover);
+end;
+
 procedure TViewSettingsSimple.ButtonSeqControlClick(Sender: TObject);
 var
   component: TComponent;
@@ -303,6 +323,7 @@ var
   list: TStringArray;
 begin
   if (NOT (Sender is TComponent)) then Exit;
+  PlaySfx(TSfxType.ClickEdit);
 
   idx:= IndexSeq;
   component:= Sender as TComponent;
@@ -358,6 +379,7 @@ var
   check: TCastleCheckBox;
 begin
   if (NOT (Sender is TComponent)) then Exit;
+  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
@@ -421,15 +443,22 @@ begin
   case component.Name of
     'ButtonStart':
     begin
+      PlaySfx(TSfxType.ClickStart);
       ViewSequenceTimer.ReturnTo:= self;
       ViewSequenceTimer.Periods:= MakePeriods(IndexSeq);
       Container.View:= ViewSequenceTimer;
     end;
     'ButtonAbout':
       if NOT (Container.CurrentFrontView is TSeqAbout) then
+      begin
+        PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqAbout.CreateUntilStopped);
+      end;
     'ButtonMode':
+    begin
+      PlaySfx(TSfxType.ClickMode);
       Container.View:= ViewSettingsPro;
+    end;
   end;
 end;
 

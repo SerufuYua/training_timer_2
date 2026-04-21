@@ -26,6 +26,9 @@ type
     procedure ShowStatistic;
     procedure SetIndexSeq(AValue: Integer);
     function GetIndexSeq: Integer;
+    procedure ControlHover(const Sender: TCastleUserInterface);
+    procedure ListPressed(Sender: TObject);
+    procedure ListHovered(Sender: TObject; AIndex: Integer);
     procedure ButtonSeqControlClick(Sender: TObject);
     procedure ButtonSeqEditClick(Sender: TObject);
     procedure ButtonActionClick(Sender: TObject);
@@ -99,6 +102,10 @@ begin
   ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqSelect.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqAdd.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqRemove.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqCopy.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
 
   { Sequence edit buttons }
   ButtonSeqName.OnClick:=      {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -107,13 +114,24 @@ begin
   ButtonPeriodDown.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodEdit.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
-  ListPeriods.OnClickSecond:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
-  ListPeriods.OnCheck:= {$ifdef FPC}@{$endif}CheckPeriod;
+  ListPeriods.OnClickSecond:=  {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ListPeriods.OnCheck:=        {$ifdef FPC}@{$endif}CheckPeriod;
+  ListPeriods.OnChange:=       {$ifdef FPC}@{$endif}ListPressed;
+  ListPeriods.OnLineHover:=    {$ifdef FPC}@{$endif}ListHovered;
+  ButtonSeqName.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodAdd.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodUp.OnInternalMouseEnter:=     {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodDown.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodEdit.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodRemove.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonMode.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonAbout.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonMode.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -346,6 +364,21 @@ begin
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 end;
 
+procedure TViewSettingsPro.ControlHover(const Sender: TCastleUserInterface);
+begin
+  PlaySfx(TSfxType.PointerHover);
+end;
+
+procedure TViewSettingsPro.ListPressed(Sender: TObject);
+begin
+  PlaySfx(TSfxType.ClickEdit);
+end;
+
+procedure TViewSettingsPro.ListHovered(Sender: TObject; AIndex: Integer);
+begin
+  PlaySfx(TSfxType.PointerHover);
+end;
+
 procedure TViewSettingsPro.ButtonSeqControlClick(Sender: TObject);
 var
   component: TComponent;
@@ -353,6 +386,7 @@ var
   list: TStringArray;
 begin
   if (NOT (Sender is TComponent)) then Exit;
+  PlaySfx(TSfxType.ClickEdit);
 
   idx:= IndexSeq;
   component:= Sender as TComponent;
@@ -409,6 +443,7 @@ var
   period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
+  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
@@ -444,7 +479,7 @@ begin
     end;
     'ButtonPeriodUp':
     begin
-      if ((ListPeriods.Index > -1) AND
+      if ((ListPeriods.Index > 0) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1];
@@ -459,7 +494,7 @@ begin
     'ButtonPeriodDown':
     begin
       if ((ListPeriods.Index > -1) AND
-          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+          (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
       begin
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1]:=
@@ -505,20 +540,28 @@ begin
   case component.Name of
     'ButtonStart':
     begin
+      PlaySfx(TSfxType.ClickStart);
       ViewSequenceTimer.ReturnTo:= self;
       ViewSequenceTimer.Periods:= FSettingsProList[IndexSeq];
       Container.View:= ViewSequenceTimer;
     end;
     'ButtonAbout':
       if NOT (Container.CurrentFrontView is TSeqAbout) then
+      begin
+        PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqAbout.CreateUntilStopped);
+      end;
     'ButtonMode':
+    begin
+      PlaySfx(TSfxType.ClickMode);
       Container.View:= ViewSettingsSimple;
+    end;
   end;
 end;
 
 procedure TViewSettingsPro.CheckPeriod(Sender: TObject; AIndex: Integer; ACheck: Boolean);
 begin
+  PlaySfx(TSfxType.Check);
   FSettingsProList[IndexSeq].Periods[AIndex].Enable:= ACheck;
   ShowStatistic;
 end;

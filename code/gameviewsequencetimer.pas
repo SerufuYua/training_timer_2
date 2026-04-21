@@ -172,7 +172,7 @@ begin
   if ((NOT Enabled) OR FPaused) then Exit;
 
   {$if defined(WINDOWS)}
-  { keep screen forwindows }
+  { ClickEdit screen forwindows }
   FKeepScreenSeconds:= FKeepScreenSeconds + SecondsPassed;
   if (FKeepScreenSeconds > 5.0) then
   begin

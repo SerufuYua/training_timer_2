@@ -11,11 +11,13 @@ interface
 
 type
   TSoundType = (None, Start, Ending, Final, Warn, Init);
+  TSfxType = (ClickMode, ClickAction, ClickEdit, PointerHover, ClickStart, Check);
 
 { Initialize, call before any call to Play. }
 procedure InitializeSounds;
 
 procedure Play(ASound: TSoundType);
+procedure PlaySfx(ASfx: TSfxType);
 
 implementation
 
@@ -34,6 +36,16 @@ begin
   nameSound:= GetEnumName(TypeInfo(TSoundType), Ord(ASound));
   sound:= Sounds.FindComponent(nameSound) as TCastleSound;
   SoundEngine.Play(sound);
+end;
+
+procedure PlaySfx(ASfx: TSfxType);
+var
+  nameSfx: String;
+  sfx: TCastleSound;
+begin
+  nameSfx:= GetEnumName(TypeInfo(TSfxType), Ord(ASfx));
+  sfx:= Sounds.FindComponent('sfx_' + nameSfx) as TCastleSound;
+  SoundEngine.Play(sfx);
 end;
 
 procedure InitializeSounds;
