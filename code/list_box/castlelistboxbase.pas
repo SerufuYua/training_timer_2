@@ -334,21 +334,6 @@ begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle event
 
-  // monitor pointer hover
-  h:= FAreaRect.Height - (Event.Position.Y - FAreaRect.Bottom);
-  hoverIdx:= Trunc(h / FLineHeight);
-  if (FHoverIdx <> hoverIdx) then
-  begin
-    if ((hoverIdx > -1) AND (hoverIdx < FList.Count)) then
-    begin
-      FHoverIdx:= hoverIdx;
-      if Assigned(OnLineHover) then
-        OnLineHover(self, FHoverIdx);
-    end
-    else
-      FHoverIdx:= -1;
-  end;
-
   if (FClickStarted AND (FClickStartedFinger = Event.FingerIndex)) then
   begin
     Result:= True;
@@ -367,7 +352,26 @@ begin
       if NOT TVector2.Equals(Event.OldPosition, Event.Position, 1.0) then
         FMoveStarted:= True;
     end;
-  end;
+  end
+  else if FMoveRect.Contains(Event.Position) then
+  begin
+    // monitor pointer hover
+    h:= FAreaRect.Height - (Event.Position.Y - FAreaRect.Bottom);
+    hoverIdx:= Trunc(h / FLineHeight);
+    if (FHoverIdx <> hoverIdx) then
+    begin
+      if ((hoverIdx > -1) AND (hoverIdx < FList.Count)) then
+      begin
+        FHoverIdx:= hoverIdx;
+        if Assigned(OnLineHover) then
+          OnLineHover(self, FHoverIdx);
+      end
+      else
+        FHoverIdx:= -1;
+    end;
+  end
+  else
+    FHoverIdx:= -1;
 end;
 
 procedure TCastleListBoxBase.Render;
