@@ -17,11 +17,13 @@ uses
   CastleKeysMouse, CastleRectangles, CastleVectors, CastleGLImages;
 
 type
+  THoverEvent = procedure(Sender: TObject; AIndex: Integer) of object;
+
   TCastleListBoxBase = class(TCastleUserInterfaceFont)
   protected
     FTextMargin: Single;
-    FIndex: Integer;
-    FLineFrame, FLineCursor: TCastleImagePersistent;
+    FIndex, FHoverIdx: Integer;
+    FLineFrame, FLineFrameHover, FLineCursor: TCastleImagePersistent;
     FScrollbarFrame, FScrollbarSlider: TCastleImagePersistent;
     FAreaRect, FCursorRect, FMoveRect, FClickRect: TFloatRectangle;
     FCursorTargetBottom: Single;
@@ -34,6 +36,7 @@ type
     FClickStarted, FMoveStarted, FMoveMain, FMoveSlider: boolean;
     FClickStartedFinger: TFingerIndex;
     FOnClick, FOnChange, FOnClickSecond, FOnCursorArrive: TNotifyEvent;
+    FOnLineHover: THoverEvent;
     FColor: TCastleColor;
     FColorPersistent: TCastleColorPersistent;
     function GetColorForPersistent: TCastleColor;
@@ -51,6 +54,7 @@ type
     procedure DoClickSecond;
     procedure DoChange;
     procedure DoCursorArrive;
+    procedure DoInternalMouseLeave; override;
   public
     const
       DefaultTextMargin = 12;
@@ -93,6 +97,7 @@ type
     property Index: Integer read FIndex write SetIndex
              {$ifdef FPC}default DefaultIndex{$endif};
     property LineFrame: TCastleImagePersistent read FLineFrame;
+    property LineFrameHover: TCastleImagePersistent read FLineFrameHover;
     property LineCursor: TCastleImagePersistent read FLineCursor;
     property ScrollbarFrame: TCastleImagePersistent read FScrollbarFrame;
     property ScrollbarSlider: TCastleImagePersistent read FScrollbarSlider;
@@ -107,6 +112,8 @@ type
     property OnClickSecond: TNotifyEvent read FOnClickSecond write FOnClickSecond;
     { called when Index is changed }
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
+    { called when pointer hovered on other Line Index }
+    property OnLineHover: THoverEvent read FOnLineHover write FOnLineHover;
     { called when animated cursor arrive the target
       don't work when CursorSpeed:= 0.0 }
     property OnCursorArrive: TNotifyEvent read FOnCursorArrive write FOnCursorArrive;
@@ -122,7 +129,10 @@ begin
   inherited;
 
   FOnClick:= nil;
+  FOnClickSecond:= nil;
   FOnChange:= nil;
+  FOnLineHover:= nil;
+  FOnCursorArrive:= nil;
   FAreaPosY:= 0.0;
   FAreaTargetPosY:= 0.0;
   FSliderPosY:= 0.0;
@@ -132,6 +142,7 @@ begin
   FCursorSpeed:= DefaultCursorSpeed;
   FAreaSpeed:= DefaultAreaSpeed;
   FIndex:= DefaultIndex;
+  FHoverIdx:= DefaultIndex;
   FLinePadding:= DefaultLinePadding;
   FScrollBarWidth:= DefaultScrollBarWidth;
 
@@ -140,6 +151,7 @@ begin
 
   FLineCursor:= TCastleImagePersistent.Create;
   FLineFrame:= TCastleImagePersistent.Create;
+  FLineFrameHover:= TCastleImagePersistent.Create;
   FScrollbarFrame:= TCastleImagePersistent.Create;
   FScrollbarSlider:= TCastleImagePersistent.Create;
 
@@ -164,6 +176,9 @@ begin
 
   if Assigned(FLineFrame) then
     FreeAndNil(FLineFrame);
+
+  if Assigned(FLineFrameHover) then
+    FreeAndNil(FLineFrameHover);
 
   if Assigned(FScrollbarFrame) then
     FreeAndNil(FScrollbarFrame);
@@ -313,10 +328,26 @@ end;
 
 function TCastleListBoxBase.Motion(const Event: TInputMotion): boolean;
 var
-  shiftY: Single;
+  hoverIdx: Integer;
+  shiftY, h: Single;
 begin
   Result := inherited;
   if Result then Exit; // allow the ancestor to handle event
+
+  // monitor pointer hover
+  h:= FAreaRect.Height - (Event.Position.Y - FAreaRect.Bottom);
+  hoverIdx:= Trunc(h / FLineHeight);
+  if (FHoverIdx <> hoverIdx) then
+  begin
+    if ((hoverIdx > -1) AND (hoverIdx < FList.Count)) then
+    begin
+      FHoverIdx:= hoverIdx;
+      if Assigned(OnLineHover) then
+        OnLineHover(self, FHoverIdx);
+    end
+    else
+      FHoverIdx:= -1;
+  end;
 
   if (FClickStarted AND (FClickStartedFinger = Event.FingerIndex)) then
   begin
@@ -344,7 +375,7 @@ const
   CurWidth = 2;
 var
   i: Integer;
-  FinalFrame, FinalSlider, FinalLine: TCastleImagePersistent;
+  FinalFrame, FinalSlider: TCastleImagePersistent;
   LineRect: TFloatRectangle;
 begin
   inherited;
@@ -363,20 +394,7 @@ begin
     LineRect.Bottom:= FAreaRect.Top - FLineHeight * Single(i + 1);
 
     if ((LineRect.Bottom < RenderRect.Top) AND (LineRect.Top > RenderRect.Bottom)) then
-    begin
-      { line background }
-      if FLineFrame.Empty then
-        FinalLine:= Theme.ImagesPersistent[tiButtonNormal]
-      else
-        FinalLine:= FLineFrame;
-
-      FinalLine.DrawUiBegin(UIScale);
-      FinalLine.Color:= FLineFrame.Color;
-      FinalLine.Draw(LineRect);
-      FinalLine.DrawUiEnd;
-
       RenderLine(LineRect, i);
-    end;
   end;
 
   { line cursor }
@@ -417,7 +435,35 @@ begin
 end;
 
 procedure TCastleListBoxBase.RenderLine(const ARect: TFloatRectangle; const AIndex: Integer);
+var
+  FinalLine: TCastleImagePersistent;
 begin
+  if (AIndex = FHoverIdx) then
+  begin
+    { hovered line background }
+    if FLineFrameHover.Empty then
+      FinalLine:= Theme.ImagesPersistent[tiButtonFocused]
+    else
+      FinalLine:= FLineFrameHover;
+
+    FinalLine.DrawUiBegin(UIScale);
+    FinalLine.Color:= FLineFrameHover.Color;
+    FinalLine.Draw(ARect);
+    FinalLine.DrawUiEnd;
+  end
+  else
+  begin
+    { line background }
+    if FLineFrame.Empty then
+      FinalLine:= Theme.ImagesPersistent[tiButtonNormal]
+    else
+      FinalLine:= FLineFrame;
+
+    FinalLine.DrawUiBegin(UIScale);
+    FinalLine.Color:= FLineFrame.Color;
+    FinalLine.Draw(ARect);
+    FinalLine.DrawUiEnd;
+  end;
 end;
 
 procedure TCastleListBoxBase.ListChange(Sender: TObject);
@@ -616,12 +662,18 @@ begin
     OnCursorArrive(Self);
 end;
 
+procedure TCastleListBoxBase.DoInternalMouseLeave;
+begin
+  FHoverIdx:= -1;
+  inherited;
+end;
+
 function TCastleListBoxBase.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
        'TextMargin', 'ColorPersistent', 'LinePadding', 'ScrollBarWidth',
-       'LineFrame', 'LineCursor', 'ScrollbarFrame', 'ScrollbarSlider', 'Index',
-       'CursorSpeed', 'AreaSpeed', 'ClipChildren', 'List',
+       'LineFrame', 'LineFrameHover', 'LineCursor', 'ScrollbarFrame', 'List',
+       'ScrollbarSlider', 'Index', 'CursorSpeed', 'AreaSpeed', 'ClipChildren',
        'ScrollBarLeft'
      ]) then
     Result:= [psBasic]
