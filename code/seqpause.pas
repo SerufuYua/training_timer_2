@@ -25,7 +25,7 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleFonts;
+  SysUtils, CastleComponentSerialize, CastleFonts, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqPauseDialog ------------------------------------------------------------ }
@@ -42,6 +42,7 @@ begin
       Event.IsKey(TKey.keyPause) OR
       Event.IsKey(TKey.keyEnter)) then
   begin
+    PlaySfx(TSfxType.ClickOk);
     ShowClose;
     Exit(True);
   end;

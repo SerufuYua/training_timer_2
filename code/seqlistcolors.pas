@@ -17,6 +17,8 @@ type
       protected
         FOnReturnColor: TReturnColor;
         ColorListBox: TCastleColorListBox;
+        procedure ListPressed(Sender: TObject);
+        procedure ListHovered(Sender: TObject; AIndex: Integer);
         procedure ClickColor(Sender: TObject);
       public
         constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
@@ -36,7 +38,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleFonts;
+  CastleComponentSerialize, CastleFonts, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqListColorsDialog ------------------------------------------------------- }
@@ -49,6 +51,8 @@ begin
   { Find components, by name, that we need to access from code }
   ColorListBox:= FUiOwner.FindRequiredComponent('ColorListBox') as TCastleColorListBox;
   ColorListBox.OnCursorArrive:= {$ifdef FPC}@{$endif}ClickColor;
+  ColorListBox.OnChange:=       {$ifdef FPC}@{$endif}ListPressed;
+  ColorListBox.OnLineHover:=    {$ifdef FPC}@{$endif}ListHovered;
 end;
 
 procedure TSeqListColors.TSeqListColorsDialog.CustomColors(AColors: TCastleColors);
@@ -61,6 +65,16 @@ begin
     ColorListBox.List.Add(ColorToHex(ccolor));
 end;
 
+procedure TSeqListColors.TSeqListColorsDialog.ListPressed(Sender: TObject);
+begin
+  PlaySfx(TSfxType.ClickEdit);
+end;
+
+procedure TSeqListColors.TSeqListColorsDialog.ListHovered(Sender: TObject; AIndex: Integer);
+begin
+  PlaySfx(TSfxType.ListHover);
+end;
+
 procedure TSeqListColors.TSeqListColorsDialog.ClickColor(Sender: TObject);
 var
   listBox: TCastleColorListBox;
@@ -69,7 +83,10 @@ begin
   listBox:= Sender as TCastleColorListBox;
 
   if Assigned(FOnReturnColor) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnColor(listBox.GetColor(listBox.Index));
+  end;
 
   ShowClose;
 end;

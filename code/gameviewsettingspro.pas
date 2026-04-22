@@ -376,7 +376,7 @@ end;
 
 procedure TViewSettingsPro.ListHovered(Sender: TObject; AIndex: Integer);
 begin
-  PlaySfx(TSfxType.PointerHover);
+  PlaySfx(TSfxType.ListHover);
 end;
 
 procedure TViewSettingsPro.ButtonSeqControlClick(Sender: TObject);

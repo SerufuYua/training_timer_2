@@ -43,7 +43,7 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleFonts, MyUtils;
+  SysUtils, CastleComponentSerialize, CastleFonts, MyUtils, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqListBoxDialog ---------------------------------------------------------- }
@@ -66,16 +66,23 @@ begin
   ButtonSecIncrease:= FUiOwner.FindRequiredComponent('ButtonSecIncrease') as TCastleButton;
   ButtonSecDecrease:= FUiOwner.FindRequiredComponent('ButtonSecDecrease') as TCastleButton;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
-  EditHrNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
-  EditMinNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
-  EditSecNumber.OnChange:= {$ifdef FPC}@{$endif}ChangeNumber;
-  ButtonHrIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
-  ButtonHrDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
+  EditHrNumber.OnChange:=     {$ifdef FPC}@{$endif}ChangeNumber;
+  EditMinNumber.OnChange:=    {$ifdef FPC}@{$endif}ChangeNumber;
+  EditSecNumber.OnChange:=    {$ifdef FPC}@{$endif}ChangeNumber;
+  ButtonHrIncrease.OnClick:=  {$ifdef FPC}@{$endif}ChangeNumber;
+  ButtonHrDecrease.OnClick:=  {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonMinDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSecIncrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSecDecrease.OnClick:= {$ifdef FPC}@{$endif}ChangeNumber;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  ButtonHrIncrease.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
+  ButtonHrDecrease.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
+  ButtonMinIncrease.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonMinDecrease.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSecIncrease.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSecDecrease.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSet.OnInternalMouseEnter:=         {$ifdef FPC}@{$endif}ControlHover;
 end;
 
 procedure TSeqEditTime.TSeqEditTimeDialog.ChangeNumber(Sender: TObject);
@@ -88,31 +95,52 @@ begin
   component:= Sender as TComponent;
   case component.Name of
     'ButtonHrIncrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds + 60 * 60;
+    end;
     'ButtonHrDecrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds - 60 * 60;
+    end;
     'ButtonMinIncrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds + 60;
+    end;
     'ButtonMinDecrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds - 60;
+    end;
     'ButtonSecIncrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds + 1;
+    end;
     'ButtonSecDecrease':
+    begin
+      PlaySfx(TSfxType.ClickEdit);
       Seconds:= Seconds - 1;
+    end;
     'EditHrNumber':
     begin
+      PlaySfx(TSfxType.TapKey);
       edit:= Sender as TCastleIntegerEdit;
-      Seconds:= HrMinSecToSeconds(edit.Value, FMin, FSec);
+      Seconds:= HrMinSecToSeconds(Integer(edit.Value), FMin, FSec);
     end;
     'EditMinNumber':
     begin
+      PlaySfx(TSfxType.TapKey);
       edit:= Sender as TCastleIntegerEdit;
-      Seconds:= HrMinSecToSeconds(FHr, edit.Value, FSec);
+      Seconds:= HrMinSecToSeconds(FHr, Integer(edit.Value), FSec);
     end;
     'EditSecNumber':
     begin
+      PlaySfx(TSfxType.TapKey);
       edit:= Sender as TCastleIntegerEdit;
-      Seconds:= HrMinSecToSeconds(FHr, FMin, edit.Value);
+      Seconds:= HrMinSecToSeconds(FHr, FMin, Integer(edit.Value));
     end;
   end;
 end;
@@ -141,7 +169,10 @@ begin
   button:= Sender as TCastleButton;
 
   if ((button.Name = 'ButtonSet') AND Assigned(FOnReturnSeconds)) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnSeconds(Seconds);
+  end;
 
   ShowClose;
 end;

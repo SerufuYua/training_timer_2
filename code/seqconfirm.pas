@@ -36,7 +36,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleFonts;
+  CastleComponentSerialize, CastleFonts, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqConfirmDialog ---------------------------------------------------------- }
@@ -50,6 +50,7 @@ begin
   LabelQuestion:= FUiOwner.FindRequiredComponent('LabelQuestion') as TCastleLabel;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  ButtonSet.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 end;
 
 procedure TSeqConfirm.TSeqConfirmDialog.SetQuestion(AValue: TStringArray);
@@ -70,7 +71,10 @@ begin
   button:= Sender as TCastleButton;
 
   if ((button.Name = 'ButtonSet') AND Assigned(FOnReturnOk)) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnOk(self);
+  end;
 
   ShowClose;
 end;

@@ -15,6 +15,8 @@ type
       protected
         FOnReturnIndex: TReturnIndex;
         ListBox: TCastleListBox;
+        procedure ListPressed(Sender: TObject);
+        procedure ListHovered(Sender: TObject; AIndex: Integer);
         procedure ClickList(Sender: TObject);
       public
         constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
@@ -34,7 +36,7 @@ type
 implementation
 
 uses
-  CastleComponentSerialize, CastleFonts;
+  CastleComponentSerialize, CastleFonts, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqListBoxDialog ---------------------------------------------------------- }
@@ -47,6 +49,8 @@ begin
   { Find components, by name, that we need to access from code }
   ListBox:= FUiOwner.FindRequiredComponent('ListBox') as TCastleListBox;
   ListBox.OnCursorArrive:= {$ifdef FPC}@{$endif}ClickList;
+  ListBox.OnChange:=       {$ifdef FPC}@{$endif}ListPressed;
+  ListBox.OnLineHover:=    {$ifdef FPC}@{$endif}ListHovered;
 end;
 
 procedure TSeqListBox.TSeqListBoxDialog.SetList(AList: TStringArray);
@@ -59,10 +63,23 @@ begin
     ListBox.List.Add(line);
 end;
 
+procedure TSeqListBox.TSeqListBoxDialog.ListPressed(Sender: TObject);
+begin
+  PlaySfx(TSfxType.ClickEdit);
+end;
+
+procedure TSeqListBox.TSeqListBoxDialog.ListHovered(Sender: TObject; AIndex: Integer);
+begin
+  PlaySfx(TSfxType.ListHover);
+end;
+
 procedure TSeqListBox.TSeqListBoxDialog.ClickList(Sender: TObject);
 begin
   if ((Sender is TCastleListBox) AND Assigned(FOnReturnIndex)) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnIndex((Sender as TCastleListBox).Index);
+  end;
 
   ShowClose;
 end;

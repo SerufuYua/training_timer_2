@@ -16,6 +16,7 @@ type
         FOnReturnString: TReturnString;
         EditString: TCastleEdit;
         ButtonSet: TCastleButton;
+        procedure ChangeString(Sender: TObject);
         procedure ClickControl(Sender: TObject);
         procedure SetString(AValue: String);
       public
@@ -37,7 +38,7 @@ type
 implementation
 
 uses
-  SysUtils, CastleComponentSerialize, CastleFonts;
+  SysUtils, CastleComponentSerialize, CastleFonts, GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqListBoxDialog ---------------------------------------------------------- }
@@ -50,7 +51,14 @@ begin
   { Find components, by name, that we need to access from code }
   EditString:= FUiOwner.FindRequiredComponent('EditString') as TCastleEdit;
   ButtonSet:= FUiOwner.FindRequiredComponent('ButtonSet') as TCastleButton;
+  EditString.OnChange:= {$ifdef FPC}@{$endif}ChangeString;
   ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  ButtonSet.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+end;
+
+procedure TSeqEditString.TSeqEditStringDialog.ChangeString(Sender: TObject);
+begin
+  PlaySfx(TSfxType.TapKey);
 end;
 
 procedure TSeqEditString.TSeqEditStringDialog.ClickControl(Sender: TObject);
@@ -61,7 +69,10 @@ begin
   button:= Sender as TCastleButton;
 
   if ((button.Name = 'ButtonSet') AND Assigned(FOnReturnString)) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnString(EditString.Text);
+  end;
 
   ShowClose;
 end;

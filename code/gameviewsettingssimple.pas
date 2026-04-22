@@ -138,7 +138,7 @@ begin
   { Actions buttons }
   ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
-  ButtonMode.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonMode.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
   ButtonStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
   ButtonAbout.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
   ButtonMode.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
@@ -394,7 +394,7 @@ begin
     begin
       if NOT (Container.CurrentFrontView is TSeqEditInteger) then
         Container.PushView(TSeqEditInteger.CreateUntilStopped(
-          FSettingsSimpleList[IndexSeq].Rounds, 1, 1000,
+          FSettingsSimpleList[IndexSeq].Rounds, 1, 99,
           'Rounds', {$ifdef FPC}@{$endif}DoEditRound));
     end;
     'ButtonRoundTime':

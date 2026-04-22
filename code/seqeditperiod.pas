@@ -74,17 +74,29 @@ begin
   ButtonSoundcheckStart:= FUiOwner.FindRequiredComponent('ButtonSoundcheckStart') as TCastleButton;
   ButtonSoundcheckEnd:= FUiOwner.FindRequiredComponent('ButtonSoundcheckEnd') as TCastleButton;
 
-  ButtonPeriodName.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  CheckEnable.OnChange:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonSoundStart.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonSoundEnd.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonDuration.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonWarningTime.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  CheckWarning.OnChange:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonColor.OnClick:= {$ifdef FPC}@{$endif}ClickEdit;
-  ButtonSet.OnClick:= {$ifdef FPC}@{$endif}ClickControl;
+  ButtonPeriodName.OnClick:=      {$ifdef FPC}@{$endif}ClickEdit;
+  CheckEnable.OnChange:=          {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonSoundStart.OnClick:=      {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonSoundEnd.OnClick:=        {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonDuration.OnClick:=        {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonWarningTime.OnClick:=     {$ifdef FPC}@{$endif}ClickEdit;
+  CheckWarning.OnChange:=         {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonColor.OnClick:=           {$ifdef FPC}@{$endif}ClickEdit;
+  ButtonSet.OnClick:=             {$ifdef FPC}@{$endif}ClickControl;
   ButtonSoundcheckStart.OnClick:= {$ifdef FPC}@{$endif}ClickSoundcheck;
-  ButtonSoundcheckEnd.OnClick:= {$ifdef FPC}@{$endif}ClickSoundcheck;
+  ButtonSoundcheckEnd.OnClick:=   {$ifdef FPC}@{$endif}ClickSoundcheck;
+
+  ButtonPeriodName.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
+  CheckEnable.OnInternalMouseEnter:=           {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSoundStart.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSoundEnd.OnInternalMouseEnter:=        {$ifdef FPC}@{$endif}ControlHover;
+  ButtonDuration.OnInternalMouseEnter:=        {$ifdef FPC}@{$endif}ControlHover;
+  ButtonWarningTime.OnInternalMouseEnter:=     {$ifdef FPC}@{$endif}ControlHover;
+  CheckWarning.OnInternalMouseEnter:=          {$ifdef FPC}@{$endif}ControlHover;
+  ButtonColor.OnInternalMouseEnter:=           {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSet.OnInternalMouseEnter:=             {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSoundcheckStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSoundcheckEnd.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
 end;
 
 procedure TSeqEditPeriod.TSeqEditPeriodDialog.ClickEdit(Sender: TObject);
@@ -92,6 +104,7 @@ var
   component: TComponent;
 begin
   if (NOT (Sender is TComponent)) then Exit;
+  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
@@ -165,7 +178,10 @@ begin
   button:= Sender as TCastleButton;
 
   if ((button.Name = 'ButtonSet') AND Assigned(FOnReturnString)) then
+  begin
+    PlaySfx(TSfxType.ClickOk);
     FOnReturnString(FPeriod);
+  end;
 
   ShowClose;
 end;

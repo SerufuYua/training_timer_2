@@ -44,6 +44,10 @@ AndroidSigningProperties.txt
 # May contain settings specific to your user / machine
 CastleProjectLocalSettings.json
 
+#audcity tempoprary files
+*.*-shm
+*.*-wal
+
 # other
 .vscode
 .~*
@@ -56,3 +60,4 @@ code/backup
 todo.txt
 packagefiles.xml
 ppas.bat
+

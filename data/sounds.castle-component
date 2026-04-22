@@ -59,9 +59,21 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_TapKey",
+      "Url" : "castle-data:/sound/sfx_tack.wav",
+      "Volume" : 6.0000002384185791E-001
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "sfx_PointerHover",
       "Url" : "castle-data:/sound/sfx_kheep.wav",
       "Volume" : 3.0000001192092896E-001
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_ListHover",
+      "Url" : "castle-data:/sound/sfx_whoop.wav",
+      "Volume" : 2.0000000298023224E-001
     },
     {
       "$$ClassName" : "TCastleSound",
