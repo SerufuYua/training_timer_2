@@ -208,7 +208,7 @@
                                     ],
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "X" : 1.7760000610351562E+002
+                                      "X" : 1.7759999084472656E+002
                                     },
                                     "VerticalAnchorParent" : "vpMiddle",
                                     "VerticalAnchorSelf" : "vpMiddle"
@@ -221,7 +221,7 @@
                                 "Spacing" : 2.4000000000000000E+001,
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -5.5100006103515625E+001
+                                  "Y" : -5.5100002288818359E+001
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -257,7 +257,7 @@
                                     ],
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "X" : 1.0230000305175781E+002
+                                      "X" : 1.0229999542236328E+002
                                     },
                                     "VerticalAnchorParent" : "vpMiddle",
                                     "VerticalAnchorSelf" : "vpMiddle"
@@ -270,7 +270,7 @@
                                 "Spacing" : 2.4000000000000000E+001,
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -1.1020001220703125E+002
+                                  "Y" : -1.1020000457763672E+002
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -306,7 +306,7 @@
                                     ],
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "X" : 2.6610000610351562E+002
+                                      "X" : 2.6609997558593750E+002
                                     },
                                     "VerticalAnchorParent" : "vpMiddle",
                                     "VerticalAnchorSelf" : "vpMiddle"
@@ -410,7 +410,7 @@
                             "Name" : "GroupHR2",
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.1016000976562500E+003
+                              "Y" : -1.1015999755859375E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -433,7 +433,7 @@
                             ],
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.1736000976562500E+003
+                              "Y" : -1.1735999755859375E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop"
@@ -446,7 +446,7 @@
                             "Spacing" : 6.4000000000000000E+001,
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.2527000732421875E+003
+                              "Y" : -1.2526999511718750E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -465,6 +465,7 @@
                                   "Red" : 8.7843137979507446E-001
                                 },
                                 "Caption" : "itch.io",
+                                "Cursor" : "mcHand",
                                 "CustomBackground" : true,
                                 "CustomBackgroundDisabled" : {
                                   "$$ClassName" : "TCastleImagePersistent"
@@ -489,7 +490,7 @@
                                 "Image" : {
                                   "$$ClassName" : "TCastleImagePersistent"
                                 },
-                                "Name" : "WebCGE2",
+                                "Name" : "WebItch",
                                 "VerticalAnchorParent" : "vpMiddle",
                                 "VerticalAnchorSelf" : "vpMiddle",
                                 "WebUrl" : "https://serufuyua.itch.io/training-timer-2-zero-time"
@@ -508,6 +509,7 @@
                                   "Red" : 8.7843137979507446E-001
                                 },
                                 "Caption" : "GitHub",
+                                "Cursor" : "mcHand",
                                 "CustomBackground" : true,
                                 "CustomBackgroundDisabled" : {
                                   "$$ClassName" : "TCastleImagePersistent"
@@ -532,7 +534,7 @@
                                 "Image" : {
                                   "$$ClassName" : "TCastleImagePersistent"
                                 },
-                                "Name" : "WebCGE3",
+                                "Name" : "WebGHub",
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
                                   "X" : 2.0760000610351562E+002
@@ -562,7 +564,7 @@
                             "Name" : "GroupHR3",
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.3472000732421875E+003
+                              "Y" : -1.3471999511718750E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -591,7 +593,7 @@
                             ],
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.4192000732421875E+003
+                              "Y" : -1.4191999511718750E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop"
@@ -615,7 +617,7 @@
                             "Name" : "GroupHR4",
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.7408000488281250E+003
+                              "Y" : -1.7407999267578125E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -629,7 +631,7 @@
                             "Spacing" : 3.2000000000000000E+001,
                             "TranslationPersistent" : {
                               "$$ClassName" : "TCastleVector2Persistent",
-                              "Y" : -1.8128000488281250E+003
+                              "Y" : -1.8127999267578125E+003
                             },
                             "VerticalAnchorParent" : "vpTop",
                             "VerticalAnchorSelf" : "vpTop",
@@ -659,7 +661,7 @@
                                 "Spacing" : 8.0000000000000000E+000,
                                 "TranslationPersistent" : {
                                   "$$ClassName" : "TCastleVector2Persistent",
-                                  "Y" : -1.7610000610351562E+002
+                                  "Y" : -1.7609999084472656E+002
                                 },
                                 "VerticalAnchorParent" : "vpTop",
                                 "VerticalAnchorSelf" : "vpTop",
@@ -694,6 +696,7 @@
                                       "Red" : 8.7843137979507446E-001
                                     },
                                     "Caption" : "Castle Game Engine",
+                                    "Cursor" : "mcHand",
                                     "CustomBackground" : true,
                                     "CustomBackgroundDisabled" : {
                                       "$$ClassName" : "TCastleImagePersistent"
@@ -721,7 +724,7 @@
                                     "Name" : "WebCGE",
                                     "TranslationPersistent" : {
                                       "$$ClassName" : "TCastleVector2Persistent",
-                                      "Y" : -5.5100006103515625E+001
+                                      "Y" : -5.5100002288818359E+001
                                     },
                                     "VerticalAnchorParent" : "vpTop",
                                     "VerticalAnchorSelf" : "vpTop",

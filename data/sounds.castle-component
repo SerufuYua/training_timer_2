@@ -59,6 +59,11 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_ClickWeb",
+      "Url" : "castle-data:/sound/sfx_tsick.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "sfx_TapKey",
       "Url" : "castle-data:/sound/sfx_tack.wav",
       "Volume" : 6.0000002384185791E-001

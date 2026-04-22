@@ -2,9 +2,9 @@ unit SeqAbout;
 
 interface
 
-uses Classes, SeqBaseDialog,
-  CastleVectors, CastleUIControls, CastleControls, CastleKeysMouse,
-  SeqExhibiter;
+uses
+  Classes, SeqBaseDialog, CastleVectors, CastleUIControls, CastleControls,
+  CastleKeysMouse, SeqExhibiter, SeqWebButton;
 
 type
   TSeqAbout = class(TCastleView)
@@ -14,6 +14,8 @@ type
       protected
           LabelAppName, LabelVersionNum, LabelCGENum,
             LabelPascalNum: TCastleLabel;
+          WebItch, WebGHub, WebCGE: TSeqWebButton;
+        procedure ClickWeb(Sender: TObject);
       public
         constructor CreateNew(const AUrl: String; AOwner: TComponent); override;
         procedure Start; override;
@@ -30,7 +32,7 @@ implementation
 
 uses
   SysUtils, CastleComponentSerialize, CastleApplicationProperties, CastleUtils,
-  SeqWebButton;
+  GameSound;
 
 { ========= ------------------------------------------------------------------ }
 { TSeqAboutDialog ------------------------------------------------------------ }
@@ -45,6 +47,16 @@ begin
   LabelVersionNum:= FUiOwner.FindRequiredComponent('LabelVersionNum') as TCastleLabel;
   LabelCGENum:= FUiOwner.FindRequiredComponent('LabelCGENum') as TCastleLabel;
   LabelPascalNum:= FUiOwner.FindRequiredComponent('LabelPascalNum') as TCastleLabel;
+  WebItch:= FUiOwner.FindRequiredComponent('WebItch') as TSeqWebButton;
+  WebGHub:= FUiOwner.FindRequiredComponent('WebGHub') as TSeqWebButton;
+  WebCGE:=  FUiOwner.FindRequiredComponent('WebCGE') as TSeqWebButton;
+
+  WebItch.OnClick:= {$ifdef FPC}@{$endif}ClickWeb;
+  WebGHub.OnClick:= {$ifdef FPC}@{$endif}ClickWeb;
+  WebCGE.OnClick:=  {$ifdef FPC}@{$endif}ClickWeb;
+  WebItch.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  WebGHub.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  WebCGE.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
 end;
 
 procedure TSeqAbout.TSeqAboutDialog.Start;
@@ -57,6 +69,11 @@ begin
                             {$else} + ' Release'{$endif};
   LabelCGENum.Caption:= StringReplace(CastleEngineVersion, ' (commit', NL + '(commit', [rfReplaceAll, rfIgnoreCase]);
   LabelPascalNum.Caption:= {$I %FPCVERSION%};
+end;
+
+procedure TSeqAbout.TSeqAboutDialog.ClickWeb(Sender: TObject);
+begin
+  PlaySfx(TSfxType.ClickWeb);
 end;
 
 { ========= ------------------------------------------------------------------ }

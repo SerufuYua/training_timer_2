@@ -13,7 +13,7 @@ type
   TSoundType = (None, Start, Ending, Final, Warn, Init);
   TSfxType = (ClickMode, ClickAction, ClickEdit, ClickOk, ClickCancel,
               ClickDeny, PointerHover, ListHover, ClickStart, ClickStop,
-              Check, TapKey);
+              ClickWeb, Check, TapKey);
 
 { Initialize, call before any call to Play. }
 procedure InitializeSounds;
