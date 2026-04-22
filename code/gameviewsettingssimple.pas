@@ -379,12 +379,12 @@ var
   check: TCastleCheckBox;
 begin
   if (NOT (Sender is TComponent)) then Exit;
-  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
     'ButtonSeqName':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].Name,
@@ -392,6 +392,7 @@ begin
     end;
     'ButtonRounds':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditInteger) then
         Container.PushView(TSeqEditInteger.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].Rounds, 1, 99,
@@ -399,6 +400,7 @@ begin
     end;
     'ButtonRoundTime':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RoundSeconds,
@@ -406,6 +408,7 @@ begin
     end;
     'ButtonRestTime':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].RestSeconds,
@@ -413,6 +416,7 @@ begin
     end;
     'ButtonPrepareTime':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].PrepareSeconds,
@@ -420,6 +424,7 @@ begin
     end;
     'ButtonWarningTime':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FSettingsSimpleList[IndexSeq].WarningSeconds,
@@ -427,6 +432,7 @@ begin
     end;
     'CheckWarning':
     begin
+      PlaySfx(TSfxType.Check);
       check:= component as TCastleCheckBox;
       FSettingsSimpleList[IndexSeq].Warning:= check.Checked;
     end;

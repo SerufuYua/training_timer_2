@@ -104,52 +104,59 @@ var
   component: TComponent;
 begin
   if (NOT (Sender is TComponent)) then Exit;
-  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
     'ButtonPeriodName':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FPeriod.Name, 'Period Name', {$ifdef FPC}@{$endif}DoEditName));
     end;
     'CheckEnable':
     begin
+      PlaySfx(TSfxType.Check);
       if (component is TCastleCheckbox) then
         FPeriod.Enable:= (component as TCastleCheckbox).Checked;
     end;
     'ButtonSoundStart':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
           'Select Start Sound', {$ifdef FPC}@{$endif}DoSelectStartSound));
     end;
     'ButtonSoundEnd':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqListBox) then
         Container.PushView(TSeqListBox.CreateUntilStopped(ListOfSet(TypeInfo(TSoundType)),
           'Select Final Sound', {$ifdef FPC}@{$endif}DoSelectFinalSound));
     end;
     'ButtonDuration':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.DurationSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditDuration));
     end;
     'ButtonWarningTime':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditTime) then
         Container.PushView(TSeqEditTime.CreateUntilStopped(
           FPeriod.WarningSec, 'Period Time', {$ifdef FPC}@{$endif}DoEditWarning));
     end;
     'CheckWarning':
     begin
+      PlaySfx(TSfxType.Check);
       if (component is TCastleCheckbox) then
         FPeriod.Warning:= (component as TCastleCheckbox).Checked;
     end;
     'ButtonColor':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqListColors) then
         Container.PushView(TSeqListColors.CreateUntilStopped(
           nil, 'Period Color', {$ifdef FPC}@{$endif}DoEditColor));
