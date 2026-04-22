@@ -16,6 +16,7 @@ type
     LabelTitle: TCastleLabel;
     Exhibiter: TSeqExhibiter;
     ButtonClose: TCastleButton;
+    procedure ControlHover(const Sender: TCastleUserInterface);
     procedure ClickClose(Sender: TObject);
     procedure ShowClose;
     procedure DoClose(Sender: TObject);
@@ -29,6 +30,9 @@ type
   end;
 
 implementation
+
+uses
+  GameSound;
 
 constructor TSeqBaseDialog.CreateNew(const AUrl: String; AOwner: TComponent);
 var
@@ -49,6 +53,7 @@ begin
   Exhibiter:= FUiOwner.FindRequiredComponent('Exhibiter') as TSeqExhibiter;
   ButtonClose:= FUiOwner.FindRequiredComponent('ButtonClose') as TCastleButton;
   ButtonClose.OnClick:= {$ifdef FPC}@{$endif}ClickClose;
+  ButtonClose.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 end;
 
 procedure TSeqBaseDialog.Start;
@@ -69,8 +74,14 @@ begin
   end;
 end;
 
+procedure TSeqBaseDialog.ControlHover(const Sender: TCastleUserInterface);
+begin
+  PlaySfx(TSfxType.PointerHover);
+end;
+
 procedure TSeqBaseDialog.ClickClose(Sender: TObject);
 begin
+  PlaySfx(TSfxType.ClickCancel);
   ShowClose;
 end;
 

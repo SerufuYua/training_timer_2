@@ -443,12 +443,12 @@ var
   period: TTimePeriod;
 begin
   if (NOT (Sender is TComponent)) then Exit;
-  PlaySfx(TSfxType.ClickEdit);
 
   component:= Sender as TComponent;
   case component.Name of
     'ButtonSeqName':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if NOT (Container.CurrentFrontView is TSeqEditString) then
         Container.PushView(TSeqEditString.CreateUntilStopped(
           FSettingsProList[IndexSeq].Name,
@@ -456,6 +456,7 @@ begin
     end;
     'ButtonPeriodAdd':
     begin
+      PlaySfx(TSfxType.ClickEdit);
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
         idx:= ListPeriods.Index + 1
@@ -482,6 +483,7 @@ begin
       if ((ListPeriods.Index > 0) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
+        PlaySfx(TSfxType.ClickEdit);
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index - 1]:=
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
@@ -489,13 +491,16 @@ begin
 
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index - 1);
         ListPeriods.Index:= ListPeriods.Index - 1;
-      end;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
     end;
     'ButtonPeriodDown':
     begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < High(FSettingsProList[IndexSeq].Periods))) then
       begin
+        PlaySfx(TSfxType.ClickEdit);
         period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1];
         FSettingsProList[IndexSeq].Periods[ListPeriods.Index + 1]:=
           FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
@@ -503,29 +508,37 @@ begin
 
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index + 1);
         ListPeriods.Index:= ListPeriods.Index + 1;
-      end;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
     end;
     'ButtonPeriodEdit', 'ListPeriods':
     begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
+        PlaySfx(TSfxType.ClickEdit);
         if NOT (Container.CurrentFrontView is TSeqEditPeriod) then
           Container.PushView(TSeqEditPeriod.CreateUntilStopped(
             FSettingsProList[IndexSeq].Periods[ListPeriods.Index],
             'Edit Period', {$ifdef FPC}@{$endif}DoEditPeriod));
-      end;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
     end;
     'ButtonPeriodRemove':
     begin
       if ((ListPeriods.Index > -1) AND
           (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
       begin
+        PlaySfx(TSfxType.ClickEdit);
         if NOT (Container.CurrentFrontView is TSeqConfirm) then
           Container.PushView(TSeqConfirm.CreateUntilStopped(
             ['Do You want to Remove ', '"' + FSettingsProList[IndexSeq].Periods[ListPeriods.Index].Name + '"'],
             'Question', {$ifdef FPC}@{$endif}DoRemovePeriod));
-      end;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
     end;
   end;
 end;

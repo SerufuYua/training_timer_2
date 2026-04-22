@@ -349,7 +349,9 @@ begin
       begin
         PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqPause.CreateUntilStopped);
-      end;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
   end;
 end;
 
@@ -360,7 +362,9 @@ begin
   begin
     PlaySfx(TSfxType.ClickAction);
     Container.PushView(TSeqPause.CreateUntilStopped);
-  end;
+  end
+  else
+    PlaySfx(TSfxType.ClickDeny);
 end;
 
 procedure TViewSequenceTimer.ShowProgress(AValue: Single);

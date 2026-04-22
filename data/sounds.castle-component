@@ -44,6 +44,21 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_ClickOk",
+      "Url" : "castle-data:/sound/sfx_koku.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_ClickCancel",
+      "Url" : "castle-data:/sound/sfx_koup.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_ClickDeny",
+      "Url" : "castle-data:/sound/sfx_kuko.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "sfx_PointerHover",
       "Url" : "castle-data:/sound/sfx_kheep.wav",
       "Volume" : 3.0000001192092896E-001
