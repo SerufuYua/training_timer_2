@@ -11,7 +11,7 @@ interface
 
 type
   TSoundType = (None, Start, Ending, Final, Warn, Init);
-  TSfxType = (ClickMode, ClickAction, ClickEdit, ClickOk, ClickCancel,
+  TSfxType = (Intro, ClickMode, ClickAction, ClickEdit, ClickOk, ClickCancel,
               ClickDeny, PointerHover, ListHover, ClickStart, ClickStop,
               ClickWeb, Check, TapKey);
 

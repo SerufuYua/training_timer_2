@@ -9,7 +9,8 @@ uses Classes,
 type
   TViewBanner = class(TCastleView)
   protected
-    FTxtTrans: Single;
+    FNextView: TCastleView;
+    FTxtTrans, FEndTime: Single;
     FColorIdx: Integer;
     FColorChain: Array[0..7] of TCastleColorRGB;
     procedure DoAferLoad(Sender: TObject);
@@ -31,7 +32,7 @@ implementation
 
 uses
   CastleVectors, CastleConfig, GameViewSettingsSimple, GameViewSettingsPro,
-  Math, CastleUtils;
+  Math, CastleUtils, GameSound;
 
 const
   MainStor = 'main';
@@ -47,6 +48,8 @@ procedure TViewBanner.Start;
 begin
   inherited;
 
+  FEndTime:= 0.0;
+  FNextView:= nil;
   TunnelBG.ColorTransition:= 0.0;
 
   FColorChain[0]:= GreenRGB;
@@ -57,7 +60,6 @@ begin
   FColorChain[5]:= GrayRGB;
   FColorChain[6]:= BlueRGB;
   FColorChain[7]:= GrayRGB;
-
   FColorIdx:= 0;
   FTxtTrans:= 0.0;
 
@@ -98,6 +100,14 @@ begin
      FTxtTrans:= 0.0
    else
      FTxtTrans:= 1.0;
+
+  { counterclockwise }
+  if (FEndTime >= 0.0) then
+  begin
+    FEndTime:= FEndTime - SecondsPassed;
+  end
+  else if Assigned(FNextView) then
+    Container.View:= FNextView;
 end;
 
 function TViewBanner.Press(const Event: TInputPressRelease): Boolean;
@@ -110,9 +120,13 @@ begin
       (Event.MouseButton = buttonMiddle) OR
       Event.IsKey(TKey.keyNone)) then
   begin
+    PlaySfx(TSfxType.Intro);
+    FlashEffect.Duration:= 3.0;
+    FEndTime:= 0.3;
+    FlashEffect.Flash(White, False);
     case UserConfig.GetValue(MainStor + '/' + ModeStr, 'Simple') of
-      'Simple': Container.View:= ViewSettingsSimple;
-      'Pro': Container.View:= ViewSettingsPro;
+      'Simple': FNextView:= ViewSettingsSimple;
+      'Pro': FNextView:= ViewSettingsPro;
     end;
   end;
 end;

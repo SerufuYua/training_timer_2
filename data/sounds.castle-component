@@ -29,6 +29,11 @@
     },
     {
       "$$ClassName" : "TCastleSound",
+      "Name" : "sfx_Intro",
+      "Url" : "castle-data:/sound/sfx_pluck.wav"
+    },
+    {
+      "$$ClassName" : "TCastleSound",
       "Name" : "sfx_ClickMode",
       "Url" : "castle-data:/sound/sfx_mode.wav"
     },
