@@ -170,7 +170,7 @@
                   "Name" : "ButtonSeqAdd",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 2.7730001831054688E+002
+                    "X" : 2.7729998779296875E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -223,7 +223,7 @@
                   "Name" : "ButtonSeqCopy",
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "X" : 3.5830001831054688E+002
+                    "X" : 3.5829998779296875E+002
                   },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
@@ -988,6 +988,60 @@
                   },
                   "Name" : "ButtonAbout",
                   "PaddingHorizontal" : 3.0000000000000000E+001,
+                  "VerticalAnchorParent" : "vpMiddle",
+                  "VerticalAnchorSelf" : "vpMiddle",
+                  "Width" : 6.5000000000000000E+001
+                },
+                {
+                  "$$ClassName" : "TCastleButton",
+                  "AutoSize" : false,
+                  "CustomBackground" : true,
+                  "CustomBackgroundDisabled" : {
+                    "$$ClassName" : "TCastleImagePersistent"
+                  },
+                  "CustomBackgroundFocused" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "AllSides" : 1.8000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button_focused.png"
+                  },
+                  "CustomBackgroundNormal" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "AllSides" : 1.8000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button.png"
+                  },
+                  "CustomBackgroundPressed" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "ProtectedSides" : {
+                      "$$ClassName" : "TBorder",
+                      "AllSides" : 1.8000000000000000E+001
+                    },
+                    "Url" : "castle-data:/ui/button_pressed.png"
+                  },
+                  "CustomTextColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "CustomTextColorUse" : true,
+                  "FontSize" : 4.8000000000000000E+001,
+                  "Height" : 6.5000000000000000E+001,
+                  "Image" : {
+                    "$$ClassName" : "TCastleImagePersistent",
+                    "Url" : "castle-data:/ui_icons/config.png"
+                  },
+                  "Name" : "ButtonConfig",
+                  "PaddingHorizontal" : 3.0000000000000000E+001,
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "X" : 8.1000000000000000E+001
+                  },
                   "VerticalAnchorParent" : "vpMiddle",
                   "VerticalAnchorSelf" : "vpMiddle",
                   "Width" : 6.5000000000000000E+001

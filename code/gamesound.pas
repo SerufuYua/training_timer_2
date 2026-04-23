@@ -24,7 +24,7 @@ procedure PlaySfx(ASfx: TSfxType);
 implementation
 
 uses Classes,
-  CastleWindow, CastleComponentSerialize, CastleSoundEngine, TypInfo;
+  CastleWindow, CastleComponentSerialize, CastleSoundEngine, TypInfo, MyTimerConfig;
 
 var
   { Owner of components loaded from sounds.castle-component. }
@@ -35,6 +35,8 @@ var
   nameSound: String;
   sound: TCastleSound;
 begin
+  if NOT TimerConfig.Sound then Exit;
+
   nameSound:= GetEnumName(TypeInfo(TSoundType), Ord(ASound));
   sound:= Sounds.FindComponent(nameSound) as TCastleSound;
   SoundEngine.Play(sound);
@@ -45,6 +47,8 @@ var
   nameSfx: String;
   sfx: TCastleSound;
 begin
+  if NOT TimerConfig.SoundSfx then Exit;
+
   nameSfx:= GetEnumName(TypeInfo(TSfxType), Ord(ASfx));
   sfx:= Sounds.FindComponent('sfx_' + nameSfx) as TCastleSound;
   SoundEngine.Play(sfx);

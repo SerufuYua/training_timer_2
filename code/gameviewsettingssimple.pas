@@ -54,7 +54,7 @@ type
     ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
     ButtonSeqName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
       ButtonPrepareTime, ButtonWarningTime : TCastleButton;
-    ButtonStart, ButtonAbout, ButtonMode: TCastleButton;
+    ButtonStart, ButtonAbout, ButtonConfig, ButtonMode: TCastleButton;
     CheckWarning: TCastleCheckBox;
     LabelOveralTimeValue: TCastleLabel;
     ImageSettings, ImageActions: TCastleImageControl;
@@ -76,7 +76,7 @@ implementation
 uses
   SysUtils, CastleConfig, MyUtils, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout, SeqConfirm,
-  GameViewSettingsPro, GameSound;
+  GameViewSettingsPro, GameSound, SeqConfig;
 
 const
   MainStor = 'main';
@@ -136,12 +136,14 @@ begin
   CheckWarning.OnInternalMouseEnter:=      {$ifdef FPC}@{$endif}ControlHover;
 
   { Actions buttons }
-  ButtonStart.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
-  ButtonAbout.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
-  ButtonMode.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
-  ButtonStart.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
-  ButtonAbout.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
-  ButtonMode.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
+  ButtonStart.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonAbout.OnClick:=  {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonConfig.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonMode.OnClick:=   {$ifdef FPC}@{$endif}ButtonActionClick;
+  ButtonStart.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
+  ButtonAbout.OnInternalMouseEnter:=  {$ifdef FPC}@{$endif}ControlHover;
+  ButtonConfig.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
+  ButtonMode.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -459,6 +461,12 @@ begin
       begin
         PlaySfx(TSfxType.ClickAction);
         Container.PushView(TSeqAbout.CreateUntilStopped);
+      end;
+    'ButtonConfig':
+      if NOT (Container.CurrentFrontView is TSeqConfig) then
+      begin
+        PlaySfx(TSfxType.ClickAction);
+        Container.PushView(TSeqConfig.CreateUntilStopped);
       end;
     'ButtonMode':
     begin

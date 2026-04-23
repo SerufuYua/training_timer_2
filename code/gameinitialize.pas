@@ -12,7 +12,7 @@ interface
 implementation
 
 uses SysUtils,
-  CastleWindow, CastleLog, CastleUIControls, CastleConfig, GameSound
+  CastleWindow, CastleLog, CastleUIControls, CastleConfig, GameSound, MyTimerConfig
   {$region 'Castle Initialization Uses'}
   // The content here may be automatically updated by CGE editor.
   , GameViewSettingsSimple
@@ -33,6 +33,9 @@ begin
   {$else}
   UserConfig.Load;
   {$endif}
+
+  { Create My Config }
+  TimerConfig:= TMyTimerConfig.Create(Application);
 
   { Adjust container settings for a scalable UI (adjusts to any window size in a smart way). }
   Window.Container.LoadSettings('castle-data:/CastleSettings.xml');
