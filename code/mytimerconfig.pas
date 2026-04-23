@@ -10,13 +10,12 @@ uses
 type
   TMyTimerConfig = class(TCastleComponent)
   protected
-    FSound, FSoundSfx: Boolean;
+    FModePro, FSound, FSoundSfx: Boolean;
     procedure LoadConfig;
     procedure SaveConfig;
-    procedure SetSound(AValue: Boolean);
-    procedure SetSoundSfx(AValue: Boolean);
   public
   const
+    DefaulModePro = False;
     DefaultSound = True;
     DefaultSoundSfx = True;
 
@@ -24,9 +23,11 @@ type
     destructor Destroy; override;
     procedure Save;
 
-    property Sound: Boolean read FSound write SetSound
+    property ModePro: Boolean read FModePro write FModePro
+             {$ifdef FPC}default DefaulModePro{$endif};
+    property Sound: Boolean read FSound write FSound
              {$ifdef FPC}default DefaultSound{$endif};
-    property SoundSfx: Boolean read FSoundSfx write SetSoundSfx
+    property SoundSfx: Boolean read FSoundSfx write FSoundSfx
              {$ifdef FPC}default DefaultSoundSfx{$endif};
   end;
 
@@ -40,6 +41,7 @@ uses
 
 const
   ConfigStor = 'Config';
+  ModeProConf = 'ModePro';
   SoundConf = 'Sound';
   SoundSfxConf = 'SoundSfx';
 
@@ -70,6 +72,7 @@ var
 begin
   path:= ConfigStor + '/';
 
+  FModePro:= UserConfig.GetValue(path + ModeProConf, DefaulModePro);
   FSound:= UserConfig.GetValue(path + SoundConf, DefaultSound);
   FSoundSfx:= UserConfig.GetValue(path + SoundSfxConf, DefaultSoundSfx);
 end;
@@ -80,22 +83,11 @@ var
 begin
   path:= ConfigStor + '/';
 
+  UserConfig.SetValue(path + ModeProConf, FModePro);
   UserConfig.SetValue(path + SoundConf, FSound);
   UserConfig.SetValue(path + SoundSfxConf, FSoundSfx);
 
   UserConfig.Save;
-end;
-
-procedure TMyTimerConfig.SetSound(AValue: Boolean);
-begin
-  if (FSound = AValue) then Exit;
-  FSound:= AValue;
-end;
-
-procedure TMyTimerConfig.SetSoundSfx(AValue: Boolean);
-begin
-  if (FSoundSfx = AValue) then Exit;
-  FSoundSfx:= AValue;
 end;
 
 end.

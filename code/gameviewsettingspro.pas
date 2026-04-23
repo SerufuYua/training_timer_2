@@ -61,13 +61,10 @@ implementation
 uses
   SysUtils, CastleConfig, CastleColors, GameViewSettingsSimple, MyUtils,
   GameSound, SeqAbout, SeqListBox, SeqEditString, SeqEditPeriod, SeqConfirm,
-  SeqConfig;
+  SeqConfig, MyTimerConfig;
 
 const
   DefaultPeriodName = 'New Period';
-  MainStor = 'main';
-  ModeStr = 'mode';
-  ModeThis = 'Pro';
   SettingsStor = 'SettingsPro';
   NameStr = 'Name';
   SeqStr = 'Seq';
@@ -285,9 +282,10 @@ begin
   end;
 
   UserConfig.SetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
-  UserConfig.SetValue(MainStor + '/' + ModeStr, ModeThis);
-
   UserConfig.Save;
+
+  TimerConfig.ModePro:= True;
+  TimerConfig.Save;
 end;
 
 procedure TViewSettingsPro.UpdateListLength;

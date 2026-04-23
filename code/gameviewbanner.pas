@@ -31,12 +31,8 @@ var
 implementation
 
 uses
-  CastleVectors, CastleConfig, GameViewSettingsSimple, GameViewSettingsPro,
+  CastleVectors, MyTimerConfig, GameViewSettingsSimple, GameViewSettingsPro,
   Math, CastleUtils, GameSound;
-
-const
-  MainStor = 'main';
-  ModeStr = 'mode';
 
 constructor TViewBanner.Create(AOwner: TComponent);
 begin
@@ -124,10 +120,11 @@ begin
     FlashEffect.Duration:= 3.0;
     FEndTime:= 0.3;
     FlashEffect.Flash(White, False);
-    case UserConfig.GetValue(MainStor + '/' + ModeStr, 'Simple') of
-      'Simple': FNextView:= ViewSettingsSimple;
-      'Pro': FNextView:= ViewSettingsPro;
-    end;
+
+    if TimerConfig.ModePro then
+      FNextView:= ViewSettingsPro
+    else
+      FNextView:= ViewSettingsSimple;
   end;
 end;
 

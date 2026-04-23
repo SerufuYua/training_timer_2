@@ -76,12 +76,9 @@ implementation
 uses
   SysUtils, CastleConfig, MyUtils, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout, SeqConfirm,
-  GameViewSettingsPro, GameSound, SeqConfig;
+  GameViewSettingsPro, GameSound, SeqConfig, MyTimerConfig;
 
 const
-  MainStor = 'main';
-  ModeStr = 'mode';
-  ModeThis = 'Simple';
   SettingsStor = 'SettingsSimple';
   NameStr = 'Name';
   SeqStr = 'Seq';
@@ -225,9 +222,10 @@ begin
   end;
 
   UserConfig.SetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
-  UserConfig.SetValue(MainStor + '/' + ModeStr, ModeThis);
-
   UserConfig.Save;
+
+  TimerConfig.ModePro:= False;
+  TimerConfig.Save;
 end;
 
 procedure TViewSettingsSimple.UpdateSettings;
