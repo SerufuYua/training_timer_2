@@ -10,7 +10,7 @@ unit GameSound;
 interface
 
 type
-  TSoundType = (None, Start, Ending, Final, Warn, Init, BeeEeeEeep);
+  TSoundType = (None, Start, Ending, Final, Warn, Init, BeeEeeEeep, Tsyuin);
   TSfxType = (Intro, ClickMode, ClickAction, ClickEdit, ClickOk, ClickCancel,
               ClickDeny, PointerHover, ListHover, ClickStart, ClickStop,
               ClickWeb, Check, TapKey);
