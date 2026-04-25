@@ -4,7 +4,9 @@
 
 New Version of [Training Timer](https://github.com/SerufuYua/training_timer)
 
-<img src="data_src/screenshots/Screenshot_2026-03-17-23-45-09-230_com.serufucompany.TrainingTimer2.jpg" alt="Screenshot_2026-03-17-23-45-09-230_com.serufucompany.TrainingTimer2.jpg" width="320"> <img src="data_src/screenshots/Screenshot_2026-03-17-23-46-33-236_com.serufucompany.TrainingTimer2.jpg" alt="Screenshot_2026-03-17-23-46-33-236_com.serufucompany.TrainingTimer2.jpg" width="320">
+<img src="data_src/screenshots/Screenshot_01.jpg" alt="Screenshot 01" width="320"> <img src="data_src/screenshots/Screenshot_02.jpg" alt="Screenshot 02" width="320">
+
+<img src="data_src/screenshots/Screenshot_03.jpg" alt="Screenshot 03" width="320">
 
 This app is designed to track your training time in various sports, from martial arts (boxing, MMA, etc.) to swimming and much more, even cooking soup.
 
