@@ -44,7 +44,7 @@ AndroidSigningProperties.txt
 # May contain settings specific to your user / machine
 CastleProjectLocalSettings.json
 
-#audcity tempoprary files
+#audacity tempoprary files
 *.*-shm
 *.*-wal
 
