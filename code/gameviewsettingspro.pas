@@ -39,7 +39,7 @@ type
     ListPeriods: TCastleCheckColorListBox;
     ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
     ButtonSeqName, ButtonPeriodAdd, ButtonPeriodUp, ButtonPeriodDown,
-      ButtonPeriodEdit, ButtonPeriodRemove : TCastleButton;
+      ButtonPeriodCopy, ButtonPeriodEdit, ButtonPeriodRemove : TCastleButton;
     ButtonStart, ButtonAbout, ButtonConfig, ButtonMode: TCastleButton;
     ImageSettings, ImageActions: TCastleImageControl;
     LabelOveralTimeValue: TCastleLabel;
@@ -110,6 +110,7 @@ begin
   ButtonPeriodAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodUp.OnClick:=     {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodDown.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
+  ButtonPeriodCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodEdit.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ButtonPeriodRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqEditClick;
   ListPeriods.OnClickSecond:=  {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -120,6 +121,7 @@ begin
   ButtonPeriodAdd.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
   ButtonPeriodUp.OnInternalMouseEnter:=     {$ifdef FPC}@{$endif}ControlHover;
   ButtonPeriodDown.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
+  ButtonPeriodCopy.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
   ButtonPeriodEdit.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
   ButtonPeriodRemove.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 
@@ -509,6 +511,25 @@ begin
 
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index + 1);
         ListPeriods.Index:= ListPeriods.Index + 1;
+      end
+      else
+        PlaySfx(TSfxType.ClickDeny);
+    end;
+    'ButtonPeriodCopy':
+    begin
+      if ((ListPeriods.Index > -1) AND
+          (ListPeriods.Index < Length(FSettingsProList[IndexSeq].Periods))) then
+      begin
+        PlaySfx(TSfxType.ClickEdit);
+
+        idx:= ListPeriods.Index + 1;
+        period:= FSettingsProList[IndexSeq].Periods[ListPeriods.Index];
+
+        System.Insert(period, FSettingsProList[IndexSeq].Periods, idx);
+        ListPeriods.LineInsert(idx, period.Enable, period.Color, TimeToShortStr(Period.DurationSec) + ' ' + period.Name);
+
+        ListPeriods.Index:= idx;
+        ShowStatistic;
       end
       else
         PlaySfx(TSfxType.ClickDeny);
