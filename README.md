@@ -44,7 +44,7 @@ Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-2-zero-
 
 ## History
 
-### Version 2.2
+### Version 2.2.1
 
 Whats new:
 
