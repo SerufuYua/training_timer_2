@@ -61,6 +61,17 @@
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleLabel",
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Bottom" : 1.0000000000000000E+000
+                  },
+                  "BorderColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
                   "ColorPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Blue" : 1.0000000000000000E+000,
@@ -98,7 +109,53 @@
                   ],
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.0910000610351562E+002
+                    "Y" : -1.1009999847412109E+002
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleLabel",
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 5.0196081399917603E-001,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "FontSize" : 4.8000000000000000E+001,
+                  "HorizontalAnchorParent" : "hpMiddle",
+                  "HorizontalAnchorSelf" : "hpMiddle",
+                  "Name" : "LabelPeriodName1",
+                  "Text" : [
+                    "Period Name"
+                  ],
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "Y" : -1.8919999694824219E+002
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleLabel",
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 2.5098040699958801E-001,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "FontSize" : 4.8000000000000000E+001,
+                  "HorizontalAnchorParent" : "hpMiddle",
+                  "HorizontalAnchorSelf" : "hpMiddle",
+                  "Name" : "LabelPeriodName2",
+                  "Text" : [
+                    "Period Name"
+                  ],
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "Y" : -2.6829998779296875E+002
                   },
                   "VerticalAnchorParent" : "vpTop",
                   "VerticalAnchorSelf" : "vpTop"

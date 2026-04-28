@@ -61,7 +61,8 @@ type
     ImageTimer, ImageActions: TCastleImageControl;
     TunnelBG: TSeqTunnelEffect;
     LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
-    LabelFps, LabelSequenceName, LabelPeriodName: TCastleLabel;
+    LabelFps, LabelSequenceName,
+      LabelPeriodName, LabelPeriodName1, LabelPeriodName2: TCastleLabel;
     LabelMin, LabelMinShadow,
       LabelTime, LabelTimeShadow,
       LabelDec, LabelDecShadow,
@@ -122,6 +123,9 @@ begin
   FPaused:= False;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
+  LabelPeriodName.Exists:= False;
+  LabelPeriodName1.Exists:= False;
+  LabelPeriodName2.Exists:= False;
   {$if defined(WINDOWS)}
   FKeepScreenSeconds:= 0.0;
   {$endif}
@@ -274,7 +278,27 @@ procedure TViewSequenceTimer.SetupPeriod(AIndex: Integer);
 begin
   FPeriod:= AIndex;
   ShowTime(FPeriods[FPeriod].DurationSec);
+
+  LabelPeriodName.Exists:= True;
   LabelPeriodName.Caption:= FPeriods[FPeriod].Name;
+
+  if ((FPeriod + 1) < Length(FPeriods)) then
+  begin
+    LabelPeriodName1.Exists:= True;
+    LabelPeriodName1.Caption:= FPeriods[FPeriod + 1].Name;
+
+    if ((FPeriod + 2) < Length(FPeriods)) then
+    begin
+      LabelPeriodName2.Exists:= True;
+      LabelPeriodName2.Caption:= FPeriods[FPeriod + 2].Name;
+    end
+    else
+      LabelPeriodName2.Exists:= False;
+
+  end
+  else
+    LabelPeriodName1.Exists:= False;
+
   FSignalColor:= FPeriods[FPeriod].Color;
   ShowColor(FSignalColor, 0.2);
   FWarningSeconds:= FPeriods[FPeriod].WarningSec;
