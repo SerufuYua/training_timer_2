@@ -57,7 +57,7 @@
               "ClipChildren" : true,
               "Name" : "GroupInfo",
               "Padding" : 3.0000000000000000E+001,
-              "Spacing" : 3.2000000000000000E+001,
+              "Spacing" : 1.6000000000000000E+001,
               "$Children" : [
                 {
                   "$$ClassName" : "TCastleLabel",
@@ -93,72 +93,38 @@
                   "VerticalAnchorSelf" : "vpTop"
                 },
                 {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
+                  "$$ClassName" : "TCastleTextScroller",
+                  "AutoSizeHeightByLines" : 3,
+                  "ClipChildren" : true,
+                  "ColorBackPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 7.4901962280273438E-001,
                     "Blue" : 1.0000000000000000E+000,
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "FontSize" : 4.8000000000000000E+001,
+                  "FontScale" : 1.0750000476837158E+000,
+                  "FontSize" : 3.2000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelPeriodName",
-                  "Text" : [
-                    "Period Name"
+                  "List" : [
+                    "Period Name 1",
+                    "Period Name 2",
+                    "Period Name 3",
+                    "Period Name 4",
+                    "Period Name 5",
+                    "Period Name 6"
                   ],
+                  "Name" : "PeriodScroller",
+                  "Spacing" : 3.2000000000000000E+001,
+                  "Speed" : 6.0000000000000000E+000,
                   "TranslationPersistent" : {
                     "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.1009999847412109E+002
+                    "Y" : -9.4099998474121094E+001
                   },
                   "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Alpha" : 5.0196081399917603E-001,
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "FontSize" : 4.8000000000000000E+001,
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelPeriodName1",
-                  "Text" : [
-                    "Period Name"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -1.8919999694824219E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
-                },
-                {
-                  "$$ClassName" : "TCastleLabel",
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Alpha" : 2.5098040699958801E-001,
-                    "Blue" : 1.0000000000000000E+000,
-                    "Green" : 1.0000000000000000E+000,
-                    "Red" : 1.0000000000000000E+000
-                  },
-                  "FontSize" : 4.8000000000000000E+001,
-                  "HorizontalAnchorParent" : "hpMiddle",
-                  "HorizontalAnchorSelf" : "hpMiddle",
-                  "Name" : "LabelPeriodName2",
-                  "Text" : [
-                    "Period Name"
-                  ],
-                  "TranslationPersistent" : {
-                    "$$ClassName" : "TCastleVector2Persistent",
-                    "Y" : -2.6829998779296875E+002
-                  },
-                  "VerticalAnchorParent" : "vpTop",
-                  "VerticalAnchorSelf" : "vpTop"
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Zoom" : 5.0000000000000000E-001
                 }
               ]
             },

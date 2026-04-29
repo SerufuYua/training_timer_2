@@ -19,7 +19,8 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 SeqWebButton,
                 CastleCheckColorListBox,
                 CastleColorListBox,
-                CastleListBox"
+                CastleListBox,
+                CastleTextScroller"
 >
   <icons>
     <icon path="data_src/icon/icon.ico" />

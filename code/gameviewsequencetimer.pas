@@ -5,7 +5,7 @@ interface
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleFlashEffect,
   CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, SeqPause,
-  SeqLoadingBar, GameSound;
+  SeqLoadingBar, CastleTextScroller, GameSound;
 
 type
   TTimePeriod = record
@@ -27,6 +27,7 @@ type
 
   TViewSequenceTimer = class(TCastleView)
   protected
+    FActiveIdxMap: Array of Integer;
     FReturnTo: TCastleView;
     FEnabled, FPaused: Boolean;
     FPeriods: TPeriodsList;
@@ -61,8 +62,8 @@ type
     ImageTimer, ImageActions: TCastleImageControl;
     TunnelBG: TSeqTunnelEffect;
     LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
-    LabelFps, LabelSequenceName,
-      LabelPeriodName, LabelPeriodName1, LabelPeriodName2: TCastleLabel;
+    PeriodScroller: TCastleTextScroller;
+    LabelFps, LabelSequenceName: TCastleLabel;
     LabelMin, LabelMinShadow,
       LabelTime, LabelTimeShadow,
       LabelDec, LabelDecShadow,
@@ -115,7 +116,7 @@ end;
 
 procedure TViewSequenceTimer.Start;
 var
-  i: Integer;
+  i, j: Integer;
 begin
   inherited;
 
@@ -123,18 +124,29 @@ begin
   FPaused:= False;
   ImageTimer.Exists:= False;
   ImageActions.Exists:= False;
-  LabelPeriodName.Exists:= False;
-  LabelPeriodName1.Exists:= False;
-  LabelPeriodName2.Exists:= False;
   {$if defined(WINDOWS)}
   FKeepScreenSeconds:= 0.0;
   {$endif}
 
+  { show periods }
   LabelSequenceName.Caption:= FSequenceName;
-  FFullSeconds:= 0;
+
+  SetLength(FActiveIdxMap, Length(FPeriods));
+  PeriodScroller.List.Clear;
+  j:= 0;
   for i:= Low(FPeriods) to High(FPeriods) do
+  begin
     if FPeriods[i].Enable then
-      FFullSeconds:= FFullSeconds + FPeriods[i].DurationSec;
+    begin
+      PeriodScroller.List.Add(FPeriods[i].Name);
+      FActiveIdxMap[i]:= j;
+      j:= j + 1;
+    end
+    else
+      FActiveIdxMap[i]:= -1;
+  end;
+  PeriodScroller.Index:= -6;
+
 
   { Actions buttons }
   ButtonStop.OnClick:= {$ifdef FPC}@{$endif}ButtonActionClick;
@@ -260,9 +272,16 @@ begin
 end;
 
 procedure TViewSequenceTimer.SetPeriods(AValue: TPeriodsSettings);
+var
+  Period: TTimePeriod;
 begin
   FSequenceName:= AValue.Name;
   FPeriods:= AValue.Periods;
+
+  FFullSeconds:= 0;
+  for Period in FPeriods do
+    if Period.Enable then
+      FFullSeconds:= FFullSeconds + Period.DurationSec;
 end;
 
 procedure TViewSequenceTimer.ResetTimer;
@@ -278,27 +297,7 @@ procedure TViewSequenceTimer.SetupPeriod(AIndex: Integer);
 begin
   FPeriod:= AIndex;
   ShowTime(FPeriods[FPeriod].DurationSec);
-
-  LabelPeriodName.Exists:= True;
-  LabelPeriodName.Caption:= FPeriods[FPeriod].Name;
-
-  if ((FPeriod + 1) < Length(FPeriods)) then
-  begin
-    LabelPeriodName1.Exists:= True;
-    LabelPeriodName1.Caption:= FPeriods[FPeriod + 1].Name;
-
-    if ((FPeriod + 2) < Length(FPeriods)) then
-    begin
-      LabelPeriodName2.Exists:= True;
-      LabelPeriodName2.Caption:= FPeriods[FPeriod + 2].Name;
-    end
-    else
-      LabelPeriodName2.Exists:= False;
-
-  end
-  else
-    LabelPeriodName1.Exists:= False;
-
+  PeriodScroller.Index:= FActiveIdxMap[AIndex];
   FSignalColor:= FPeriods[FPeriod].Color;
   ShowColor(FSignalColor, 0.2);
   FWarningSeconds:= FPeriods[FPeriod].WarningSec;
