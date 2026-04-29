@@ -22,6 +22,7 @@ type
     FSize, FSizeRandom: Single;
     FInstances: Integer;
     FReference: TCastleTransform;
+    FReferenceObserver: TFreeNotificationObserver;
     FPositionMinPersistent: TCastleVector3Persistent;
     FPositionMaxPersistent: TCastleVector3Persistent;
     function GetPositionMinPersistent: TVector3;
@@ -34,6 +35,7 @@ type
     procedure SetSpeedRandom(AValue: Single);
     procedure SetSize(AValue: Single);
     procedure SetSizeRandom(AValue: Single);
+    procedure ReferenceFreeNotification(const Sender: TFreeNotificationObserver);
   public
     const
       DefaultSpeed = 1.0;
@@ -96,10 +98,16 @@ begin
   FPositionMaxPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetPositionMaxPersistent;
   FPositionMaxPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetPositionMaxPersistent;
   FPositionMaxPersistent.InternalDefaultValue:= FPositionMax;
+
+  FReferenceObserver:= TFreeNotificationObserver.Create(Self);
+  FReferenceObserver.OnFreeNotification:= {$ifdef FPC}@{$endif}ReferenceFreeNotification;
 end;
 
 destructor TSeqFlyingObjects.Destroy;
 begin
+  if Assigned(FReferenceObserver) then
+    FreeAndNil(FReferenceObserver);
+
   inherited;
 end;
 
@@ -182,6 +190,7 @@ procedure TSeqFlyingObjects.SetReference(AValue: TCastleTransform);
 begin
   if ((FReference = AValue) OR (self = AValue)) then Exit;
 
+  FReferenceObserver.Observed:= AValue;
   FReference:= AValue;
 end;
 
@@ -217,6 +226,11 @@ procedure TSeqFlyingObjects.SetSizeRandom(AValue: Single);
 begin
   if (FSizeRandom = AValue) then Exit;
   FSizeRandom:= AValue;
+end;
+
+procedure TSeqFlyingObjects.ReferenceFreeNotification(const Sender: TFreeNotificationObserver);
+begin
+  FReference:= nil;
 end;
 
 function TSeqFlyingObjects.PropertySections(const PropertyName: String): TPropertySections;
