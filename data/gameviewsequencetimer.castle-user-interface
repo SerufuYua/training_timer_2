@@ -14,7 +14,7 @@
       "FullSize" : true,
       "Name" : "TunnelBG",
       "Speed" : 2.0000000298023224E-001,
-      "Url" : "castle-data:/tunnel.castle-user-interface",
+      "Url" : "castle-data:/tunnel_square.castle-user-interface",
       "$Children" : [
         {
           "$$ClassName" : "TCastleFlashEffect",
@@ -103,7 +103,6 @@
                     "Green" : 1.0000000000000000E+000,
                     "Red" : 1.0000000000000000E+000
                   },
-                  "FontScale" : 1.0750000476837158E+000,
                   "FontSize" : 3.2000000000000000E+001,
                   "HorizontalAnchorParent" : "hpMiddle",
                   "HorizontalAnchorSelf" : "hpMiddle",
