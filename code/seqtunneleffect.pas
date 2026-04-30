@@ -16,7 +16,7 @@ type
     FBoxBG: TCastleBox;
     FTunnel: TCastleScene;
     FFog: TCastleFog;
-    FFlyingObjects, FFlyingObjectsStar: TSeqFlyingObjects;
+    FFlyingObjects: Array of TSeqFlyingObjects;
     FSpeed, FColorTransit, FColorTime: Single;
     FColor, FColorBuff, FColorBG: TCastleColorRGB;
     FColorPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
@@ -57,7 +57,7 @@ end;
 implementation
 
 uses
-  CastleComponentSerialize, CastleVectors, CastleUtils
+  CastleComponentSerialize, CastleVectors, CastleUtils, CastleTransform
   {$ifdef CASTLE_DESIGN_MODE}
   , PropEdits, CastlePropEdits
   {$endif};
@@ -132,6 +132,8 @@ begin
 end;
 
 procedure TSeqTunnelEffect.SetUrl(const value: String);
+var
+  tempComponent: TCastleTransform;
 begin
   if (FUrl = value) then Exit;
   FUrl:= value;
@@ -149,8 +151,12 @@ begin
   FBoxBG:= FDesign.DesignedComponent('BoxBG', False) as TCastleBox;
   FTunnel:= FDesign.DesignedComponent('Tunnel', False) as TCastleScene;
   FFog:= FDesign.DesignedComponent('FogColor', False) as TCastleFog;
-  FFlyingObjects:= FDesign.DesignedComponent('FlyingObjects', False) as TSeqFlyingObjects;
-  FFlyingObjectsStar:= FDesign.DesignedComponent('FlyingObjectsStar', False) as TSeqFlyingObjects;
+
+  FFlyingObjects:= [];
+  if Assigned(FDesign.DesignedComponent('FlyingObjects', False)) then
+    for tempComponent in (FDesign.DesignedComponent('FlyingObjects') as TCastleTransform) do
+      if (tempComponent is TSeqFlyingObjects) then
+        System.Insert((tempComponent as TSeqFlyingObjects), FFlyingObjects, Length(FFlyingObjects));
 
   ApplySpeed;
   ApplyColor;
@@ -177,16 +183,13 @@ begin
 end;
 
 procedure TSeqTunnelEffect.ApplySpeed;
+var
+  FlyObj: TSeqFlyingObjects;
 begin
-  if Assigned(FFlyingObjects) then
+  for FlyObj in FFlyingObjects do
   begin
-    FFlyingObjects.Speed:= FSpeed;
-    FFlyingObjects.SpeedRandom:= FSpeed * 0.2;
-  end;
-  if Assigned(FFlyingObjectsStar) then
-  begin
-    FFlyingObjectsStar.Speed:= FSpeed;
-    FFlyingObjectsStar.SpeedRandom:= FSpeed * 0.2;
+    FlyObj.Speed:= FSpeed;
+    FlyObj.SpeedRandom:= FSpeed * 0.2;
   end;
 end;
 
