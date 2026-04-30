@@ -175,6 +175,26 @@
                 },
                 "Size" : 1.9999999552965164E-002,
                 "SizeRandom" : 1.0000000474974513E-003
+              },
+              {
+                "$$ClassName" : "TSeqFlyingObjects",
+                "Instances" : 1,
+                "Name" : "FlyingObjectsStar",
+                "PositionMaxPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Z" : 0.0000000000000000E+000
+                },
+                "PositionMinPersistent" : {
+                  "$$ClassName" : "TCastleVector3Persistent",
+                  "Z" : -5.0000000000000000E+000
+                },
+                "Reference" : "SceneCubeStar",
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "Size" : 1.9999999552965164E-002,
+                "SizeRandom" : 1.0000000474974513E-003
               }
             ]
           },
@@ -242,6 +262,20 @@
                   "Z" : 1.0000000000000000E+000
                 },
                 "Url" : "castle-data:/tunnel/box_square_unf3.gltf"
+              },
+              {
+                "$$ClassName" : "TCastleScene",
+                "ExposeTransforms" : [
+                ],
+                "Name" : "SceneCubeStar",
+                "RenderOptions" : {
+                  "$$ClassName" : "TCastleScene.TSceneRenderOptions"
+                },
+                "RotationPersistent" : {
+                  "$$ClassName" : "TCastleVector4RotationPersistent",
+                  "Z" : 1.0000000000000000E+000
+                },
+                "Url" : "castle-data:/tunnel/box_square_star.gltf"
               }
             ]
           }
@@ -260,21 +294,21 @@
         },
         "RotationPersistent" : {
           "$$ClassName" : "TCastleVector4RotationPersistent",
-          "W" : 3.0339828133583069E-001,
-          "X" : -9.8336720466613770E-001,
-          "Y" : 1.8094328045845032E-001,
-          "Z" : 1.5769256278872490E-002
+          "W" : 2.8829905390739441E-001,
+          "X" : -9.4406104087829590E-001,
+          "Y" : 3.2855522632598877E-001,
+          "Z" : 2.8294505551457405E-002
         },
         "ScalePersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 9.9999994039535522E-001,
-          "Y" : 9.9999994039535522E-001
+          "Y" : 9.9999994039535522E-001,
+          "Z" : 9.9999994039535522E-001
         },
         "TranslationPersistent" : {
           "$$ClassName" : "TCastleVector3Persistent",
-          "X" : 3.2554000616073608E-002,
+          "X" : 6.1536692082881927E-003,
           "Y" : 3.4445038437843323E-001,
-          "Z" : 1.0567690134048462E+000
+          "Z" : 3.4406122565269470E-001
         }
       },
       "InternalDesignNavigations[dnFly]" : {
