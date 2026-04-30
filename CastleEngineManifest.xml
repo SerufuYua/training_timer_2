@@ -20,7 +20,9 @@ See https://castle-engine.io/project_manifest for documentation of this file.
                 CastleCheckColorListBox,
                 CastleColorListBox,
                 CastleListBox,
-                CastleTextScroller"
+                CastleTextScroller,
+                SeqRandomShow,
+                SeqRandomShowTunnel"
 >
   <icons>
     <icon path="data_src/icon/icon.ico" />

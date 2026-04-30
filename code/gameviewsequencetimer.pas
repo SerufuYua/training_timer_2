@@ -400,7 +400,7 @@ end;
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
 begin
   TunnelBG.ColorTransition:= ATransition;
-  TunnelBG.Color:= AValue;
+  TunnelBG.ColorLight:= AValue;
 end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);

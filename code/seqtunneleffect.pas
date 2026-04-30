@@ -18,31 +18,32 @@ type
     FFog: TCastleFog;
     FFlyingObjects: Array of TSeqFlyingObjects;
     FSpeed, FColorTransit, FColorTime: Single;
-    FColor, FColorBuff, FColorBG: TCastleColorRGB;
-    FColorPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
+    FColorLight, FColorBuff, FColorBG: TCastleColorRGB;
+    FColorLightPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
     procedure SetSpeed(AValue: Single);
-    procedure SetColor(const AValue: TCastleColorRGB);
+    procedure SetColorLight(const AValue: TCastleColorRGB);
     procedure SetColorBG(const AValue: TCastleColorRGB);
     procedure ApplySpeed;
     procedure ApplyColor;
     procedure ApplyColorBG;
-    function GetColorForPersistent: TCastleColorRGB;
-    procedure SetColorForPersistent(const AValue: TCastleColorRGB);
+    function GetColorLightForPersistent: TCastleColorRGB;
+    procedure SetColorLightForPersistent(const AValue: TCastleColorRGB);
     function GetColorBGForPersistent: TCastleColorRGB;
     procedure SetColorBGForPersistent(const AValue: TCastleColorRGB);
   public
     const
       DefaultSpeed = 1.0;
       DefaultColorTransition = 0.5;
-      DefaultColor: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
+      DefaultColorLight: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
       DefaultColorBG: TCastleColorRGB = (X: 0.0; Y: 0.0; Z: 0.0);
 
       constructor Create(AOwner: TComponent); override;
       destructor Destroy; override;
       procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
       function PropertySections(const PropertyName: String): TPropertySections; override;
-      property Color: TCastleColorRGB read FColor write SetColor;
+
+      property ColorLight: TCastleColorRGB read FColorLight write SetColorLight;
       property ColorBG: TCastleColorRGB read FColorBG write SetColorBG;
   published
     property Url: String read FUrl write SetUrl;
@@ -50,7 +51,7 @@ type
              {$ifdef FPC}default DefaultSpeed{$endif};
     property ColorTransition: Single read FColorTransit write FColorTransit
              {$ifdef FPC}default DefaultColorTransition{$endif};
-    property ColorPersistent: TCastleColorRGBPersistent read FColorPersistent;
+    property ColorLightPersistent: TCastleColorRGBPersistent read FColorLightPersistent;
     property ColorBGPersistent: TCastleColorRGBPersistent read FColorBGPersistent;
 end;
 
@@ -72,13 +73,13 @@ begin
   FSpeed:= DefaultSpeed;
   FColorTransit:= DefaultColorTransition;
 
-  { Persistent for Color }
-  FColor:= DefaultColor;
-  FColorPersistent:= TCastleColorRGBPersistent.Create(nil);
-  FColorPersistent.SetSubComponent(true);
-  FColorPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorForPersistent;
-  FColorPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorForPersistent;
-  FColorPersistent.InternalDefaultValue:= Color;
+  { Persistent for ColorLight }
+  FColorLight:= DefaultColorLight;
+  FColorLightPersistent:= TCastleColorRGBPersistent.Create(nil);
+  FColorLightPersistent.SetSubComponent(true);
+  FColorLightPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorLightForPersistent;
+  FColorLightPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorLightForPersistent;
+  FColorLightPersistent.InternalDefaultValue:= ColorLight;
 
   { Persistent for ColorBG }
   FColorBG:= DefaultColorBG;
@@ -87,6 +88,20 @@ begin
   FColorBGPersistent.InternalGetValue:= {$ifdef FPC}@{$endif}GetColorBGForPersistent;
   FColorBGPersistent.InternalSetValue:= {$ifdef FPC}@{$endif}SetColorBGForPersistent;
   FColorBGPersistent.InternalDefaultValue:= ColorBG;
+end;
+
+destructor TSeqTunnelEffect.Destroy;
+begin
+  if Assigned(FDesign) then
+    FreeAndNil(FDesign);
+
+  if Assigned(FColorLightPersistent) then
+    FreeAndNil(FColorLightPersistent);
+
+  if Assigned(FColorBGPersistent) then
+    FreeAndNil(FColorBGPersistent);
+
+  inherited;
 end;
 
 procedure TSeqTunnelEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
@@ -105,30 +120,16 @@ begin
     FTunnel.Translation:= pos;
   end;
 
-  { transit color }
+  { transit ColorLight }
   if (Assigned(FFog) AND (FColorTransit > 0.0)) then
   begin
     if (FColorTime > 0.0) then
     begin
       FColorTime:= FColorTime - SecondsPassed;
       factor:= 1.0 - FColorTime / FColorTransit;
-      FFog.Color:= Lerp(factor, FColorBuff, FColor);
+      FFog.Color:= Lerp(factor, FColorBuff, FColorLight);
     end;
   end;
-end;
-
-destructor TSeqTunnelEffect.Destroy;
-begin
-  if Assigned(FDesign) then
-    FreeAndNil(FDesign);
-
-  if Assigned(FColorPersistent) then
-    FreeAndNil(FColorPersistent);
-
-  if Assigned(FColorBGPersistent) then
-    FreeAndNil(FColorBGPersistent);
-
-  inherited;
 end;
 
 procedure TSeqTunnelEffect.SetUrl(const value: String);
@@ -170,9 +171,9 @@ begin
   ApplySpeed;
 end;
 
-procedure TSeqTunnelEffect.SetColor(const AValue: TCastleColorRGB);
+procedure TSeqTunnelEffect.SetColorLight(const AValue: TCastleColorRGB);
 begin
-  FColor:= AValue;
+  FColorLight:= AValue;
   ApplyColor;
 end;
 
@@ -205,8 +206,8 @@ begin
     else
     begin
       FColorTime:= 0.0;
-      FColorBuff:= FColor;
-      FFog.Color:= FColor;
+      FColorBuff:= FColorLight;
+      FFog.Color:= FColorLight;
     end;
   end;
 end;
@@ -217,14 +218,14 @@ begin
     FBoxBG.Color:= Vector4(FColorBG, 1.0);
 end;
 
-function TSeqTunnelEffect.GetColorForPersistent: TCastleColorRGB;
+function TSeqTunnelEffect.GetColorLightForPersistent: TCastleColorRGB;
 begin
-  Result:= Color;
+  Result:= ColorLight;
 end;
 
-procedure TSeqTunnelEffect.SetColorForPersistent(const AValue: TCastleColorRGB);
+procedure TSeqTunnelEffect.SetColorLightForPersistent(const AValue: TCastleColorRGB);
 begin
-  Color:= AValue;
+  ColorLight:= AValue;
 end;
 
 function TSeqTunnelEffect.GetColorBGForPersistent: TCastleColorRGB;
@@ -241,7 +242,7 @@ function TSeqTunnelEffect.PropertySections(const PropertyName: String): TPropert
 begin
   if ArrayContainsString(PropertyName, [
        'Url', 'Speed', 'ColorTransition',
-       'ColorPersistent', 'ColorBGPersistent'
+       'ColorLightPersistent', 'ColorBGPersistent'
      ]) then
     Result:= [psBasic]
   else

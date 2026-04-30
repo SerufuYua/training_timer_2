@@ -66,7 +66,7 @@
         <PackageName Value="castle_engine_base"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="29">
       <Unit0>
         <Filename Value="TrainingTimer2_standalone.dpr"/>
         <IsPartOfProject Value="True"/>
@@ -201,6 +201,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="SeqConfig"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="code/seqrandomshowtunnel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqRandomShowTunnel"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="code/seqrandomshow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SeqRandomShow"/>
+      </Unit28>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

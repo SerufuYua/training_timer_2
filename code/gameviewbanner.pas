@@ -3,8 +3,8 @@ unit GameViewBanner;
 interface
 
 uses Classes,
-  CastleUIControls, CastleControls, CastleKeysMouse,
-  CastleFlashEffect, SeqTunnelEffect, CastleColors;
+  CastleUIControls, CastleControls, CastleKeysMouse, CastleColors,
+  CastleFlashEffect, SeqRandomShowTunnel;
 
 type
   TViewBanner = class(TCastleView)
@@ -16,7 +16,7 @@ type
     procedure DoAferLoad(Sender: TObject);
   published
     FlashEffect: TCastleFlashEffect;
-    TunnelBG: TSeqTunnelEffect;
+    RandomTunnel: TSeqRandomShowTunnel;
     LabelFps, LabelStart: TCastleLabel;
   public
     constructor Create(AOwner: TComponent); override;
@@ -46,7 +46,6 @@ begin
 
   FEndTime:= 0.0;
   FNextView:= nil;
-  TunnelBG.ColorTransition:= 0.0;
 
   FColorChain[0]:= GreenRGB;
   FColorChain[1]:= GrayRGB;
@@ -58,6 +57,9 @@ begin
   FColorChain[7]:= GrayRGB;
   FColorIdx:= 0;
   FTxtTrans:= 0.0;
+
+  RandomTunnel.Shake;
+  RandomTunnel.ColorTransition:= 0.0;
 
   { Show start animation }
   FlashEffect.Duration:= 6.0;
@@ -76,7 +78,7 @@ begin
   LabelFps.Caption := 'FPS: ' + Container.Fps.ToString;
 
   { switch colors }
-  if TVector3.Equals(TunnelBG.Color, FColorChain[FColorIdx], Epsilon) then
+  if TVector3.Equals(RandomTunnel.ColorLight, FColorChain[FColorIdx], Epsilon) then
   begin
     if (FColorIdx >= High(FColorChain)) then
       FColorIdx:= 0
@@ -84,7 +86,7 @@ begin
       FColorIdx:= FColorIdx + 1;
   end
   else
-    TunnelBG.Color:= Lerp(SecondsPassed * 1.5, TunnelBG.Color, FColorChain[FColorIdx]);
+    RandomTunnel.ColorLight:= Lerp(SecondsPassed * 1.5, RandomTunnel.ColorLight, FColorChain[FColorIdx]);
 
   { bilnk label }
   TxtColor:= LabelStart.Color;
