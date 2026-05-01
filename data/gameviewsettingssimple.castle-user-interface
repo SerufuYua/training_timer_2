@@ -60,6 +60,7 @@
           "HorizontalAnchorParent" : "hpMiddle",
           "HorizontalAnchorSelf" : "hpMiddle",
           "Name" : "TunnelBG_Rotary",
+          "Rotate" : true,
           "Speed" : 6.0000002384185791E-001,
           "Url" : "castle-data:/tunnel_rotary.castle-user-interface",
           "VerticalAnchorParent" : "vpMiddle",

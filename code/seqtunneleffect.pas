@@ -17,7 +17,8 @@ type
     FTunnel: TCastleScene;
     FFog: TCastleFog;
     FFlyingObjects: Array of TSeqFlyingObjects;
-    FSpeed, FColorTransit, FColorTime: Single;
+    FRotate: Boolean;
+    FSpeed, FColorTransit, FColorTime, FTimeFull: Single;
     FColorLight, FColorBuff, FColorBG: TCastleColorRGB;
     FColorLightPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
@@ -33,6 +34,7 @@ type
     procedure SetColorBGForPersistent(const AValue: TCastleColorRGB);
   public
     const
+      DefaultRotate = False;
       DefaultSpeed = 1.0;
       DefaultColorTransition = 0.5;
       DefaultColorLight: TCastleColorRGB = (X: 0.6; Y: 0.0; Z: 0.5);
@@ -47,6 +49,8 @@ type
       property ColorBG: TCastleColorRGB read FColorBG write SetColorBG;
   published
     property Url: String read FUrl write SetUrl;
+    property Rotate: Boolean read FRotate write FRotate
+             {$ifdef FPC}default DefaultRotate{$endif};
     property Speed: Single read FSpeed write SetSpeed
              {$ifdef FPC}default DefaultSpeed{$endif};
     property ColorTransition: Single read FColorTransit write FColorTransit
@@ -70,7 +74,9 @@ begin
   FDesign:= nil;
   FUrl:= '';
   FColorTime:= 0.0;
+  FTimeFull:= 0.0;
   FSpeed:= DefaultSpeed;
+  FRotate:= DefaultRotate;
   FColorTransit:= DefaultColorTransition;
 
   { Persistent for ColorLight }
@@ -118,6 +124,12 @@ begin
     pos.Z:= pos.Z + SecondsPassed * FSpeed;
     if (pos.Z > 1.0) then pos.Z:= 0.0;
     FTunnel.Translation:= pos;
+
+    if Rotate then
+    begin
+      FTimeFull:= FTimeFull + SecondsPassed;
+      FTunnel.Rotation:= Vector4(0.0, 0.0, 1.0, FSpeed * FTimeFull / 4.0);
+    end;
   end;
 
   { transit ColorLight }
@@ -241,7 +253,7 @@ end;
 function TSeqTunnelEffect.PropertySections(const PropertyName: String): TPropertySections;
 begin
   if ArrayContainsString(PropertyName, [
-       'Url', 'Speed', 'ColorTransition',
+       'Url', 'Speed', 'Rotate', 'ColorTransition',
        'ColorLightPersistent', 'ColorBGPersistent'
      ]) then
     Result:= [psBasic]
