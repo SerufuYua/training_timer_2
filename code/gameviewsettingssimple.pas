@@ -10,7 +10,7 @@ interface
 uses Classes,
   CastleVectors, CastleComponentSerialize, CastleFlashEffect,
   CastleUIControls, CastleControls, CastleKeysMouse, SeqExhibiter,
-  GameViewSequenceTimer;
+  GameViewSequenceTimer, SeqRandomShowTunnel;
 
 type
   TSettingsSimple = record
@@ -51,6 +51,7 @@ type
   published
     FlashEffect: TCastleFlashEffect;
     ExhibiterControl: TSeqExhibiter;
+    RandomTunnel: TSeqRandomShowTunnel;
     ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
     ButtonSeqName, ButtonRounds, ButtonRoundTime, ButtonRestTime,
       ButtonPrepareTime, ButtonWarningTime : TCastleButton;
@@ -105,6 +106,8 @@ begin
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
   LoadSettings;
+
+  RandomTunnel.Shake;
 
   { Sequence control buttons }
   ButtonSeqSelect.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
