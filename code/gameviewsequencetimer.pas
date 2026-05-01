@@ -4,8 +4,8 @@ interface
 
 uses Classes,
   CastleVectors, CastleUIControls, CastleControls, CastleFlashEffect,
-  CastleKeysMouse, CastleColors, SeqExhibiter, SeqTunnelEffect, SeqPause,
-  SeqLoadingBar, CastleTextScroller, GameSound;
+  CastleKeysMouse, CastleColors, SeqExhibiter, SeqPause,
+  SeqLoadingBar, CastleTextScroller, SeqRandomShowTunnel, GameSound;
 
 type
   TTimePeriod = record
@@ -60,7 +60,7 @@ type
     ExhibiterInfo, ExhibiterActions: TSeqExhibiter;
     ButtonStop, ButtonRestart, ButtonPause: TCastleButton;
     ImageTimer, ImageActions: TCastleImageControl;
-    TunnelBG: TSeqTunnelEffect;
+    RandomTunnel: TSeqRandomShowTunnel;
     LoadingBars, LoadingBarsShadow: TSeqLoadingBar;
     PeriodScroller: TCastleTextScroller;
     LabelFps, LabelSequenceName: TCastleLabel;
@@ -127,6 +127,8 @@ begin
   {$if defined(WINDOWS)}
   FKeepScreenSeconds:= 0.0;
   {$endif}
+
+  RandomTunnel.Shake;
 
   { show periods }
   LabelSequenceName.Caption:= FSequenceName;
@@ -394,13 +396,13 @@ procedure TViewSequenceTimer.ShowProgress(AValue: Single);
 begin
   LoadingBars.Value:= AValue;
   LoadingBarsShadow.Value:= AValue;
-  TunnelBG.Speed:= (0.2 + 2.0 * AValue);
+  RandomTunnel.Speed:= (0.2 + 2.0 * AValue);
 end;
 
 procedure TViewSequenceTimer.ShowColor(AValue: TCastleColorRGB; ATransition: Single);
 begin
-  TunnelBG.ColorTransition:= ATransition;
-  TunnelBG.ColorLight:= AValue;
+  RandomTunnel.ColorTransition:= ATransition;
+  RandomTunnel.ColorLight:= AValue;
 end;
 
 procedure TViewSequenceTimer.ShowTime(ASeconds: Single);
