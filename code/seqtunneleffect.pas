@@ -13,7 +13,7 @@ type
   protected
     FUrl: String;
     FDesign: TCastleDesign;
-    FBoxBG: TCastleBox;
+    FPrimitiveBG: TCastleAbstractPrimitive;
     FTunnel: TCastleScene;
     FFog: TCastleFog;
     FFlyingObjects: Array of TSeqFlyingObjects;
@@ -161,7 +161,7 @@ begin
   FDesign.Url:= value;
   FDesign.FullSize:= True;
 
-  FBoxBG:= FDesign.DesignedComponent('BoxBG', False) as TCastleBox;
+  FPrimitiveBG:= FDesign.DesignedComponent('PrimitiveBG', False) as TCastleAbstractPrimitive;
   FTunnel:= FDesign.DesignedComponent('Tunnel', False) as TCastleScene;
   FFog:= FDesign.DesignedComponent('FogColor', False) as TCastleFog;
 
@@ -226,8 +226,8 @@ end;
 
 procedure TSeqTunnelEffect.ApplyColorBG;
 begin
-  if Assigned(FBoxBG) then
-    FBoxBG.Color:= Vector4(FColorBG, 1.0);
+  if Assigned(FPrimitiveBG) then
+    FPrimitiveBG.Color:= Vector4(FColorBG, 1.0);
 end;
 
 function TSeqTunnelEffect.GetColorLightForPersistent: TCastleColorRGB;

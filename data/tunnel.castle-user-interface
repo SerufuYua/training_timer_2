@@ -59,7 +59,7 @@
               "Red" : 7.4509806931018829E-002
             },
             "DoubleSided" : true,
-            "Name" : "BoxBG",
+            "Name" : "PrimitiveBG",
             "RenderOptions" : {
               "$$ClassName" : "TCastleScene.TSceneRenderOptions",
               "Blending" : false,
