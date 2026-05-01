@@ -1,6 +1,5 @@
 {
 	"asset":{
-		"copyright":"@serufu_yua",
 		"generator":"Khronos glTF Blender I/O v4.5.51",
 		"version":"2.0"
 	},
@@ -19,7 +18,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Tunel.Square"
+			"name":"Tunel.Square.Grid"
 		}
 	],
 	"materials":[
@@ -48,7 +47,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube",
+			"name":"Cube.002",
 			"primitives":[
 				{
 					"attributes":{
@@ -65,43 +64,43 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":3220,
+			"count":520,
 			"max":[
-				0.5,
-				0.5,
+				0.5000000596046448,
+				0.5000000596046448,
 				0
 			],
 			"min":[
-				-0.5,
-				-0.5,
-				-32
+				-0.5000000596046448,
+				-0.5000000596046448,
+				-32.000003814697266
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5123,
-			"count":12840,
+			"count":2064,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":38640,
+			"byteLength":6240,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":25680,
-			"byteOffset":38640,
+			"byteLength":4128,
+			"byteOffset":6240,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":64320,
+			"byteLength":10368,
 			"uri":"tunnel_square.bin"
 		}
 	]
