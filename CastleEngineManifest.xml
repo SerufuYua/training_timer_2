@@ -29,7 +29,7 @@ See https://castle-engine.io/project_manifest for documentation of this file.
     <icon path="data_src/icon/icon.svg" />
     <icon path="data_src/icon/icon_256.png" />
   </icons>
-  <version value="2.2.1" code="7" />
+  <version value="2.3" code="8" />
   <compiler_options>
     <search_paths>
       <path value="code/" />
