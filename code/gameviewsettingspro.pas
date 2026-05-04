@@ -415,9 +415,11 @@ begin
     end;
     'ButtonSeqAdd':
     begin
-      SetLength(FSettingsProList, (Length(FSettingsProList) + 1));
+      System.Insert(MakeDefaultPeriods,
+                    FSettingsProList,
+                    Length(FSettingsProList));
+
       idx:= High(FSettingsProList);
-      FSettingsProList[idx]:= MakeDefaultPeriods;
       FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' ' +
                                    IntToStr(idx);
     end;

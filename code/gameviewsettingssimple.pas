@@ -360,9 +360,11 @@ begin
     end;
     'ButtonSeqAdd':
     begin
-      SetLength(FSettingsSimpleList, (Length(FSettingsSimpleList) + 1));
+      System.Insert(MakeDefaultSettings,
+                    FSettingsSimpleList,
+                    Length(FSettingsSimpleList));
+
       idx:= High(FSettingsSimpleList);
-      FSettingsSimpleList[idx]:= MakeDefaultSettings;
       FSettingsSimpleList[idx].Name:= FSettingsSimpleList[idx].Name + ' ' +
                                       IntToStr(idx);
     end;
