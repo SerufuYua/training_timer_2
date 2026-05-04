@@ -383,9 +383,11 @@ begin
     begin
       if ((Length(FSettingsSimpleList) > 0) AND (IndexSeq > -1)) then
       begin
-        SetLength(FSettingsSimpleList, (Length(FSettingsSimpleList) + 1));
-        idx:= High(FSettingsSimpleList);
-        FSettingsSimpleList[idx]:= FSettingsSimpleList[IndexSeq];
+        idx:= IndexSeq + 1;
+        System.Insert(FSettingsSimpleList[IndexSeq],
+                      FSettingsSimpleList,
+                      idx);
+
         FSettingsSimpleList[idx].Name:= FSettingsSimpleList[idx].Name + ' Copy';
       end;
     end;

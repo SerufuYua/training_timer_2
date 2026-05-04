@@ -438,9 +438,11 @@ begin
     begin
       if ((Length(FSettingsProList) > 0) AND (IndexSeq > -1)) then
       begin
-        SetLength(FSettingsProList, (Length(FSettingsProList) + 1));
-        idx:= High(FSettingsProList);
-        FSettingsProList[idx]:= FSettingsProList[IndexSeq];
+        idx:= IndexSeq + 1;
+        System.Insert(FSettingsProList[IndexSeq],
+                      FSettingsProList,
+                      idx);
+
         FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' Copy';
       end;
     end;
