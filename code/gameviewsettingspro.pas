@@ -14,12 +14,13 @@ type
     FIndexSeq: Integer;
     procedure DoAferLoad(Sender: TObject);
     procedure DoSelectSeq(AValue: Integer);
+    procedure DoImportSeq(AValue: Integer);
     procedure DoRemoveSeq(Sender: TObject);
     procedure DoEditName(AValue: String);
     procedure DoEditPeriod(AValue: TTimePeriod);
     procedure DoRemovePeriod(Sender: TObject);
     function MakeDefaultPeriods: TPeriodsSettings;
-    procedure LoadSettings;
+    function LoadSettings: Integer;
     procedure SaveSettings;
     procedure UpdateListLength;
     procedure UpdateListContent;
@@ -38,7 +39,8 @@ type
     ExhibiterControl: TSeqExhibiter;
     RandomTunnel: TSeqRandomShowTunnel;
     ListPeriods: TCastleCheckColorListBox;
-    ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy: TCastleButton;
+    ButtonSeqSelect, ButtonSeqAdd, ButtonSeqRemove, ButtonSeqCopy,
+      ButtonSeqImport: TCastleButton;
     ButtonSeqName, ButtonPeriodAdd, ButtonPeriodUp, ButtonPeriodDown,
       ButtonPeriodCopy, ButtonPeriodEdit, ButtonPeriodRemove : TCastleButton;
     ButtonStart, ButtonAbout, ButtonConfig, ButtonMode: TCastleButton;
@@ -84,6 +86,7 @@ const
   constructor TViewSettingsPro.Create(AOwner: TComponent);
 begin
   inherited;
+  FSettingsProList:= [];
   FIndexSeq:= 0;
   DesignUrl := 'castle-data:/gameviewsettingspro.castle-user-interface';
 end;
@@ -94,7 +97,7 @@ begin
 
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
-  LoadSettings;
+  IndexSeq:= LoadSettings;
 
   RandomTunnel.Shake;
 
@@ -103,10 +106,12 @@ begin
   ButtonSeqAdd.OnClick:=    {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqRemove.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqCopy.OnClick:=   {$ifdef FPC}@{$endif}ButtonSeqControlClick;
+  ButtonSeqImport.OnClick:= {$ifdef FPC}@{$endif}ButtonSeqControlClick;
   ButtonSeqSelect.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
   ButtonSeqAdd.OnInternalMouseEnter:=    {$ifdef FPC}@{$endif}ControlHover;
   ButtonSeqRemove.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
   ButtonSeqCopy.OnInternalMouseEnter:=   {$ifdef FPC}@{$endif}ControlHover;
+  ButtonSeqImport.OnInternalMouseEnter:= {$ifdef FPC}@{$endif}ControlHover;
 
   { Sequence edit buttons }
   ButtonSeqName.OnClick:=      {$ifdef FPC}@{$endif}ButtonSeqEditClick;
@@ -198,7 +203,7 @@ begin
   end;
 end;
 
-procedure TViewSettingsPro.LoadSettings;
+function TViewSettingsPro.LoadSettings: Integer;
 var
   i, j, num, countPeriods: Integer;
   path, pathPeriod: String;
@@ -231,14 +236,14 @@ begin
       end;
     end;
 
-    IndexSeq:= UserConfig.GetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
+    Result:= UserConfig.GetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
   end
   else
   begin
     SetLength(FSettingsProList, 1);
     FSettingsProList[0]:= MakeDefaultPeriods;
     FSettingsProList[0].Name:= FSettingsProList[0].Name + ' 0';
-    IndexSeq:= 0;
+    Result:= 0;
   end
 end;
 
@@ -437,6 +442,14 @@ begin
         FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' Copy';
       end;
     end;
+    'ButtonSeqImport':
+    begin
+      list:= ViewSettingsSimple.SeqList;
+
+      if NOT (Container.CurrentFrontView is TSeqListBox) then
+        Container.PushView(TSeqListBox.CreateUntilStopped(list,
+          'Import Simple Sequence', {$ifdef FPC}@{$endif}DoImportSeq));
+    end;
   end;
 
   IndexSeq:= idx;
@@ -613,6 +626,14 @@ end;
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
 begin
   IndexSeq:= AValue;
+end;
+
+procedure TViewSettingsPro.DoImportSeq(AValue: Integer);
+begin
+  System.Insert(ViewSettingsSimple.MakePeriods(AValue),
+                FSettingsProList,
+                Length(FSettingsProList));
+  IndexSeq:= High(FSettingsProList);
 end;
 
 procedure TViewSettingsPro.DoRemoveSeq(Sender: TObject);

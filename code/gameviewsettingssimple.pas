@@ -7,7 +7,7 @@ unit GameViewSettingsSimple;
 
 interface
 
-uses Classes,
+uses SysUtils, Classes,
   CastleVectors, CastleComponentSerialize, CastleFlashEffect,
   CastleUIControls, CastleControls, CastleKeysMouse, SeqExhibiter,
   GameViewSequenceTimer, SeqRandomShowTunnel;
@@ -36,10 +36,9 @@ type
     procedure DoEditRestTime(ASeconds: Integer);
     procedure DoEditPrepareTime(ASeconds: Integer);
     procedure DoEditWarningTime(ASeconds: Integer);
-    procedure LoadSettings;
+    function LoadSettings: Integer;
     procedure SaveSettings;
     function MakeDefaultSettings: TSettingsSimple;
-    function MakePeriods(AIndex: Integer): TPeriodsSettings;
     procedure UpdateSettings;
     procedure ShowStatistic;
     procedure SetIndexSeq(AValue: Integer);
@@ -65,6 +64,8 @@ type
     procedure Start; override;
     procedure Stop; override;
     procedure Update(const SecondsPassed: Single; var HandleInput: Boolean); override;
+    function SeqList: TStringArray;
+    function MakePeriods(AIndex: Integer): TPeriodsSettings;
 
     property IndexSeq: Integer read GetIndexSeq write SetIndexSeq;
   end;
@@ -75,7 +76,7 @@ var
 implementation
 
 uses
-  SysUtils, CastleConfig, MyUtils, CastleColors,
+  CastleConfig, MyUtils, CastleColors,
   SeqListBox, SeqEditInteger, SeqEditString, SeqEditTime, SeqAbout, SeqConfirm,
   GameViewSettingsPro, GameSound, SeqConfig, MyTimerConfig;
 
@@ -95,6 +96,7 @@ const
 constructor TViewSettingsSimple.Create(AOwner: TComponent);
 begin
   inherited;
+  FSettingsSimpleList:= [];
   FIndexSeq:= 0;
   DesignUrl := 'castle-data:/gameviewsettingssimple.castle-user-interface';
 end;
@@ -105,7 +107,7 @@ begin
 
   ImageSettings.Exists:= False;
   ImageActions.Exists:= False;
-  LoadSettings;
+  IndexSeq:= LoadSettings;
 
   RandomTunnel.Shake;
 
@@ -157,7 +159,21 @@ begin
   SaveSettings;
 end;
 
-procedure TViewSettingsSimple.LoadSettings;
+function TViewSettingsSimple.SeqList: TStringArray;
+var
+  i: Integer;
+begin
+  Result:= [];
+
+  if (Length(FSettingsSimpleList) = 0) then
+    LoadSettings;
+
+  SetLength(Result, Length(FSettingsSimpleList));
+  for i:= 0 to High(FSettingsSimpleList) do
+        Result[i]:= FSettingsSimpleList[i].Name;
+end;
+
+function TViewSettingsSimple.LoadSettings: Integer;
 var
   i, num: Integer;
   path: String;
@@ -180,14 +196,14 @@ begin
       FSettingsSimpleList[i].Warning:= UserConfig.GetValue(path + WarningStr, DefaultWarning);
     end;
 
-    IndexSeq:= UserConfig.GetValue(SettingsStor + '/' + NumSeqStr, 0);
+    Result:= UserConfig.GetValue(SettingsStor + '/' + NumSeqStr, 0);
   end
   else
   begin
     SetLength(FSettingsSimpleList, 1);
     FSettingsSimpleList[0]:= MakeDefaultSettings;
     FSettingsSimpleList[0].Name:= FSettingsSimpleList[0].Name + ' 0';
-    IndexSeq:= 0;
+    Result:= 0;
   end;
 end;
 
