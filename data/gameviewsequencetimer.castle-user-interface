@@ -74,113 +74,142 @@
     {
       "$$ClassName" : "TCastleImageControl",
       "AutoSizeToChildren" : true,
-      "ClipChildren" : true,
+      "AutoSizeToChildrenPaddingRight" : 6.4000000000000000E+001,
+      "AutoSizeToChildrenPaddingTop" : 6.4000000000000000E+001,
       "Content" : {
         "$$ClassName" : "TCastleImagePersistent",
+        "ColorPersistent" : {
+          "$$ClassName" : "TCastleColorPersistent",
+          "Alpha" : 3.0196079611778259E-001,
+          "Blue" : 9.8039217293262482E-002,
+          "Green" : 9.8039217293262482E-002,
+          "Red" : 9.8039217293262482E-002
+        },
         "ProtectedSides" : {
           "$$ClassName" : "TBorder",
-          "Bottom" : 1.0000000000000000E+001,
-          "Left" : 1.5000000000000000E+001,
-          "Right" : 1.5000000000000000E+001,
-          "Top" : 1.0000000000000000E+001
+          "AllSides" : 6.4000000000000000E+001
         },
-        "Url" : "castle-data:/ui/window.png"
+        "Url" : "castle-data:/ui/shadow.png"
       },
-      "Height" : 1.2500000000000000E+002,
       "HorizontalAnchorParent" : "hpMiddle",
       "HorizontalAnchorSelf" : "hpMiddle",
-      "Name" : "ImageInfo",
-      "Stretch" : true,
+      "Name" : "ImageInfoShadow",
       "TranslationPersistent" : {
         "$$ClassName" : "TCastleVector2Persistent",
         "Y" : -1.0000000000000000E+002
       },
       "VerticalAnchorParent" : "vpTop",
       "VerticalAnchorSelf" : "vpTop",
-      "Width" : 2.2599998474121094E+002,
       "$Children" : [
         {
-          "$$ClassName" : "TCastleVerticalGroup",
-          "Alignment" : "hpMiddle",
+          "$$ClassName" : "TCastleImageControl",
+          "AutoSizeToChildren" : true,
           "ClipChildren" : true,
-          "Name" : "GroupInfo",
-          "Padding" : 3.0000000000000000E+001,
-          "Spacing" : 1.6000000000000000E+001,
+          "Content" : {
+            "$$ClassName" : "TCastleImagePersistent",
+            "ProtectedSides" : {
+              "$$ClassName" : "TBorder",
+              "Bottom" : 1.0000000000000000E+001,
+              "Left" : 1.5000000000000000E+001,
+              "Right" : 1.5000000000000000E+001,
+              "Top" : 1.0000000000000000E+001
+            },
+            "Url" : "castle-data:/ui/window.png"
+          },
+          "Height" : 1.2500000000000000E+002,
+          "HorizontalAnchorParent" : "hpMiddle",
+          "HorizontalAnchorSelf" : "hpMiddle",
+          "Name" : "ImageInfo",
+          "Stretch" : true,
+          "VerticalAnchorParent" : "vpMiddle",
+          "VerticalAnchorSelf" : "vpMiddle",
+          "Width" : 2.2599998474121094E+002,
           "$Children" : [
             {
-              "$$ClassName" : "TCastleLabel",
-              "Border" : {
-                "$$ClassName" : "TBorder",
-                "Bottom" : 1.0000000000000000E+000
-              },
-              "BorderColorPersistent" : {
-                "$$ClassName" : "TCastleColorPersistent",
-                "Alpha" : 1.0000000000000000E+000,
-                "Blue" : 1.0000000000000000E+000,
-                "Green" : 1.0000000000000000E+000,
-                "Red" : 1.0000000000000000E+000
-              },
-              "ColorPersistent" : {
-                "$$ClassName" : "TCastleColorPersistent",
-                "Blue" : 1.0000000000000000E+000,
-                "Green" : 1.0000000000000000E+000,
-                "Red" : 1.0000000000000000E+000
-              },
-              "FontSize" : 4.8000000000000000E+001,
-              "HorizontalAnchorParent" : "hpMiddle",
-              "HorizontalAnchorSelf" : "hpMiddle",
-              "Name" : "LabelSequenceName",
-              "Text" : [
-                "Sequence Name"
-              ],
-              "TranslationPersistent" : {
-                "$$ClassName" : "TCastleVector2Persistent",
-                "Y" : -3.0000000000000000E+001
-              },
-              "VerticalAnchorParent" : "vpTop",
-              "VerticalAnchorSelf" : "vpTop"
+              "$$ClassName" : "TCastleVerticalGroup",
+              "Alignment" : "hpMiddle",
+              "ClipChildren" : true,
+              "Name" : "GroupInfo",
+              "Padding" : 3.0000000000000000E+001,
+              "Spacing" : 1.6000000000000000E+001,
+              "$Children" : [
+                {
+                  "$$ClassName" : "TCastleLabel",
+                  "Border" : {
+                    "$$ClassName" : "TBorder",
+                    "Bottom" : 1.0000000000000000E+000
+                  },
+                  "BorderColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 1.0000000000000000E+000,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "ColorPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "FontSize" : 4.8000000000000000E+001,
+                  "HorizontalAnchorParent" : "hpMiddle",
+                  "HorizontalAnchorSelf" : "hpMiddle",
+                  "Name" : "LabelSequenceName",
+                  "Text" : [
+                    "Sequence Name"
+                  ],
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "Y" : -3.0000000000000000E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop"
+                },
+                {
+                  "$$ClassName" : "TCastleTextScroller",
+                  "AutoSizeHeightByLines" : 3,
+                  "ClipChildren" : true,
+                  "ColorBackPersistent" : {
+                    "$$ClassName" : "TCastleColorPersistent",
+                    "Alpha" : 7.4901962280273438E-001,
+                    "Blue" : 1.0000000000000000E+000,
+                    "Green" : 1.0000000000000000E+000,
+                    "Red" : 1.0000000000000000E+000
+                  },
+                  "FontScale" : 1.0750000476837158E+000,
+                  "FontSize" : 3.2000000000000000E+001,
+                  "HorizontalAnchorParent" : "hpMiddle",
+                  "HorizontalAnchorSelf" : "hpMiddle",
+                  "List" : [
+                    "Period Name 1",
+                    "Period Name 2",
+                    "Period Name 3",
+                    "Period Name 4",
+                    "Period Name 5",
+                    "Period Name 6"
+                  ],
+                  "Name" : "PeriodScroller",
+                  "Spacing" : 3.2000000000000000E+001,
+                  "Speed" : 6.0000000000000000E+000,
+                  "TranslationPersistent" : {
+                    "$$ClassName" : "TCastleVector2Persistent",
+                    "Y" : -9.4099998474121094E+001
+                  },
+                  "VerticalAnchorParent" : "vpTop",
+                  "VerticalAnchorSelf" : "vpTop",
+                  "Zoom" : 5.0000000000000000E-001
+                }
+              ]
             },
             {
-              "$$ClassName" : "TCastleTextScroller",
-              "AutoSizeHeightByLines" : 3,
-              "ClipChildren" : true,
-              "ColorBackPersistent" : {
-                "$$ClassName" : "TCastleColorPersistent",
-                "Alpha" : 7.4901962280273438E-001,
-                "Blue" : 1.0000000000000000E+000,
-                "Green" : 1.0000000000000000E+000,
-                "Red" : 1.0000000000000000E+000
-              },
-              "FontSize" : 3.2000000000000000E+001,
-              "HorizontalAnchorParent" : "hpMiddle",
-              "HorizontalAnchorSelf" : "hpMiddle",
-              "List" : [
-                "Period Name 1",
-                "Period Name 2",
-                "Period Name 3",
-                "Period Name 4",
-                "Period Name 5",
-                "Period Name 6"
-              ],
-              "Name" : "PeriodScroller",
-              "Spacing" : 3.2000000000000000E+001,
-              "Speed" : 6.0000000000000000E+000,
-              "TranslationPersistent" : {
-                "$$ClassName" : "TCastleVector2Persistent",
-                "Y" : -9.4100006103515625E+001
-              },
-              "VerticalAnchorParent" : "vpTop",
-              "VerticalAnchorSelf" : "vpTop",
-              "Zoom" : 5.0000000000000000E-001
+              "$$ClassName" : "TSeqExhibiter",
+              "ChainNext" : "ExhibiterTimer",
+              "ExhibitTime" : 2.5000000000000000E-001,
+              "MoveType" : "Cubic",
+              "Name" : "ExhibiterInfo"
             }
           ]
-        },
-        {
-          "$$ClassName" : "TSeqExhibiter",
-          "ChainNext" : "ExhibiterTimer",
-          "ExhibitTime" : 2.5000000000000000E-001,
-          "MoveType" : "Cubic",
-          "Name" : "ExhibiterInfo"
         }
       ]
     },
