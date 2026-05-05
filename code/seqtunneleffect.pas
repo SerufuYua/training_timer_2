@@ -18,7 +18,7 @@ type
     FFog: TCastleFog;
     FFlyingObjects: Array of TSeqFlyingObjects;
     FRotate: Boolean;
-    FSpeed, FColorTransit, FColorTime, FTimeFull: Single;
+    FSpeed, FColorTransit, FColorTime, FMoveFull: Single;
     FColorLight, FColorBuff, FColorBG: TCastleColorRGB;
     FColorLightPersistent, FColorBGPersistent: TCastleColorRGBPersistent;
     procedure SetUrl(const Value: String); virtual;
@@ -74,7 +74,7 @@ begin
   FDesign:= nil;
   FUrl:= '';
   FColorTime:= 0.0;
-  FTimeFull:= 0.0;
+  FMoveFull:= 0.0;
   FSpeed:= DefaultSpeed;
   FRotate:= DefaultRotate;
   FColorTransit:= DefaultColorTransition;
@@ -113,22 +113,24 @@ end;
 procedure TSeqTunnelEffect.Update(const SecondsPassed: Single; var HandleInput: boolean);
 var
   pos: TVector3;
-  factor: Single;
+  move, factor: Single;
 begin
   inherited;
 
   { animate tunnel }
   if Assigned(FTunnel) then
   begin
+    move:= SecondsPassed * FSpeed;
+
     pos:= FTunnel.Translation;
-    pos.Z:= pos.Z + SecondsPassed * FSpeed;
+    pos.Z:= pos.Z + move;
     if (pos.Z > 1.0) then pos.Z:= 0.0;
     FTunnel.Translation:= pos;
 
     if Rotate then
     begin
-      FTimeFull:= FTimeFull + SecondsPassed;
-      FTunnel.Rotation:= Vector4(0.0, 0.0, 1.0, FSpeed * FTimeFull / 4.0);
+      FMoveFull:= FMoveFull + move;
+      FTunnel.Rotation:= Vector4(0.0, 0.0, 1.0, FMoveFull * Pi * 0.1);
     end;
   end;
 
