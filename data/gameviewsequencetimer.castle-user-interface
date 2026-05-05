@@ -169,7 +169,6 @@
                 {
                   "$$ClassName" : "TCastleTextScroller",
                   "AutoSizeHeightByLines" : 3,
-                  "ClipChildren" : true,
                   "ColorBackPersistent" : {
                     "$$ClassName" : "TCastleColorPersistent",
                     "Alpha" : 7.4901962280273438E-001,
