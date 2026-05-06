@@ -610,9 +610,9 @@
                             },
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "AllSides" : 2.2000000000000000E+001
+                              "AllSides" : 1.5000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/color_preview_focused.png"
+                            "Url" : "castle-data:/ui/button_color_focused.png"
                           },
                           "CustomBackgroundNormal" : {
                             "$$ClassName" : "TCastleImagePersistent",
@@ -623,9 +623,9 @@
                             },
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "AllSides" : 2.2000000000000000E+001
+                              "AllSides" : 1.5000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/color_preview_box.png"
+                            "Url" : "castle-data:/ui/button_color.png"
                           },
                           "CustomBackgroundPressed" : {
                             "$$ClassName" : "TCastleImagePersistent",
@@ -636,9 +636,9 @@
                             },
                             "ProtectedSides" : {
                               "$$ClassName" : "TBorder",
-                              "AllSides" : 2.2000000000000000E+001
+                              "AllSides" : 1.5000000000000000E+001
                             },
-                            "Url" : "castle-data:/ui/color_preview_frame.png"
+                            "Url" : "castle-data:/ui/button_color_pressed.png"
                           },
                           "CustomTextColorPersistent" : {
                             "$$ClassName" : "TCastleColorPersistent",
@@ -655,14 +655,34 @@
                           "ImageMargin" : 2.4000000000000000E+001,
                           "ImageScale" : 1.8999999761581421E+000,
                           "Name" : "ButtonColor",
-                          "PaddingHorizontal" : 3.0000000000000000E+001,
                           "TranslationPersistent" : {
                             "$$ClassName" : "TCastleVector2Persistent",
                             "Y" : -4.8600000000000000E+002
                           },
                           "VerticalAnchorParent" : "vpTop",
                           "VerticalAnchorSelf" : "vpTop",
-                          "Width" : 1.5000000000000000E+002
+                          "Width" : 1.5000000000000000E+002,
+                          "$Children" : [
+                            {
+                              "$$ClassName" : "TCastleImageControl",
+                              "Content" : {
+                                "$$ClassName" : "TCastleImagePersistent",
+                                "ProtectedSides" : {
+                                  "$$ClassName" : "TBorder",
+                                  "AllSides" : 1.5000000000000000E+001
+                                },
+                                "Url" : "castle-data:/ui/button_color_frame.png"
+                              },
+                              "Height" : 6.5000000000000000E+001,
+                              "HorizontalAnchorParent" : "hpMiddle",
+                              "HorizontalAnchorSelf" : "hpMiddle",
+                              "Name" : "ButtonColorFrame",
+                              "Stretch" : true,
+                              "VerticalAnchorParent" : "vpMiddle",
+                              "VerticalAnchorSelf" : "vpMiddle",
+                              "Width" : 1.5000000000000000E+002
+                            }
+                          ]
                         }
                       ]
                     },
