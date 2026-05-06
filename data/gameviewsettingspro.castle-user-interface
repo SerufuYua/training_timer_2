@@ -514,10 +514,7 @@
                 "$$ClassName" : "TCastleImagePersistent",
                 "ProtectedSides" : {
                   "$$ClassName" : "TBorder",
-                  "Bottom" : 1.2000000000000000E+001,
-                  "Left" : 1.0000000000000000E+001,
-                  "Right" : 1.0000000000000000E+001,
-                  "Top" : 1.2000000000000000E+001
+                  "AllSides" : 2.2000000000000000E+001
                 },
                 "Url" : "castle-data:/ui/color_preview_box.png"
               },
@@ -531,10 +528,7 @@
                 "$$ClassName" : "TCastleImagePersistent",
                 "ProtectedSides" : {
                   "$$ClassName" : "TBorder",
-                  "Bottom" : 1.2000000000000000E+001,
-                  "Left" : 1.0000000000000000E+001,
-                  "Right" : 1.0000000000000000E+001,
-                  "Top" : 1.2000000000000000E+001
+                  "AllSides" : 2.2000000000000000E+001
                 },
                 "Url" : "castle-data:/ui/color_preview_frame.png"
               },
