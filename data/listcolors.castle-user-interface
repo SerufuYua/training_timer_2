@@ -120,12 +120,6 @@
                     },
                     "Url" : "castle-data:/ui/color_preview_frame.png"
                   },
-                  "ColorPersistent" : {
-                    "$$ClassName" : "TCastleColorPersistent",
-                    "Blue" : 5.2156865596771240E-001,
-                    "Green" : 7.4901962280273438E-001,
-                    "Red" : 0.0000000000000000E+000
-                  },
                   "FontSize" : 4.8000000000000000E+001,
                   "Height" : 8.0000000000000000E+002,
                   "HorizontalAnchorParent" : "hpMiddle",
@@ -169,17 +163,20 @@
                   },
                   "LinePadding" : 2.4000000000000000E+001,
                   "List" : [
-                    "00D900",
-                    "0000D9",
+                    "EB7200",
                     "FF0000",
                     "D900D9",
-                    "00BFBF",
-                    "9EBF00",
-                    "BF8C00",
                     "BF007E",
                     "8400BF",
+                    "0000D9",
                     "0085BF",
-                    "00BF85"
+                    "00A7FF",
+                    "00BFBF",
+                    "00BF85",
+                    "00D900",
+                    "9EBF00",
+                    "BF8C00",
+                    "FFB500"
                   ],
                   "Name" : "ColorListBox",
                   "ScrollbarFrame" : {
