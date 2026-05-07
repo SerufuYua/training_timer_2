@@ -147,6 +147,10 @@ begin
   FlashEffect.Duration:= 6.0;
   FlashEffect.Flash(Black, True);
   WaitForRenderAndCall({$ifdef FPC}@{$endif}DoAferLoad);
+
+  { Save Settings Mode }
+  TimerConfig.ModePro:= True;
+  TimerConfig.Save;
 end;
 
 procedure TViewSettingsPro.Stop;
@@ -293,9 +297,6 @@ begin
 
   UserConfig.SetValue(SettingsStor + '/' + NumSeqStr, IndexSeq);
   UserConfig.Save;
-
-  TimerConfig.ModePro:= True;
-  TimerConfig.Save;
 end;
 
 procedure TViewSettingsPro.UpdateListLength;
