@@ -400,7 +400,6 @@ begin
   if (NOT (Sender is TComponent)) then Exit;
   PlaySfx(TSfxType.ClickEdit);
 
-  idx:= IndexSeq;
   component:= Sender as TComponent;
   case component.Name of
     'ButtonSeqSelect':
@@ -423,6 +422,7 @@ begin
       idx:= High(FSettingsProList);
       FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' ' +
                                    IntToStr(idx);
+      IndexSeq:= idx;
       SaveSettings;
     end;
     'ButtonSeqRemove':
@@ -446,6 +446,7 @@ begin
                       idx);
 
         FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' Copy';
+        IndexSeq:= idx;
         SaveSettings;
       end;
     end;
@@ -458,8 +459,6 @@ begin
           'Import Simple Sequence', {$ifdef FPC}@{$endif}DoImportSeq));
     end;
   end;
-
-  IndexSeq:= idx;
 end;
 
 procedure TViewSettingsPro.ButtonSeqEditClick(Sender: TObject);
