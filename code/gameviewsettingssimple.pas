@@ -368,6 +368,7 @@ begin
       idx:= High(FSettingsSimpleList);
       FSettingsSimpleList[idx].Name:= FSettingsSimpleList[idx].Name + ' ' +
                                       IntToStr(idx);
+      SaveSettings;
     end;
     'ButtonSeqRemove':
     begin
@@ -390,6 +391,7 @@ begin
                       idx);
 
         FSettingsSimpleList[idx].Name:= FSettingsSimpleList[idx].Name + ' Copy';
+        SaveSettings;
       end;
     end;
   end;
@@ -459,6 +461,7 @@ begin
       PlaySfx(TSfxType.Check);
       check:= component as TCastleCheckBox;
       FSettingsSimpleList[IndexSeq].Warning:= check.Checked;
+      SaveSettings;
     end;
   end;
 end;
@@ -501,18 +504,21 @@ end;
 procedure TViewSettingsSimple.DoSelectSeq(AValue: Integer);
 begin
   IndexSeq:= AValue;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoRemoveSeq(Sender: TObject);
 begin
   Delete(FSettingsSimpleList, IndexSeq, 1);
   IndexSeq:= 0;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditName(AValue: String);
 begin
   FSettingsSimpleList[IndexSeq].Name:= AValue;
   ButtonSeqName.Caption:= AValue;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditRound(AValue: Integer);
@@ -520,6 +526,7 @@ begin
   FSettingsSimpleList[IndexSeq].Rounds:= AValue;
   ButtonRounds.Caption:= IntToStr(AValue);
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditRoundTime(ASeconds: Integer);
@@ -527,6 +534,7 @@ begin
   FSettingsSimpleList[IndexSeq].RoundSeconds:= ASeconds;
   ButtonRoundTime.Caption:= TimeToShortStr(ASeconds);
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditRestTime(ASeconds: Integer);
@@ -534,6 +542,7 @@ begin
   FSettingsSimpleList[IndexSeq].RestSeconds:= ASeconds;
   ButtonRestTime.Caption:= TimeToShortStr(ASeconds);
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditPrepareTime(ASeconds: Integer);
@@ -541,12 +550,14 @@ begin
   FSettingsSimpleList[IndexSeq].PrepareSeconds:= ASeconds;
   ButtonPrepareTime.Caption:= TimeToShortStr(ASeconds);
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.DoEditWarningTime(ASeconds: Integer);
 begin
   FSettingsSimpleList[IndexSeq].WarningSeconds:= ASeconds;
   ButtonWarningTime.Caption:= TimeToShortStr(ASeconds);
+  SaveSettings;
 end;
 
 procedure TViewSettingsSimple.Update(const SecondsPassed: Single; var HandleInput: Boolean);
