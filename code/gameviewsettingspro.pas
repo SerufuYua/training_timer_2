@@ -631,6 +631,7 @@ begin
   PlaySfx(TSfxType.Check);
   FSettingsProList[IndexSeq].Periods[AIndex].Enable:= ACheck;
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
