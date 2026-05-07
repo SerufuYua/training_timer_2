@@ -423,6 +423,7 @@ begin
       idx:= High(FSettingsProList);
       FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' ' +
                                    IntToStr(idx);
+      SaveSettings;
     end;
     'ButtonSeqRemove':
     begin
@@ -445,6 +446,7 @@ begin
                       idx);
 
         FSettingsProList[idx].Name:= FSettingsProList[idx].Name + ' Copy';
+        SaveSettings;
       end;
     end;
     'ButtonSeqImport':
@@ -501,6 +503,7 @@ begin
 
       ListPeriods.Index:= idx;
       ShowStatistic;
+      SaveSettings;
     end;
     'ButtonPeriodUp':
     begin
@@ -515,6 +518,7 @@ begin
 
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index - 1);
         ListPeriods.Index:= ListPeriods.Index - 1;
+        SaveSettings;
       end
       else
         PlaySfx(TSfxType.ClickDeny);
@@ -532,6 +536,7 @@ begin
 
         ListPeriods.LineSwap(ListPeriods.Index, ListPeriods.Index + 1);
         ListPeriods.Index:= ListPeriods.Index + 1;
+        SaveSettings;
       end
       else
         PlaySfx(TSfxType.ClickDeny);
@@ -551,6 +556,7 @@ begin
 
         ListPeriods.Index:= idx;
         ShowStatistic;
+        SaveSettings;
       end
       else
         PlaySfx(TSfxType.ClickDeny);
@@ -631,6 +637,7 @@ end;
 procedure TViewSettingsPro.DoSelectSeq(AValue: Integer);
 begin
   IndexSeq:= AValue;
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoImportSeq(AValue: Integer);
@@ -639,18 +646,21 @@ begin
                 FSettingsProList,
                 Length(FSettingsProList));
   IndexSeq:= High(FSettingsProList);
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoRemoveSeq(Sender: TObject);
 begin
   Delete(FSettingsProList, IndexSeq, 1);
   IndexSeq:= 0;
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoEditName(AValue: String);
 begin
   FSettingsProList[IndexSeq].Name:= AValue;
   ButtonSeqName.Caption:= AValue;
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoEditPeriod(AValue: TTimePeriod);
@@ -664,6 +674,7 @@ begin
     ListPeriods.SetCheck(ListPeriods.Index, AValue.Enable);
     ListPeriods.SetColor(ListPeriods.Index, Vector4(AValue.Color, 1.0));
     ShowStatistic;
+    SaveSettings;
   end;
 end;
 
@@ -680,6 +691,7 @@ begin
     idx:= High(FSettingsProList[IndexSeq].Periods);
   ListPeriods.Index:= idx;
   ShowStatistic;
+  SaveSettings;
 end;
 
 procedure TViewSettingsPro.DoAferLoad(Sender: TObject);
