@@ -44,6 +44,22 @@ Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-2-zero-
 
 ## History
 
+### Version 2.3
+
+Whats new:
+
+ * Show future periods in timer;
+
+ * Import periods from Simple to Pro Mode;
+
+ * Saving Settings immediately after each editing;
+
+ * More Colors;
+
+ * More Sounds;
+
+ * More Tunels in background.
+
 ### Version 2.2.1
 
 Whats new:
@@ -52,9 +68,9 @@ Whats new:
 
  * Added sound effects to the user interface;
 
- * Improved counter visuals.
+ * Improved counter visuals;
 
- * Bug fixes and refactoring;
+ * Bug fixes and refactoring.
 
 ### Version 1.2
 
