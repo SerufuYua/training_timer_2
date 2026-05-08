@@ -44,7 +44,7 @@ Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-2-zero-
 
 ## History
 
-### Version 2.3
+### Version 2.3.1
 
 Whats new:
 
@@ -58,7 +58,9 @@ Whats new:
 
  * More Sounds;
 
- * More Tunels in background.
+ * More Tunels in background;
+
+ * Bug fixes.
 
 ### Version 2.2.1
 
