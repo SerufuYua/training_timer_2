@@ -488,7 +488,7 @@ begin
       else
         idx:= Length(FSettingsProList[IndexSeq].Periods);
 
-      period.Name:= DefaultPeriodName + ' ' + IntToStr(idx);
+      period.Name:= DefaultPeriodName + ' ' + IntToStr(idx + 1);
       period.Color:= DefaultColorRest;
       period.Enable:= True;
       period.SoundStart:= TSoundType.None;
