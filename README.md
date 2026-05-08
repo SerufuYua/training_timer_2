@@ -48,6 +48,12 @@ Binaries available on [itch.io](https://serufuyua.itch.io/training-timer-2-zero-
 
 Whats new:
 
+ * Bug fixes.
+
+### Version 2.3
+
+Whats new:
+
  * Show future periods in timer;
 
  * Import periods from Simple to Pro Mode;
