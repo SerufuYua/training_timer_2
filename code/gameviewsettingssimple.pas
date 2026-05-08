@@ -377,7 +377,7 @@ begin
         if NOT (Container.CurrentFrontView is TSeqConfirm) then
           Container.PushView(TSeqConfirm.CreateUntilStopped(
             ['Do You want to Remove ',
-             '"' + FSettingsSimpleList[idx].Name + '"'],
+             '"' + FSettingsSimpleList[IndexSeq].Name + '"'],
             'Question', {$ifdef FPC}@{$endif}DoRemoveSeq));
       end;
     end;
